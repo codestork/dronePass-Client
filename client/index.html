@@ -1,0 +1,46 @@
+<<!DOCTYPE html>
+<html lang="en" ng-app="dronePass"> <!-- ng-app='app' -->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="DronePass for homeworners">
+    <meta name="author" content="CodeStork">
+    <!-- ToDo : Drone Pass icon<link rel="icon" href="../../favicon.ico"> --> 
+    <title>DronePass: Air Traffic Control for commercial UAVs</title>
+    <link rel="stylesheet" href="./stylesheets/styles.css" >
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="./bower_components/bootstrap-material-design/dist/css/material.min.css" >
+    <script src="./bower_components/angular/angular.min.js"></script>
+    <script src="./app/app.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="navbar-header">
+        <a ui-sref="links"  class="navbar-brand">DronePass</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li>
+            <a ui-sref="homePortal" ui-sref-active="active-state">Homeowner Portal</a>
+          </li>
+          <li>
+            <a ui-sref="links" ui-sref-active="active-state">Sign In</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div>
+        <h1>DronePass</h1>
+        <a ui-sref="login"><h2>Log In</h2></a>
+        <a ui-sref="signup"><h2>Sign Up</h2><a>
+      </div>
+    </div><!-- /.container -->
+
+    <script src="app/auth/auth.js"></script>
+    <script src="app/homePortal/homePortal.js"></script>
+    <script src="app/services/services.js"></script>
+    <script src="app/app.js"></script>
+  </body>
+</html>
