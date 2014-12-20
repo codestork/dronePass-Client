@@ -18,6 +18,9 @@
   "dependencies": {
     "angular": "~1.3.7",
     "bootstrap": "~3.3.1",
-    "jquery": "~2.1.3"
+    "jquery": "~2.1.3",
+    "angular-ui-router": "~0.2.13",
+    "ngFx": "~1.0.5",
+    "leaflet": "~0.7.3"
   }
 }

@@ -1,67 +1,59 @@
 /*******************************************
 *  Setup for app main and ui-router routes *
 *******************************************/
+var dronePass = angular.module("dronePass", [
+  'dronePass.services',  
+  'dronePass.homePortal',
+  'dronePass.auth',
+  'ngFx',
+  'ui.router'
+])
 
-angular.module('app', ['ui.router', 'app.signup', 'app.login', 'app.add', 'app.goals','app.logout',  'app.authFact',   'app.goalFact'])
+.config( function ($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise( '/landingPage' );
 
-.config(function($stateProvider, $urlRouterProvider) {
-
-
-  $urlRouterProvider.otherwise("/");
-
-	$stateProvider
-  .state('addGoalState', {
-    url: "/profile",
-    views: {
-      "addGoal": { 
-        templateUrl: "/app/views/addGoal.template.html" ,
-        controller: "addGoalController"
-      },
-      "reasons@addGoalState": {
-        templateUrl: "/app/views/reasonsView.template.html"
-      },
-      "payment@addGoalState": {
-        templateUrl: "app/views/paymentView.template.html"
-      },
-      "goalsList": {
-        templateUrl: "/app/views/goalsView.template.html",
-        controller: "goalsListController"
+  $stateProvider
+    .state('landingPage', {
+      templateUrl: '/app/landingPage/landingPage.html',
+      url: '/landingPage',
+      animation: {
+        enter: 'grow-in',
+        leave: 'shrink-out',
+        ease: 'back',
+        speed: 400
       }
-    }
-  })
-  .state('loginState', {
-    url:'/login',
-    views: {
-      'authPane': {
-        templateUrl: '/app/views/loginView.template.html',
-        controller: 'loginController'
+    })
+    .state('homePortal', {
+      templateUrl: 'app/homePortal/homePortal.html',
+      controller: 'HomePortalController',
+      url: '/homePortal',
+      animation: {
+        enter: 'shrink-in',
+        leave: 'grow-out',
+        ease: 'back',
+        speed: 400
       }
-    }
-  })
-  .state('signupState', {
-    url: '/signup',
-    views: {
-      'authPane': {
-        templateUrl: '/app/views/signupView.template.html',
-        controller: 'signupController'
+    })
+    .state('signin', {
+      templateUrl: 'app/auth/signin.html',
+      controller: 'AuthController',
+      url: '/signin',
+      animation: {
+        enter: 'grow-in',
+        leave: 'shrink-out',
+        ease: 'back',
+        speed: 400
       }
-    }
-  })
-  .state('allGoals', {
-    url: '/allgoals',
-    views: {
-      'allGoals': {
-        templateUrl: '/app/views/allGoals.template.html',
-        controller: 'goalsListController'
+    })
+    .state('signup', {
+      templateUrl: 'app/auth/signup.html',
+      controller: 'AuthController',
+      url: '/signup',
+      animation: {
+        enter: 'shrink-in',
+        leave: 'grow-out',
+        ease: 'back',
+        speed: 400
       }
-    }
-  })
-  .state('root', {
-    url: '/',
-    views: {
-      'landingPage': {
-        templateUrl: '/app/views/root.template.html'
-      }
-    }
-  });
+    });
 });
