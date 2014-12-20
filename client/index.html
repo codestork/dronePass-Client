@@ -11,8 +11,9 @@
     <link rel="stylesheet" href="./stylesheets/styles.css" >
     <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css" >
     <link rel="stylesheet" href="./bower_components/bootstrap-material-design/dist/css/material.min.css" >
+    <link rel="stylesheet" href="./bower_components/normalize.css/normalize.css">
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.4.0/mapbox-gl.css' rel='stylesheet' />
-<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.4.0/mapbox-gl.js'></script>
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.4.0/mapbox-gl.js'></script>
 
   </head>
   <body>
@@ -31,14 +32,15 @@
         </ul>
       </div>
     </nav>
-    <main> 
-      <div ui-view fx-animate></div>
-    </main>
+    <container class="container-fluid clearfix"> 
+      <div ui-view class="fullStretch"></div>
+    </container>
   </body>
   <script src="./bower_components/angular/angular.min.js"></script>
   <script src="./bower_components/leaflet/dist/leaflet.js"></script>
   <script src="./bower_components/ngFx/dist/ngFx.min.js"></script>
   <script src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
   <script src="app/auth/auth.js"></script>
   <script src="app/homePortal/homePortal.js"></script>
   <script src="app/services/services.js"></script>
