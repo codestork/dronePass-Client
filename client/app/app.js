@@ -6,7 +6,8 @@ var dronePass = angular.module("dronePass", [
   'dronePass.homePortal',
   'dronePass.auth',
   'ngFx',
-  'ui.router'
+  'ui.router',
+  'leaflet-directive'
 ])
 
 .config( function ($stateProvider, $urlRouterProvider) {
