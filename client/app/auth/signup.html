@@ -1,0 +1,11 @@
+<div id='signup'>
+  <h1>signup</h1>
+  <form name="signupForm" ng-submit='signup()'>
+    <input type='email' ng-model='user.email'>
+    <input type="password" ng-model='user.password'>
+    <input type="number" ng-model='user.zipCode'> 
+    <!-- To Do : Add zip to logic so as to center map around zip code -->
+    <button>signup</button>
+  </form>
+  <a href="#/signin">Already have an account? <strong>Signin</strong> ...</a>
+</div>
