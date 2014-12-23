@@ -11,6 +11,9 @@ angular.module('dronePass.services', [])
       etc
   }; */
   var addAddress = function (address) {
+    // registering a property
+    // use mapbox geocoding to get the coordinates of a property using address entry
+    //[v2] use click on map to add address
 
     return;
   };
@@ -26,6 +29,7 @@ angular.module('dronePass.services', [])
   // displays all homes for a user and the permissions set on each
   var showMyPermissions = function (homes) {
     return;
+    // start time
   };
   return {
     addresses: addresses,
@@ -62,6 +66,7 @@ angular.module('dronePass.services', [])
     // .then(function (resp) {
     //   return resp.data.token;
     // });
+    // enter zip code for county view
   };
 
   var isAuth = function () {
@@ -73,11 +78,21 @@ angular.module('dronePass.services', [])
     // $location.path('/signin');
   };
 
-
   return {
-    signin: signin,
-    signup: signup,
-    isAuth: isAuth,
-    signout: signout
+      signin: signin,
+      signup: signup,
+      isAuth: isAuth,
+      signout: signout
   };
-});
+  })
+  .factory('DroneCommunication', function () {
+    var getDroneCoordinates = function () {
+      return;
+    }
+
+    return {
+      getDroneCoordinates: getDroneCoordindates
+    }
+  })
+
+

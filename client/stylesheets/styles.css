@@ -1,5 +1,24 @@
 html, body {
   height: 100%;
+  margin:0;
+  padding:0;
+}
+
+div.navbar-collapse.collapse {
+  float: right;
+}
+
+.angular-leaflet-map {
+  position: fixed;
+  margin: 5px 20px;
+  padding: 0;
+  height: 80%;
+  width: 80%;
+}
+
+#ownerDashboard {
+  float: right;
+  height: 100%;
 }
 
 .background{
@@ -8,30 +27,12 @@ html, body {
 }
 
 .fullStretch {
-  height: 100%;
 }
 
 .group{ 
   position:relative; 
   margin-bottom:45px; 
 }
-
-container.container-fluid.clearfix {
-  height: 100%;
-}
-
-.clearfix:after {
-     visibility: hidden;
-     display: block;
-     font-size: 0;
-     content: " ";
-     clear: both;
-     height: 0;
-}
-.clearfix { display: inline-block; }
-/* start commented backslash hack \*/
-* html .clearfix { height: 1%; }
-.clearfix { display: block; }
 
 input{
   font-size:18px;
@@ -54,3 +55,5 @@ input:focus{
 h1.title{
 
 }
+
+a {}

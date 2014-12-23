@@ -4,7 +4,8 @@ var bluebird = require('bluebird');
 
 var userSchema = mongoose.Schema({
   username: { type: String, required: true, index: { unique: true } },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  permission: {type: Number, required: true, default: 0}
 });
 
 var User = mongoose.model('User', userSchema);
@@ -16,6 +17,8 @@ User.comparePassword = function(candidatePassword, savedPassword, cb) {
   });
 };
 
+//[TODO]: Implement salted password
+//[Todo V2]: Implement permissions levels for homeowners vs. city admins on integer scale
 userSchema.pre('save', function(next){
   var cipher = bluebird.promisify(bcrypt.hash);
   return cipher(this.password, null, null).bind(this)

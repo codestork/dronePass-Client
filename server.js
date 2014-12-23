@@ -13,8 +13,8 @@ var handler = require('./lib/request-handler');
 var app = express();
 var port = process.env.PORT || 3000;
 
-app.use(morgan('dev'));                           
-app.use(bodyParser.urlencoded({'extended':'true'}));
+app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({'extended': 'true'}));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './client')));
 app.use(cookieParser('shhhh, very secret'));
@@ -29,5 +29,8 @@ app.post('/login', handler.loginUser);
 app.get('/logout', handler.logoutUser);
 app.post('/signup', handler.signupUser);
 
+//[ToDo: Set up authentication token request from Planning Server once a user logs in];
+
+
 app.listen(port);
-console.log("You are now logged into port "+ port)
+console.log('You are now logged into port ' + port);

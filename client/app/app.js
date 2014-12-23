@@ -1,8 +1,8 @@
 /*******************************************
 *  Setup for app main and ui-router routes *
 *******************************************/
-var dronePass = angular.module("dronePass", [
-  'dronePass.services',  
+var dronePass = angular.module('dronePass', [
+  'dronePass.services',
   'dronePass.homePortal',
   'dronePass.auth',
   'ngFx',
@@ -10,8 +10,8 @@ var dronePass = angular.module("dronePass", [
   'leaflet-directive'
 ])
 
-.config( function ($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise( '/landingPage' );
+.config(function ($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise('/landingPage');
 
   $stateProvider
     .state('landingPage', {
