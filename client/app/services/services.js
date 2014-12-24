@@ -10,7 +10,7 @@ angular.module('dronePass.services', [])
       etc,
       etc
   }; */
-  var addAddress = function (address) {
+  var registerAddress = function (address) {
     // registering a property
     // use mapbox geocoding to get the coordinates of a property using address entry
     //[v2] use click on map to add address
@@ -33,7 +33,7 @@ angular.module('dronePass.services', [])
   };
   return {
     addresses: addresses,
-    addAddress: addAddress,
+    registerAddress: registerAddress,
     removeAddress: removeAddress,
     togglePermissions: togglePermissions
   };
@@ -47,46 +47,41 @@ angular.module('dronePass.services', [])
   // after you signin/signup open devtools, click resources,
   // then localStorage and you'll see your token from the server
   var signin = function (user) {
-    // return $http({
-    //   method: 'POST',
-    //   url: '/api/users/signin',
-    //   data: user
-    // })
-    // .then(function (resp) {
-    //   return resp.data.token;
-    // });
+    return $http({
+      method: 'POST',
+      url: '/signin',
+      data: user
+    })
+    .then(function (resp) {
+      return resp.data.token;
+    });
   };
 
   var signup = function (user) {
-    // return $http({
-    //   method: 'POST',
-    //   url: '/api/users/signup',
-    //   data: user
-    // })
-    // .then(function (resp) {
-    //   return resp.data.token;
-    // });
-    // enter zip code for county view
+    return $http({
+      method: 'POST',
+      url: '/signup',
+      data: user
+    })
+    .then(function (resp) {
+      return resp.data.token;
+    });
+    //[ToDo] Enter Zip for sign up to center map
   };
 
   var isAuth = function () {
-    // return !!$window.localStorage.getItem('com.dronePass');
-  };
-
-  var signout = function () {
-    // $window.localStorage.removeItem('com.dronePass');
-    // $location.path('/signin');
+    return !!$window.localStorage.getItem('com.dronePass');
   };
 
   return {
       signin: signin,
       signup: signup,
       isAuth: isAuth,
-      signout: signout
-  };
+   };
   })
   .factory('DroneCommunication', function () {
     var getDroneCoordinates = function () {
+      // enter receival of drone coordinates
       return;
     }
 

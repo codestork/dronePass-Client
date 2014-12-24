@@ -6,7 +6,40 @@ html, body {
 
 div.navbar-collapse.collapse {
   float: right;
+
 }
+
+nav.navbar  a {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-left: 5px;
+  color: white;
+}
+
+div.background a:hover, div.background a:focus, div.background a:active {
+  color: white;
+  text-decoration: underline;
+}
+.container-fluid.main{
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: #F0F7FF;
+}
+
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
 
 .angular-leaflet-map {
   position: fixed;
@@ -16,19 +49,19 @@ div.navbar-collapse.collapse {
   width: 80%;
 }
 
-#ownerDashboard {
-  float: right;
-  height: 100%;
-}
-
 .background{
-  background: url('../assets/sydney-flight.jpg') top center no-repeat;
-  background-size: 100%;
+  background: url('../assets/drone-in-sunset.jpg') no-repeat;
+  background-size:100%;
+  height: 1096px; 
+  width: 1706px;
+  margin: 0;
 }
 
-.fullStretch {
-}
 
+nav.navbar.navbar-default {
+  margin-bottom: 0;
+  background-color: #D6A96D;
+}
 .group{ 
   position:relative; 
   margin-bottom:45px; 
@@ -38,22 +71,105 @@ input{
   font-size:18px;
   padding:10px 10px 10px 5px;
   display:block;
+  margin-left: 0;
   width:300px;
   border:none;
   border-bottom:1px solid #757575;
 }
 
+div.group.addressSearch {
+  margin-top: 20px;
+}
+
+div.group {
+  margin-bottom: 20px;
+}
 input:focus{
   outline:none;
 }
 
+a.landingPage {
+  color:white;
+}
+
+a.link {
+  color: black;
+}
 #signin, #signup {
   margin-left: auto;
   margin-right: auto;
+  width: 80%;
+  font-size: 1.2em; 
 }
 
-h1.title{
+.btn.btn-default.btn-raised.white {
+  background-color: white;
+}
+
+input.address {
+  display: inline-block;
+  width: 60%;
+}
+
+label.addressSearch {
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+h1.title, a.landingPage{
+  text-align: center;
+  color:white;
+  margin: 0;
+  font-weight: bolder;
+  padding-top: 40px;
+  font-size: 72px;
+  font-family: 'Julius Sans One', sans-serif;
+}
+
+a.landingPage {
+  font-size: 36px;
+}
+
+#ownerDashboard{
+  display: inline-block;
+  width: 20%;
+  box-sizing: border-box;
+  float: right;
+  padding: 5px 0;
+  margin-right: 10px;
+
+  -webkit-border-top-left-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
 
 }
 
-a {}
+#ownerDashboard li{
+  display: inline-block;
+  width: 100%;
+  padding: 5px 10px;
+  margin: 8px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0);
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
+  box-sizing: border-box;
+  margin-right: 10px;
+}
+
+#ownerDashboard li:hover {
+
+  border-top: 1px solid #ABD1EA;
+  border-bottom: 1px solid #C6E8FF;
+
+  background: rgb(198,232,255); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(198,232,255,1) 0%, rgba(171,209,234,1) 99%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(198,232,255,1)), color-stop(99%,rgba(171,209,234,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(198,232,255,1) 0%,rgba(171,209,234,1) 99%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(198,232,255,1) 0%,rgba(171,209,234,1) 99%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(198,232,255,1) 0%,rgba(171,209,234,1) 99%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba(198,232,255,1) 0%,rgba(171,209,234,1) 99%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c6e8ff', endColorstr='#abd1ea',GradientType=0 ); /* IE6-9 */
+
+}

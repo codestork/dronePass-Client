@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="./bower_components/leaflet/dist/leaflet.css">
     <link rel="stylesheet" href="./bower_components/normalize.css/normalize.css">
     <link rel="stylesheet" href="../bower_components/leaflet.draw/dist/leaflet.draw.css" />
+    <link href='http://fonts.googleapis.com/css?family=Anaheim|Julius+Sans+One' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <nav class="navbar navbar-default">
@@ -28,18 +29,21 @@
           <li>
             <a ui-sref="signin" ui-sref-active="active-state">Sign In</a>
           </li>
+          <li ng-controller="signout">
+           <a ui-sref="signin" ng-click="signout()" ui-sref-active="active-state">Sign Out</a>
+          </li>
         </ul>
       </div>
     </nav>
-    <container class="container-fluid clearfix"> 
+    <container class="container-fluid main clearfix"> 
       <div ui-view class="fullStretch"></div>
     </container>
   </body>
   <script src="./bower_components/leaflet/dist/leaflet-src.js"></script>
   <script src="./bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
   <script src="../bower_components/leaflet.draw/dist/leaflet.draw.js"></script>
   <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-pip/v0.0.2/leaflet-pip.js'></script>
-  <script src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
   <script src="./bower_components/ngFx/dist/ngFx.min.js"></script>
   <script src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
   <script src="app/auth/auth.js"></script>

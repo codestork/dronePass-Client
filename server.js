@@ -9,7 +9,7 @@ var partials = require('express-partials');
 var cookieParser = require('cookie-parser');
 var util = require('./lib/utility');
 var handler = require('./lib/request-handler');
-
+var db = require('./db/config.js')
 var app = express();
 var port = process.env.PORT || 3000;
 
@@ -25,9 +25,11 @@ app.use(session({
   saveUninitialized: true
 }));
 
-app.post('/login', handler.loginUser);
-app.get('/logout', handler.logoutUser);
-app.post('/signup', handler.signupUser);
+
+app.post('/signin', handler.loginUser);
+app.post('/signup', handler.logoutUser);
+app.get('/signedin', handler.signupUser);
+
 
 //[ToDo: Set up authentication token request from Planning Server once a user logs in];
 
