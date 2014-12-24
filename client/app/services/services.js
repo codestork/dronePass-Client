@@ -1,41 +1,87 @@
 angular.module('dronePass.services', [])
 
-.factory('PropertyInfo', function () {
+.factory('PropertyInfo', function ($http) {
   /*storage of all addresses for a specific user.
   When a user logs in, this will be populated with the home addresses specific to this user */
-  var addresses = {};
   /*add address to homes format:
     addresses{
       string address: coordinates of point[#, #],
       etc,
       etc
   }; */
+  var addresses = {};
+  // registering a property
+  // use mapbox geocoding to get the coordinates of a property using address entry
+  //[v2] use click on map to add address
   var registerAddress = function (address) {
-    // registering a property
-    // use mapbox geocoding to get the coordinates of a property using address entry
-    //[v2] use click on map to add address
+    var addressRegistry = {
+      address: address,
+      userToken: userToken
+    };
+    return $http({
+      method: 'POST',
+      url: '/registerAddress',
+      data: addressRegistry
+    })
+    .then(function (res) {
+      return res.data;
+    });
 
-    return;
+
   };
   // removes an address from a user's list of homes
   var removeAddress = function (address) {
-    return;
+    var addressDeletion= {
+      address: address,
+      userToken: userToken
+    };
+    return $http({
+      method: 'DELETE',
+      url: '/deleteAddress',
+      data: addressDeletion
+    })
+    .then(function (res) {
+      return res.data;
+    });
   };
 
   // toggles flight path permissions for drones above a specific address
-  var togglePermissions = function (address) {
-    return;
+  var togglePermissions = function (address, permission) {
+    var permissionRegistry = {
+      address: address,
+      userToken: userToken,
+      permission: permission
+    };
+    return $http({
+      method: 'POST',
+      url: '/togglePermission',
+      data: permissionRegistry
+    })
+    .then(function (res) {
+      return res.data;
+    });
   };
   // displays all homes for a user and the permissions set on each
-  var showMyPermissions = function (homes) {
-    return;
+  var getProperties = function () {
+    var user = {
+      userToken: userToken
+    };
+    return $http({
+      method: 'GET',
+      url: '/getProperties',
+      data: user
+    })
+    .then(function (res) {
+      return res.data;
+    });
     // start time
   };
   return {
     addresses: addresses,
     registerAddress: registerAddress,
     removeAddress: removeAddress,
-    togglePermissions: togglePermissions
+    togglePermissions: togglePermissions,
+    getProperties: getProperties
   };
 })
 .factory('Auth', function ($http, $location, $window) {
@@ -52,8 +98,8 @@ angular.module('dronePass.services', [])
       url: '/signin',
       data: user
     })
-    .then(function (resp) {
-      return resp.data.token;
+    .then(function (res) {
+      return res.data.token;
     });
   };
 
@@ -63,8 +109,8 @@ angular.module('dronePass.services', [])
       url: '/signup',
       data: user
     })
-    .then(function (resp) {
-      console.log(resp.data.token)
+    .then(function (res) {
+      return res.data.token;
     });
     //[ToDo] Enter Zip for sign up to center map
   };

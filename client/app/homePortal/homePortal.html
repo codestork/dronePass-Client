@@ -1,19 +1,19 @@
 <div>
   <container id="mapContainer">
-  <div class="group addressSearch">
+<!--   <div class="group addressSearch">
     <label class="addressSearch">Search Address</label>
     <input class="address" type="text" value="address" ng-model="address">
     <span class="highlight"></span>
-  </div>
+  </div> -->
   <leaflet id="map"center="center" controls="controls" overlays="overlays" geojson="geojson" paths="paths" layers="layers" markers="markers" event-broadcast="events">
   </leaflet>
   </container>
 
 <div id="ownerDashboard">
     <ol>
-      <li> Register Address</li>
-      <li> Remove Address</li>
-      <li> Set Permission </li>
+      <li ng-click="registerAddress"> Register Address</li>
+      <li ng-click="removeAddress"> Remove Address</li>
+      <li ng-click="setPermission"> Set Permission </li>
     </ol>
   </div>
 </div>

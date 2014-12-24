@@ -1,20 +1,9 @@
 angular.module('dronePass.homePortal', [])
 
-.controller('HomePortalController', function ($scope, $http, leafletData, PropertyInfo, $http) {
-  
-
-  // var pathsDict = {
-  //   multiPolygon: {
-  //     type: "multiPolygon",
-  //     latlng: [[ -121.07539899754, 37.6653423600288],
-  //               [-122.075814597179, 38.665224522955],
-  //               [-122.075508328885, 37.6654469910699],
-  //               [ -121.07539899754, 37.6653423600288]]
-  //   }           
-  // };
+.controller('HomePortalController', function ($scope, $http, leafletData, PropertyInfo, $http) { 
+  $scope.addresses = PropertyInfo.addresses;
 
   angular.extend($scope, {
-    address : $scope.address,
     center: {
         lat: 37.65,
         lng: -121.91,
@@ -22,18 +11,6 @@ angular.module('dronePass.homePortal', [])
     },
     controls: {
       draw: {}
-      // geosearch: geosearch
-    },
-    paths: {},
-    markers: {
-      main_marker: {
-          lat: 37.65,
-          lng: -121.91,
-          focus: true,
-          message: "Home",
-          title: "Alameda County",
-          draggable: false
-      }
     },
     layers: {
       baselayers: {
@@ -51,21 +28,7 @@ angular.module('dronePass.homePortal', [])
     geojson : {
       data: {
         "type": "FeatureCollection",
-        "features": [
-          {
-            "type": "Feature",
-            "properties": {},
-            "geometry": {
-              "type":"MultiPolygon",
-              "coordinates":[[
-                [[ -121.07539899754, 37.6653423600288],
-                [-122.075814597179, 38.665224522955],
-                [-122.075508328885, 37.6654469910699],
-                [ -121.07539899754, 37.6653423600288]]
-                ]]
-              }
-            }
-          ]
+        "features": []
       },
       style: {
         fillColor: "yellow",
@@ -78,13 +41,33 @@ angular.module('dronePass.homePortal', [])
     },
     events: {
        map: {
-          enable: ['zoomstart', 'drag', 'click', 'mousemove'],
+          enable: ['zoomstart', 'drag', 'mousemove'],
           logic: 'emit'
       }
     }
   });
-  
-  leafletData.getMap().then(function(map) {
+
+  /************** Address Selection ***************************/
+  // Allows user to select address based on search, form entry, or click 
+  $scope.selectedCoordinates =[];
+
+  // enables address search
+  leafletData.getMap('map').then(function(map) {
+    new L.Control.GeoSearch({
+      provider: new L.GeoSearch.Provider.OpenStreetMap()
+    }).addTo(map);
+  });
+
+  // adds searched Coordinates to selected for DB query
+  leafletData.getMap('map').then(function(map, $scope) {
+    map.on('geosearch_showlocation', function (result) {
+      $scope.selectedCoordinates = [result.Location.X, result.Location.Y]
+    });
+  });
+
+
+  // lets user draw polygons on map
+  leafletData.getMap('map').then(function(map) {
       var drawnItems = $scope.controls.edit.featureGroup;
       map.on('draw:created', function (e) {
       var layer = e.layer;
@@ -93,20 +76,59 @@ angular.module('dronePass.homePortal', [])
     });
   });
 
-  var pathsDict = {
-    multiPolygon: {
-      type: "multiPolygon",
-      latlngs: [
-                  [{lat:37.6653423600288, lng:-122.07539899754},{lat: 37.665224522955,lng:-122.075814597179}, {lat: 37.6654469910699, lng: -122.075508328885}, {lat:37.6653423600288,  lng: -122.07539899754}]
-                ]
-    }           
+  //[ToDo]: Implement form entry option, and write database queries to account for all methods of entry
+
+  /***************** Database Queries ***********************/
+
+  // Registers an address
+  $scope.registerAddress = function () {
+    PropertyInfo.registerAddress($scope.selectedCoordinates)
+      .then(function(newAddressPolygon) {
+        $scope.geojson.data.features.push(newAddressPolygon);
+      })
   };
 
-  $scope.addShape = function(shape) {
-    $scope.paths[shape] = pathsDict[shape];
-  };
+  // deletes selectedAddress
+  $scope.deleteAddress = function () {
+    PropertyInfo.deleteAddress($scope.selectedCoordinates)
+      .then(function(response) {
+        for(var i = 0; i < $scope.geojson.data.features.length; i++) {
+          if (response.properties.id === $scope.geojson.data.features[i].properties.id){
+            $scope.geojson.data.features.splice(i, 1);
+          } 
+        }
+      })
+  }
 
-  $scope.addShape("multiPolygon")
+  $scope.permission = 0;
+  $scope.togglePermissions = function () {
+    PropertyInfo.togglePermissions($scope.selectedCoordinates, $scope.permission)
+      .then(function(response) {
+        // change style of display
+      })
+  }
+
+  // returns all address Polygons for a given user
+  $scope.getAddresses = function () {
+    PropertyInfo.getAddresses().then(function (newAddressePolygons) {
+      for (var j = 0; j < newAddressesPolygons.addressArray; j++) {
+       $scope.geojson.data.features.push(newAddressPolygons[a]);
+      }
+    });
+  }
+
+  // $scope.getAddresses();
+
+});
+
+
+   // tiles: {
+    //   url: 'http://api.tiles.mapbox.com/v4/lizport10.kiapnjfg/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibGl6cG9ydDEwIiwiYSI6IkNnaGZuam8ifQ.ytq8ZMrhPrnoWQsPnfkZMQ',
+    //   layerOptions: {
+    //     apikey: 'pk.eyJ1IjoibGl6cG9ydDEwIiwiYSI6IkNnaGZuam8ifQ.ytq8ZMrhPrnoWQsPnfkZMQ',
+    //     mapid: 'lizport10.kiapnjfg'
+    //   }
+    // },
 
   // Get the countries geojson data from a JSON // insert url in the get request
   // $http.get().success(function(data, status) {
@@ -124,22 +146,63 @@ angular.module('dronePass.homePortal', [])
   //         }
   //     });
   // });
-  leafletData.getMap().then(function(map, $scope) {
-    map.on('geosearch_showlocation', function (result) {
-      L.marker([result.x, result.y]).addTo(map)
-    });
-  });
 
-});
+// leafletData.getMap().then(function(map) {
+//   map.on('click', function(e) {
+//     alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
+//   });
+// });
 
-   // tiles: {
-    //   url: 'http://api.tiles.mapbox.com/v4/lizport10.kiapnjfg/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibGl6cG9ydDEwIiwiYSI6IkNnaGZuam8ifQ.ytq8ZMrhPrnoWQsPnfkZMQ',
-    //   layerOptions: {
-    //     apikey: 'pk.eyJ1IjoibGl6cG9ydDEwIiwiYSI6IkNnaGZuam8ifQ.ytq8ZMrhPrnoWQsPnfkZMQ',
-    //     mapid: 'lizport10.kiapnjfg'
-    //   }
-    // },
+// var pathsDict = {
+//   multiPolygon: {
+//     type: "multiPolygon",
+//     latlngs: [
+//                 [{lat:37.6653423600288, lng:-122.07539899754},{lat: 37.665224522955,lng:-122.075814597179}, {lat: 37.6654469910699, lng: -122.075508328885}, {lat:37.6653423600288,  lng: -122.07539899754}]
+//               ]
+//   }           
+// };
+// need to extend $scope with paths: {}, again if use this
 
+// $scope.addShape = function(shape) {
+//   $scope.paths[shape] = pathsDict[shape];
+// };
 
+// $scope.addShape("multiPolygon")
 
+// markers: {
+//   main_marker: {
+//       lat: 37.65,
+//       lng: -121.91,
+//       focus: true,
+//       message: "Home",
+//       title: "Alameda County",
+//       draggable: false
+//   }
+// },
 
+//Example polygons
+// {
+//   "type": "Feature",
+//   "properties": {id: 1, user: 'liz', permission: 0},
+//   "geometry": {
+//     "type":"MultiPolygon",
+//     "coordinates":[[
+//       [[ -121.07539899754, 37.6653423600288],
+//       [-122.075814597179, 38.665224522955],
+//       [-122.075508328885, 37.6654469910699],
+//       [ -121.07539899754, 37.6653423600288]]
+//       ]]
+//     }
+//   },
+//   {
+//     "type": "Feature",
+//     "properties": {id: 2, user: 'liz', permission: 0},
+//     "geometry": {
+//       "type":"MultiPolygon",
+//       "coordinates":[[
+//         [[ -123.07539899754, 37.662423600288],
+//         [-126.075814597179, 38.675224522955],
+//         [-122.075508928885, 37.6654469910699],
+//         [ -123.07839899754, 37.6653423600288]]
+//         ]]
+//       }
