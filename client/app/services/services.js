@@ -64,7 +64,7 @@ angular.module('dronePass.services', [])
       data: user
     })
     .then(function (resp) {
-      return resp.data.token;
+      console.log(resp.data.token)
     });
     //[ToDo] Enter Zip for sign up to center map
   };

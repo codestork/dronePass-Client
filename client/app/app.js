@@ -28,6 +28,7 @@ var dronePass = angular.module('dronePass', [
       templateUrl: 'app/homePortal/homePortal.html',
       controller: 'HomePortalController',
       url: '/homePortal',
+      authenticate: false,
       animation: {
         enter: 'shrink-in',
         leave: 'grow-out',
@@ -77,6 +78,13 @@ var dronePass = angular.module('dronePass', [
   };
   return attach;
 })
+.controller ('signout', function ($window,$scope, $location) {
+  $scope.signout = function () {
+    console.log('signed out');
+    $window.localStorage.removeItem('com.dronePass');
+    $location.path('/signin');
+  };
+})
 .run(function ($rootScope, $location, Auth) {
   // here inside the run phase of angular, our services and controllers
   // have just been registered and our app is ready
@@ -85,16 +93,12 @@ var dronePass = angular.module('dronePass', [
   // when it does change routes, we then look for the token in localstorage
   // and send that token to the server to see if it is a real user or hasn't expired
   // if it's not valid, we then redirect back to signin/signup
-  $rootScope.$on('$routeChangeStart', function (evt, next, current) {
-    if (next.$$route && next.$$route.authenticate && !Auth.isAuth()) {
+  $rootScope.$on('$stateChangeStart', function (event, next, current) {
+    if (next && next.authenticate && !Auth.isAuth()) {
+      //[ToDo] - Fix so that re-routing works. It's entering here, but no getting signed in
       $location.path('/signin');
     }
   });
-})
-.controller ('signout', function ($window,$scope, $location) {
-  $scope.signout = function () {
-    $window.localStorage.removeItem('com.dronePass');
-    $location.path('/signin');
-  };
 });
+
 

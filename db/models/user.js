@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt');
 var bluebird = require('bluebird');
 var Q        = require('q');
 var SALT_WORK_FACTOR  = 10;
@@ -8,7 +8,7 @@ var UserSchema = mongoose.Schema({
   username: { type: String, required: true, index: { unique: true } },
   password: { type: String, required: true },
   salt: { type: String},
-  permission: {type: Number, required: true, default: 0}
+  owner_authority: {type: Number, required: true, default: 0}
 });
 
 UserSchema.methods.comparePasswords = function (candidatePassword) {
