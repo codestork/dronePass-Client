@@ -88,7 +88,7 @@ var dronePass = angular.module('dronePass', [
     $location.path('/signin');
   };
 })
-.run(function ($rootScope, $location, Auth) {
+.run(function ($rootScope, $state, Auth) {
   // here inside the run phase of angular, our services and controllers
   // have just been registered and our app is ready
   // however, we want to make sure the user is authorized
@@ -98,11 +98,12 @@ var dronePass = angular.module('dronePass', [
   // if it's not valid, we then redirect back to signin/signup
 
   // });
+
   $rootScope.$on('$stateChangeStart', function (event, toState) {
 
-    if (toState && toState.authenticate && !Auth.isAuth()) {
+    if (toState.authenticate && !Auth.isAuth()) {
+      $state.transitionTo("signin");
       event.preventDefault();
-      $location.path('signin');
     }
   });
 });
