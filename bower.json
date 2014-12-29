@@ -24,6 +24,10 @@
     "leaflet": "~0.7.3",
     "bootstrap-material-design": "~0.2.1",
     "leaflet-draw": "~0.2.3",
-    "leaflet.draw": "~0.2.3"
+    "leaflet.draw": "~0.2.3",
+    "angular-leaflet-directive": "~0.7.10",
+    "font-awesome": "~4.2.0",
+    "L.GeoSearch": "*",
+    "normalize.css": "~3.0.2"
   }
 }
