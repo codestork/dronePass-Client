@@ -4,6 +4,7 @@ var db = require('../config.js');
 var Q = require('q');
 var SALT_WORK_FACTOR  = 10;
 
+
 var User = db.Model.extend({
   tableName: 'users',
 
