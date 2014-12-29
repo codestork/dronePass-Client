@@ -16,14 +16,15 @@ var bookshelf = require('bookshelf')(knex);
 module.exports = bookshelf;
 //Schema
 
+    
 knex.schema.hasTable('users').then(function(exists) {
   if (!exists) {
     knex.schema.createTable('users', function (user) {
       user.increments('user_id').primary();
       user.string('username', 100).unique();
-      user.string('password', 100).unique();
-      user.string('salt', 100).unique();
-      user.integer('owner_authority').unique();
+      user.string('password', 100)
+      user.string('salt', 100)
+      user.integer('owner_authority')
     }).then(function(table) {
         console.log(table)
       });

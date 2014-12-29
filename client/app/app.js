@@ -17,6 +17,7 @@ var dronePass = angular.module('dronePass', [
     .state('landingPage', {
       templateUrl: '/app/landingPage/landingPage.html',
       url: '/landingPage',
+      authenticate: false,
       animation: {
         enter: 'grow-in',
         leave: 'shrink-out',
@@ -28,7 +29,7 @@ var dronePass = angular.module('dronePass', [
       templateUrl: 'app/homePortal/homePortal.html',
       controller: 'HomePortalController',
       url: '/homePortal',
-      authenticate: false,
+      authenticate: true,
       animation: {
         enter: 'shrink-in',
         leave: 'grow-out',
@@ -40,6 +41,7 @@ var dronePass = angular.module('dronePass', [
       templateUrl: 'app/auth/signin.html',
       controller: 'AuthController',
       url: '/signin',
+      authenticate: false,
       animation: {
         enter: 'grow-in',
         leave: 'shrink-out',
@@ -51,6 +53,7 @@ var dronePass = angular.module('dronePass', [
       templateUrl: 'app/auth/signup.html',
       controller: 'AuthController',
       url: '/signup',
+      authenticate: false,
       animation: {
         enter: 'shrink-in',
         leave: 'grow-out',
@@ -93,10 +96,13 @@ var dronePass = angular.module('dronePass', [
   // when it does change routes, we then look for the token in localstorage
   // and send that token to the server to see if it is a real user or hasn't expired
   // if it's not valid, we then redirect back to signin/signup
-  $rootScope.$on('$stateChangeStart', function (event, next, current) {
-    if (next && next.authenticate && !Auth.isAuth()) {
-      //[ToDo] - Fix so that re-routing works. It's entering here, but no getting signed in
-      $location.path('/signin');
+
+  // });
+  $rootScope.$on('$stateChangeStart', function (event, toState) {
+
+    if (toState && toState.authenticate && !Auth.isAuth()) {
+      event.preventDefault();
+      $location.path('signin');
     }
   });
 });

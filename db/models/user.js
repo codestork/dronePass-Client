@@ -13,10 +13,8 @@ var User = db.Model.extend({
   },
 
   initialize: function(){
-    this.on('fetching', function () {console.log('hello')})
-    this.on('fetched', function () {console.log('goodbye')})
-    this.on('creating', this.hashPassword);
-    this.on('creating', this.saltPassword);
+    // this.on('creating', this.hashPassword);
+    // this.on('creating', this.saltPassword);
   },
 
   comparePassword: function(attemptedPassword, callback) {
@@ -41,7 +39,7 @@ var User = db.Model.extend({
       if (err) {
         throw err;
       }
-      this.set('salt', salt);
+      // this.set('salt', salt);
     });
   }
 
