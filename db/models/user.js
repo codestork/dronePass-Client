@@ -13,8 +13,8 @@ var User = db.Model.extend({
   },
 
   initialize: function(){
-    // this.on('creating', this.hashPassword);
-    // this.on('creating', this.saltPassword);
+    this.on('creating', this.hashPassword);
+    this.on('creating', this.saltPassword);
   },
 
   comparePassword: function(attemptedPassword, callback) {
@@ -23,18 +23,14 @@ var User = db.Model.extend({
     });
   },
 
-  hashPassword: function(){
-    var cipher = Promise.promisify(bcrypt.hash);
-    // return a promise - bookshelf will wait for the promise
-    // to resolve before completing the create action
-    return cipher(this.get('password'), null, null)
-      .bind(this)
-      .then(function(hash) {
-        this.set('password', hash);
-      });
+  hashPassword: function(password){
+    var model = this;
+    bcrypt.hash(password, null, null, function(err, hash) {
+      model.set('password',hash)
+    });
   },
 
-  saltPassword: function(){
+  saltPassword: function(passowrd){
     bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
       if (err) {
         throw err;

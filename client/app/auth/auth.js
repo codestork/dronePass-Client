@@ -1,12 +1,11 @@
 angular.module('dronePass.auth', [])
 
-.controller('AuthController', function ($scope, $window, $location, Auth) {
+.controller('AuthController', function ($scope, $window, $location, Auth, PropertyInfo) {
   $scope.user = {};
 
 
   $scope.signin = function () {
     // sign in function
-    console.log($scope.user)
     Auth.signin($scope.user)
       .then(function (token) {
         $window.localStorage.setItem('com.dronePass', token);
@@ -19,7 +18,6 @@ angular.module('dronePass.auth', [])
 
   $scope.signup = function () {
     // sign up function
-    console.log($scope.user); 
     Auth.signup($scope.user).then(function (token) {
         $window.localStorage.setItem('com.dronePass', token);
         $location.path('/homePortal');

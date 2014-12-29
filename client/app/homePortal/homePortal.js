@@ -5,9 +5,10 @@ angular.module('dronePass.homePortal', [])
 
   angular.extend($scope, {
     center: {
-        lat: 37.65,
+        lat:  37.65,
         lng: -121.91,
-        zoom: 9
+        zoom: 10,
+        autodiscover: true
     },
     controls: {
       draw: {}
@@ -46,6 +47,23 @@ angular.module('dronePass.homePortal', [])
       }
     }
   });
+  /************** Map Focus ***************************/
+  // Centers Map based on IP address
+  // $scope.centerMapOnIP = function (ip) {
+  //   var url = "http://freegeoip.net/json/" + ip;
+  //   $http.get(url).success(function(res) {
+  //     console.log(res);
+  //     $scope.center = {
+  //       lat: res.latitude,
+  //       lng: res.longitude,
+  //       zoom: 10
+  //     }
+  //     $scope.ip = res.ip;
+  //     console.log(res);
+  //   })
+  // };
+
+  // $scope.centerMapOnIP();
 
   /************** Address Selection ***************************/
   // Allows user to select address based on search, form entry, or click 

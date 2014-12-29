@@ -97,7 +97,6 @@ var dronePass = angular.module('dronePass', [
   // and send that token to the server to see if it is a real user or hasn't expired
   // if it's not valid, we then redirect back to signin/signup
 
-  // });
 
   $rootScope.$on('$stateChangeStart', function (event, toState) {
 
