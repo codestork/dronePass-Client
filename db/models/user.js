@@ -1,28 +1,48 @@
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt-nodejs');
-var bluebird = require('bluebird');
+var bcrypt = require('bcrypt');
+var Promise = require('bluebird');
+var db = require('../config.js');
+var Q = require('q');
+var SALT_WORK_FACTOR  = 10;
 
-var userSchema = mongoose.Schema({
-  username: { type: String, required: true, index: { unique: true } },
-  password: { type: String, required: true }
-});
 
-var User = mongoose.model('User', userSchema);
+var User = db.Model.extend({
+  tableName: 'users',
 
-User.comparePassword = function(candidatePassword, savedPassword, cb) {
-  bcrypt.compare(candidatePassword, savedPassword, function(err, isMatch) {
-    if (err) return cb(err);
-    cb(null, isMatch);
-  });
-};
+  defaults: {
+    owner_authority: 0
+  },
 
-userSchema.pre('save', function(next){
-  var cipher = bluebird.promisify(bcrypt.hash);
-  return cipher(this.password, null, null).bind(this)
-    .then(function(hash) {
-      this.password = hash;
-      next();
+  initialize: function(){
+    // this.on('creating', this.hashPassword);
+    // this.on('creating', this.saltPassword);
+  },
+
+  comparePassword: function(attemptedPassword, callback) {
+    bcrypt.compare(attemptedPassword, this.get('password'), function(err, isMatch) {
+      callback(isMatch);
     });
+  },
+
+  hashPassword: function(){
+    var cipher = Promise.promisify(bcrypt.hash);
+    // return a promise - bookshelf will wait for the promise
+    // to resolve before completing the create action
+    return cipher(this.get('password'), null, null)
+      .bind(this)
+      .then(function(hash) {
+        this.set('password', hash);
+      });
+  },
+
+  saltPassword: function(){
+    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+      if (err) {
+        throw err;
+      }
+      // this.set('salt', salt);
+    });
+  }
+
 });
 
 module.exports = User;

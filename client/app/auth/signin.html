@@ -1,9 +1,19 @@
 <div id='signin'>
-  <h1>signin</h1>
+  <h1>Sign In</h1>
   <form name="signinForm" ng-submit='signin()'>
-    <input type='email'ng-model='user.email'>
-    <input type="password" ng-model='user.password'>
-    <button class="btn btn-default btn-raised">Sign In</button>
+    <div class="group">
+      <label>Email</label>
+      <input type='email' ng-model='user.username' required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+    </div>
+    <div class="group">
+      <label>Password</label>
+      <input type="password" ng-model='user.password' required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+    </div>
+    <button class="btn btn-default btn-raised white">Sign In</button>
   </form>
-  <a href="#/signup">Don't have an account? <strong>Signup</strong> ...</a>
+  <a class="link" href="#/signup">Don't have an account? <strong>Signup</strong> ...</a>
 </div>

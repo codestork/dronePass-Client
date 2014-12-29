@@ -9,12 +9,12 @@ var partials = require('express-partials');
 var cookieParser = require('cookie-parser');
 var util = require('./lib/utility');
 var handler = require('./lib/request-handler');
-
+var db = require('./db/config.js')
 var app = express();
 var port = process.env.PORT || 3000;
 
-app.use(morgan('dev'));                           
-app.use(bodyParser.urlencoded({'extended':'true'}));
+app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({'extended': 'true'}));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './client')));
 app.use(cookieParser('shhhh, very secret'));
@@ -25,9 +25,14 @@ app.use(session({
   saveUninitialized: true
 }));
 
-app.post('/login', handler.loginUser);
-app.get('/logout', handler.logoutUser);
+
+app.post('/signin', handler.loginUser);
 app.post('/signup', handler.signupUser);
+// app.get('/signedin', handler.signupUser);
+
+
+//[ToDo: Set up authentication token request from Planning Server once a user logs in];
+
 
 app.listen(port);
-console.log("You are now logged into port "+ port)
+console.log('You are now logged into port ' + port);
