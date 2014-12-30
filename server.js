@@ -28,6 +28,7 @@ app.use(session({
 
 app.post('/signin', handler.signinUser);
 app.post('/signup', handler.signupUser);
+app.post('/signout', handler.signoutUser)
 
 //[ToDo: Set up authentication token request from Planning Server once a user logs in];
 

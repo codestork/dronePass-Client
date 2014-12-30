@@ -81,11 +81,18 @@ var dronePass = angular.module('dronePass', [
   };
   return attach;
 })
-.controller ('signout', function ($window,$scope, $location) {
+.controller ('signout', function ($window, $scope, $http, $location) {
   $scope.signout = function () {
-    console.log('signed out');
     $window.localStorage.removeItem('com.dronePass');
-    $location.path('/signin');
+    return $http({
+      method: 'POST',
+      url: '/signout',
+      data: {}
+    })
+    .then(function (res) {
+      $location.path('/signin');
+      console.log('signed out');
+    });  
   };
 })
 .run(function ($rootScope, $state, Auth) {
