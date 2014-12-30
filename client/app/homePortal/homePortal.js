@@ -1,6 +1,6 @@
 angular.module('dronePass.homePortal', [])
 
-.controller('HomePortalController', function ($scope, $http, leafletData, PropertyInfo, $http) { 
+.controller('HomePortalController', function ($scope, $http, leafletData, PropertyInfo) { 
   $scope.addresses = PropertyInfo.addresses;
 
   angular.extend($scope, {
@@ -8,7 +8,6 @@ angular.module('dronePass.homePortal', [])
         lat:  37.65,
         lng: -121.91,
         zoom: 10,
-        autodiscover: true
     },
     controls: {
       draw: {}
@@ -48,19 +47,19 @@ angular.module('dronePass.homePortal', [])
     }
   });
 
+
   /************** Address Selection ***************************/
   // Allows user to select address based on search, form entry, or click 
   $scope.selectedCoordinates =[];
-
   // enables address search
   leafletData.getMap('map').then(function(map) {
     new L.Control.GeoSearch({
       provider: new L.GeoSearch.Provider.OpenStreetMap()
-    }).addTo(map);
+    }).addTo(map).geosearch(PropertyInfo.addresses.centerZip);
   });
 
   // adds searched Coordinates to selected for DB query
-  leafletData.getMap('map').then(function(map, $scope) {
+  leafletData.getMap('map').then(function(map) {
     map.on('geosearch_showlocation', function (result) {
       $scope.selectedCoordinates = [result.Location.X, result.Location.Y]
     });

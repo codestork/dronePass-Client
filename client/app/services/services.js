@@ -10,7 +10,9 @@ angular.module('dronePass.services', [])
       etc
   }; */
 
-  var addresses = {};
+  var addresses = {
+    centerZip : null
+  };
 
   // registering a property
   // use mapbox geocoding to get the coordinates of a property using address entry

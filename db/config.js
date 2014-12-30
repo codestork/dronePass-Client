@@ -17,7 +17,6 @@ var knex = require('knex')({
 var bookshelf = require('bookshelf')(knex);
 module.exports = bookshelf;
 //Schema
-
 knex.schema.hasTable('users').then(function(exists) {
   if (!exists) {
     knex.schema.createTable('users', function (user) {
