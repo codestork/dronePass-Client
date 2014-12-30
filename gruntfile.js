@@ -6,7 +6,7 @@ module.exports = function(grunt) {
     },
 
     jshint: {
-      files: ['Gruntfile.js', 'client/**/*.js', 'client/*.js'],
+      files: ['gruntfile.js', 'client/**/*.js', 'client/*.js'],
       options: {
         globals: {
           jQuery: true
@@ -17,14 +17,14 @@ module.exports = function(grunt) {
       files: ['<%= jshint.files %>'],
       tasks: ['jshint']
     },
-    //   mochaTest: {
-    //   test: {
-    //     options: {
-    //       reporter: 'spec'
-    //     },
-    //     src: ['test/**/*.js']
-    //   }
-    // },
+    mochaTest: {
+      test: {
+        options: {
+          reporter: 'spec'
+        },
+        src: ['specs/client/authControllerSpec.js']
+      }
+    },
     nodemon: {
       dev: {
         script: 'main.js'
@@ -34,7 +34,19 @@ module.exports = function(grunt) {
     },
     jshint: {
       files: [
-        // Add filespec list here
+        'client/app/app.js',
+        'client/app/auth/auth.js',
+        'client/app/homePortal/homePortal.js',
+        'client/app/services/services.js',
+        'db/config.js',
+        'db/models/parcelData.js',
+        'db/models/user.js',
+        'lib/request-handler.js',
+        'lib/utility.js',
+        'specs/client/authControllerSpec.js',
+        'specs/client/homePortalControllerSpec.js',
+        'specs/client/routingSpecs.js',
+        'server.js'
       ],
       options: {
         force: 'true',

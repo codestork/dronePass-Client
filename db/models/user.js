@@ -1,28 +1,35 @@
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt-nodejs');
-var bluebird = require('bluebird');
+var bcrypt = require('bcrypt');
+var Promise = require('bluebird');
+var db = require('../config.js');
+var Q = require('q');
+var saltWorkFactor = 10;
 
-var userSchema = mongoose.Schema({
-  username: { type: String, required: true, index: { unique: true } },
-  password: { type: String, required: true }
-});
 
-var User = mongoose.model('User', userSchema);
 
-User.comparePassword = function(candidatePassword, savedPassword, cb) {
-  bcrypt.compare(candidatePassword, savedPassword, function(err, isMatch) {
-    if (err) return cb(err);
-    cb(null, isMatch);
-  });
-};
+var User = db.Model.extend({
+  tableName: 'users',
 
-userSchema.pre('save', function(next){
-  var cipher = bluebird.promisify(bcrypt.hash);
-  return cipher(this.password, null, null).bind(this)
-    .then(function(hash) {
-      this.password = hash;
-      next();
+  defaults: {
+    owner_authority: 0
+  },
+
+  comparePassword: function(attemptedPassword, callback) {
+    bcrypt.compare(attemptedPassword, this.get('password'), function(err, isMatch) {
+      callback(isMatch);
     });
+  },
+
 });
 
 module.exports = User;
+
+// hashPassword: function(password){
+//   var newPass;
+//   bcrypt.genSalt(10, function(err, salt) {
+//     bcrypt.hash(password, salt, function(err, hash) {
+//       console.log(hash)
+//       newPass = hash;
+//     });
+//   });
+//   return newPass;
+// }
