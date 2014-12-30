@@ -24,6 +24,7 @@ knex.schema.hasTable('users').then(function(exists) {
       user.increments('user_id').primary()
       user.string('username', 100).unique();
       user.string('password', 100)
+      user.integer('name',100)
       user.integer('owner_authority')
     }).then(function(table) {
         console.log(table)
