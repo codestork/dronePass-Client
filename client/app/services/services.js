@@ -119,21 +119,20 @@ angular.module('dronePass.services', [])
       });
   };
 
-  var isAuth = function (authPromise) {
+  var isAuth = function (authDefer) {
     if (!!$window.localStorage.getItem('com.dronePass')) {
       return $http({
           method: 'GET',
           url: '/checkAuth',
-      })
-      .then(function (res) {
-        if(res.status === 200) {
-          return authPromise.resolve();
-        } else {
-          return authPromise.reject();
-        }
-      });
+        })
+        .success(function (data, status, headers, config) {
+          authDefer.resolve();
+        })
+        .error( function (data, status, headers, config) {
+          authDefer.reject()
+        });
     } else {
-      return authPromise.reject();
+      authDefer.reject();
     }
 
   }; 

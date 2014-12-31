@@ -55,9 +55,9 @@ var dronePass = angular.module('dronePass', [
       url: '/homePortal',
       resolve: { 
         auth: ['Auth', '$q', function (Auth, $q) {
-          var authPromise = $q.defer();
-          Auth.isAuth(authPromise)
-          return authPromise.promise;
+          var authDefer = $q.defer();
+          Auth.isAuth(authDefer)
+          return authDefer.promise;
         }]
       },
       animation: {
@@ -110,7 +110,6 @@ var dronePass = angular.module('dronePass', [
   // if it's not valid, we then redirect back to signin/signup
 
   $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-    console.log(error)
     $state.transitionTo('signin');
   });
   
