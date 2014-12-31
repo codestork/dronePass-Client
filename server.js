@@ -8,7 +8,9 @@ var session = require('express-session');
 var partials = require('express-partials');
 var cookieParser = require('cookie-parser');
 var util = require('./lib/utility');
-var handler = require('./lib/request-handler');
+var authHandler = require('./lib/auth-request-handler');
+var parcelHandler = require('./lib/parcel-request-handler');
+var planner = require('./lib/dronePlannerQueries');
 var db = require('./db/config.js')
 var app = express();
 var port = process.env.PORT || 3000;
@@ -17,22 +19,18 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({'extended': 'true'}));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './client')));
-app.use(cookieParser('shhhh, very secret'));
+// app.use(cookieParser('shhhh, very secret'));
+// app.use(session({
+//   secret: 'shhhh, very secret',
+//   resave: false,
+//   saveUninitialized: true
+// }));
 
-app.use(session({
-  secret: 'shhhh, very secret',
-  resave: false,
-  saveUninitialized: true
-}));
-
-
-app.post('/signin', handler.signinUser);
-app.post('/signup', handler.signupUser);
-app.post('/signout', handler.signoutUser);
-app.get('/checkAuth', handler.checkAuth);
-
-//[ToDo: Set up authentication token request from Planning Server once a user logs in];
-
+app.post('/signin', authHandler.signinUser);
+app.post('/signup', authHandler.signupUser);
+app.post('/signout', authHandler.signoutUser);
+app.get('/checkAuth', authHandler.checkAuth);
+app.post('/registerAddress', parcelHandler.registerAddress);
 
 app.listen(port);
 console.log('You are now logged into port ' + port);
