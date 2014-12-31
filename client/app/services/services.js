@@ -127,13 +127,13 @@ angular.module('dronePass.services', [])
       })
       .then(function (res) {
         if(res.status === 200) {
-          return authPromise.resolve();
+          authPromise.resolve();
         } else {
-          return authPromise.reject();
+          authPromise.reject();
         }
       });
     } else {
-      return authPromise.reject();
+      authPromise.reject();
     }
 
   }; 
