@@ -1,6 +1,6 @@
 angular.module('dronePass.services', [])
 
-.factory('PropertyInfo', function ($http, AttachTokens) {
+.factory('PropertyInfo', function ($http) {
   /*storage of all addresses for a specific user.
   When a user logs in, this will be populated with the home addresses specific to this user */
   /*add address to homes format:
