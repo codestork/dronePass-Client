@@ -114,18 +114,33 @@ angular.module('dronePass.services', [])
       data: user
     })
     .then(function (res) {
+      console.log(res)
       return res.data.token;
       });
   };
 
-  var isAuth = function () {
-    return !!$window.localStorage.getItem('com.dronePass');
-  };
+  var isAuth = function (authDefer) {
+    if (!!$window.localStorage.getItem('com.dronePass')) {
+      return $http({
+          method: 'GET',
+          url: '/checkAuth',
+        })
+        .success(function (data, status, headers, config) {
+          authDefer.resolve();
+        })
+        .error( function (data, status, headers, config) {
+          authDefer.reject()
+        });
+    } else {
+      authDefer.reject();
+    }
 
+  }; 
+  
   return {
       signin: signin,
       signup: signup,
-      isAuth: isAuth,
+      isAuth: isAuth
    };
   })
   .factory('DroneCommunication', function () {

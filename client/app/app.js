@@ -25,18 +25,6 @@ var dronePass = angular.module('dronePass', [
         speed: 400
       }
     })
-    .state('homePortal', {
-      templateUrl: 'app/homePortal/homePortal.html',
-      controller: 'HomePortalController',
-      url: '/homePortal',
-      authenticate: true,
-      animation: {
-        enter: 'shrink-in',
-        leave: 'grow-out',
-        ease: 'back',
-        speed: 400
-      }
-    })
     .state('signin', {
       templateUrl: 'app/auth/signin.html',
       controller: 'AuthController',
@@ -54,6 +42,24 @@ var dronePass = angular.module('dronePass', [
       controller: 'AuthController',
       url: '/signup',
       authenticate: false,
+      animation: {
+        enter: 'shrink-in',
+        leave: 'grow-out',
+        ease: 'back',
+        speed: 400
+      }
+    })
+    .state('homePortal', {
+      templateUrl: 'app/homePortal/homePortal.html',
+      controller: 'HomePortalController',
+      url: '/homePortal',
+      resolve: { 
+        auth: ['Auth', '$q', function (Auth, $q) {
+          var authDefer = $q.defer();
+          Auth.isAuth(authDefer)
+          return authDefer.promise;
+        }]
+      },
       animation: {
         enter: 'shrink-in',
         leave: 'grow-out',
@@ -81,7 +87,7 @@ var dronePass = angular.module('dronePass', [
   };
   return attach;
 })
-.controller ('signout', function ($window, $scope, $http, $location) {
+.controller ('signout', function ($window, $scope, $http, $state, Auth) {
   $scope.signout = function () {
     $window.localStorage.removeItem('com.dronePass');
     return $http({
@@ -90,8 +96,7 @@ var dronePass = angular.module('dronePass', [
       data: {}
     })
     .then(function (res) {
-      $location.path('/signin');
-      console.log('signed out');
+      $state.transitionTo('signin');
     });  
   };
 })
@@ -104,13 +109,10 @@ var dronePass = angular.module('dronePass', [
   // and send that token to the server to see if it is a real user or hasn't expired
   // if it's not valid, we then redirect back to signin/signup
 
-  $rootScope.$on('$stateChangeStart', function (event, toState) {
-
-    if (toState.authenticate && !Auth.isAuth()) {
-      $state.transitionTo("signin");
-      event.preventDefault();
-    }
+  $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+    $state.transitionTo('signin');
   });
+  
 });
 
 

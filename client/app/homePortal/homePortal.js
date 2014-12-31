@@ -62,6 +62,7 @@ angular.module('dronePass.homePortal', [])
   leafletData.getMap('map').then(function(map) {
     map.on('geosearch_showlocation', function (result) {
       $scope.selectedCoordinates = [result.Location.X, result.Location.Y]
+      console.log($scope.selectedCoordinates)
     });
   });
 
