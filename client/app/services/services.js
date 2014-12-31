@@ -131,12 +131,10 @@ angular.module('dronePass.services', [])
         if(res.status === 200) {
           authStatus.allow = true;
         } 
-        console.log(authStatus.allow)
         return callback();
       });
     }
     authStatus.allow = false;
-    console.log(authStatus.allow)
     return callback();
   }; 
   
