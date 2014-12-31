@@ -8,9 +8,7 @@ angular.module('dronePass.auth', [])
     Auth.signin($scope.user)
       .then(function (token) {
         $window.localStorage.setItem('com.dronePass', token);
-        Auth.isAuth(function () {
-          $state.transitionTo('homePortal')
-        })
+        $state.transitionTo('homePortal');
       })
       .catch(function (error) {
         console.error(error);
@@ -22,9 +20,7 @@ angular.module('dronePass.auth', [])
     PropertyInfo.addresses.centerZip = $scope.zipCode;
     Auth.signup($scope.user).then(function (token) {
         $window.localStorage.setItem('com.dronePass', token);
-        Auth.isAuth(function () {
-          $state.transitionTo('homePortal')
-        })
+        $state.transitionTo('homePortal');
       })
       .catch(function (error) {
         console.error(error);

@@ -1,6 +1,6 @@
 angular.module('dronePass.services', [])
 
-.factory('PropertyInfo', function ($http) {
+.factory('PropertyInfo', function ($http, AttachTokens) {
   /*storage of all addresses for a specific user.
   When a user logs in, this will be populated with the home addresses specific to this user */
   /*add address to homes format:
@@ -119,9 +119,7 @@ angular.module('dronePass.services', [])
       });
   };
 
-  var authStatus = {allow: false}
-
-  var isAuth = function (callback) {
+  var isAuth = function (authPromise) {
     if (!!$window.localStorage.getItem('com.dronePass')) {
       return $http({
           method: 'GET',
@@ -129,20 +127,21 @@ angular.module('dronePass.services', [])
       })
       .then(function (res) {
         if(res.status === 200) {
-          authStatus.allow = true;
-        } 
-        return callback();
+          return authPromise.resolve();
+        } else {
+          return authPromise.reject();
+        }
       });
+    } else {
+      return authPromise.reject();
     }
-    authStatus.allow = false;
-    return callback();
+
   }; 
   
   return {
       signin: signin,
       signup: signup,
-      isAuth: isAuth,
-      authStatus: authStatus
+      isAuth: isAuth
    };
   })
   .factory('DroneCommunication', function () {
