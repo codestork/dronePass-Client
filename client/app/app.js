@@ -110,8 +110,7 @@ var dronePass = angular.module('dronePass', [
   // if it's not valid, we then redirect back to signin/signup
 
   $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-    event.preventDefault();
-    console.log('error')
+    console.log(error)
     $state.transitionTo('signin');
   });
   
