@@ -81,7 +81,7 @@ var dronePass = angular.module('dronePass', [
   };
   return attach;
 })
-.controller ('signout', function ($window, $scope, $http, $location) {
+.controller ('signout', function ($window, $scope, $http, $location, Auth) {
   $scope.signout = function () {
     $window.localStorage.removeItem('com.dronePass');
     return $http({
@@ -91,7 +91,9 @@ var dronePass = angular.module('dronePass', [
     })
     .then(function (res) {
       $location.path('/signin');
-      console.log('signed out');
+      Auth.isAuth(function () {
+        console.log('signed out')
+      })
     });  
   };
 })
@@ -105,10 +107,9 @@ var dronePass = angular.module('dronePass', [
   // if it's not valid, we then redirect back to signin/signup
 
   $rootScope.$on('$stateChangeStart', function (event, toState) {
-
-    if (toState.authenticate && !Auth.isAuth()) {
-      $state.transitionTo("signin");
-      event.preventDefault();
+    if (toState.authenticate && !Auth.authStatus.allow) {
+        $state.transitionTo("signin");
+        event.preventDefault();
     }
   });
 });

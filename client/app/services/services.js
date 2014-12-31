@@ -88,7 +88,7 @@ angular.module('dronePass.services', [])
     getProperties: getProperties,
   };
 })
-.factory('Auth', function ($http, $location, $window) {
+.factory('Auth', function ($http, $location, $window, AttachTokens) {
   // Don't touch this Auth service!!!
   // it is responsible for authenticating our user
   // by exchanging the user's username and password
@@ -114,18 +114,37 @@ angular.module('dronePass.services', [])
       data: user
     })
     .then(function (res) {
+      console.log(res)
       return res.data.token;
       });
   };
 
-  var isAuth = function () {
-    return !!$window.localStorage.getItem('com.dronePass');
-  };
+  var authStatus = {allow: false}
 
+  var isAuth = function (callback) {
+    if (!!$window.localStorage.getItem('com.dronePass')) {
+      return $http({
+          method: 'GET',
+          url: '/checkAuth',
+      })
+      .then(function (res) {
+        if(res.status === 200) {
+          authStatus.allow = true;
+        } 
+        console.log(authStatus.allow)
+        return callback();
+      });
+    }
+    authStatus.allow = false;
+    console.log(authStatus.allow)
+    return callback();
+  }; 
+  
   return {
       signin: signin,
       signup: signup,
       isAuth: isAuth,
+      authStatus: authStatus
    };
   })
   .factory('DroneCommunication', function () {
