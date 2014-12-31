@@ -128,7 +128,7 @@ angular.module('dronePass.services', [])
         .success(function (data, status, headers, config) {
           authDefer.resolve();
         })
-        .error( function (res) {
+        .error( function (data, status, headers, config) {
           authDefer.reject()
         });
     } else {
