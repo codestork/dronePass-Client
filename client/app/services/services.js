@@ -17,10 +17,9 @@ angular.module('dronePass.services', [])
   // registering a property
   // use mapbox geocoding to get the coordinates of a property using address entry
   //[v2] use click on map to add address
-  var registerAddress = function (address) {
+  var registerAddress = function (coordinates) {
     var addressRegistry = {
-      address: address,
-      userToken: userToken
+      coordinates: coordinates,
     };
     return $http({
       method: 'POST',
@@ -88,7 +87,7 @@ angular.module('dronePass.services', [])
     getProperties: getProperties,
   };
 })
-.factory('Auth', function ($http, $location, $window, AttachTokens) {
+.factory('Auth', function ($http, $location, $window) {
   // Don't touch this Auth service!!!
   // it is responsible for authenticating our user
   // by exchanging the user's username and password
@@ -129,7 +128,6 @@ angular.module('dronePass.services', [])
           authDefer.resolve();
         })
         .error( function (data, status, headers, config) {
-          console.log('err')
           authDefer.reject()
         });
     } else {
