@@ -136,8 +136,6 @@ angular.module('dronePass.services', [])
     }
 
   }; 
-
-  var 
   
   return {
       signin: signin,
