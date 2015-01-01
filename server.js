@@ -10,7 +10,6 @@ var cookieParser = require('cookie-parser');
 var util = require('./lib/utility');
 var authHandler = require('./lib/auth-request-handler');
 var parcelHandler = require('./lib/parcel-request-handler');
-var planner = require('./lib/dronePlannerQueries');
 var db = require('./db/config.js')
 var app = express();
 var port = process.env.PORT || 3000;
