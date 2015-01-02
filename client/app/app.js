@@ -9,7 +9,8 @@ var dronePass = angular.module('dronePass', [
   'dronePass.auth',
   'ngFx',
   'ui.router',
-  'leaflet-directive'
+  'leaflet-directive',
+  'btford.socket-io',
 ])
 
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
@@ -71,6 +72,10 @@ var dronePass = angular.module('dronePass', [
     });
 
     $httpProvider.interceptors.push('AttachTokens');
+})
+.
+factory('mySocket', function (socketFactory) {
+  return socketFactory();
 })
 .factory('AttachTokens', function ($window) {
   // this is an $httpInterceptor
