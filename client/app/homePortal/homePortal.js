@@ -146,7 +146,7 @@ angular.module('dronePass.homePortal', [])
     }
   }
 
-  setInterval($scope.getDroneCoordinates, 2000);
+  // setInterval($scope.getDroneCoordinates, 2000);
 
   /************** Address Selection ***************************/
   // Allows user to select address based on search, form entry, or click 

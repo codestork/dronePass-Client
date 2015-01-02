@@ -52,7 +52,7 @@ div.background a:hover, div.background a:focus, div.background a:active {
 .background{
   background: url('../assets/drone-in-sunset.jpg') no-repeat;
   background-size:100%;
-  height: 1096px; 
+  height: 1000px; 
   width: 1706px;
   margin: 0;
 }
