@@ -17,7 +17,6 @@ var knex = require('knex')({
 var bookshelf = require('bookshelf')(knex);
 module.exports = bookshelf;
 //Schema
-knex.schema.dropTable('restrictions')
 knex.schema.hasTable('users').then(function(exists) {
   if (!exists) {
     knex.schema.createTable('users', function (user) {
@@ -32,29 +31,16 @@ knex.schema.hasTable('users').then(function(exists) {
   }
 });
 
-
 knex.schema.hasTable('parcelData').then(function(exists) {
   if (!exists) {
     knex.schema.createTable('parcelData', function (parcel) {
-      parcel.increments('parcel_gid').primary();
+      parcel.integer('gid').primary();
       parcel.integer('user_id').unsigned().references('users.user_id');
-      parcel.integer('gid').unique();
       parcel.json('lot_geom');
-      parcel.integer('restrictionHeight');
-      parcel.integer('srid')
-    }).then(function(table) {
-        console.log(table)
-      });
-  }
-});
-
-knex.schema.hasTable('restrictions').then(function(exists) {
-  if (!exists) {
-    knex.schema.createTable('restrictions', function (restriction) {
-      restriction.increments('restriction_id').primary();
-      restriction.integer('parcel_gid').unsigned().unique().references('parcelData.parcel_gid');
-      restriction.date('start_time');
-      restriction.time('duration');
+      parcel.integer('parcel_gid');
+      parcel.integer('restrictionHeight'); //v2
+      parcel.time('restriction_start_time');
+      parcel.time('restriction_end_time');
     }).then(function(table) {
         console.log(table)
       });
@@ -64,11 +50,11 @@ knex.schema.hasTable('restrictions').then(function(exists) {
 knex.schema.hasTable('restrictionExceptions').then(function(exists) {
   if (!exists) {
     knex.schema.createTable('restrictionExceptions', function (exception) {
-      exception.increments('exception_id').primary();
+      exception.integer('exception_id').primary();
       exception.integer('drone_id').unique()
-      exception.integer('parcel_gid').unique().unsigned().references('parcelData.parcel_gid');
-      exception.date('start_time');
-      exception.time('duration');
+      exception.integer('parcel_gid').unique().references('parcelData.parcel_gid');
+      exception.time('exception_start_time');
+      exception.time('exception_end_time');
     }).then(function(table) {
         console.log(table)
       });
@@ -78,5 +64,4 @@ knex.schema.hasTable('restrictionExceptions').then(function(exists) {
 // For Quick drop of tables
 // knex.schema.dropTable('users').then(function(){console.log('hi')})
 // knex.schema.dropTable('parcelData').then(function(){console.log('hi')})
-// knex.schema.dropTable('restrictions').then(function(){console.log('hi')})
 // knex.schema.dropTable('restrictionExceptions').then(function(){console.log('hi')})
