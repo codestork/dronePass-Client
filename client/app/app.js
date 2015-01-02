@@ -2,12 +2,15 @@
 *  Setup for app main and ui-router routes *
 *******************************************/
 var dronePass = angular.module('dronePass', [
-  'dronePass.services',
+  'dronePass.authServices',
+  'dronePass.droneSimulator',
+  'dronePass.propertyInfo',
   'dronePass.homePortal',
   'dronePass.auth',
   'ngFx',
   'ui.router',
-  'leaflet-directive'
+  'leaflet-directive',
+  'btford.socket-io',
 ])
 
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
@@ -69,6 +72,10 @@ var dronePass = angular.module('dronePass', [
     });
 
     $httpProvider.interceptors.push('AttachTokens');
+})
+.
+factory('mySocket', function (socketFactory) {
+  return socketFactory();
 })
 .factory('AttachTokens', function ($window) {
   // this is an $httpInterceptor
