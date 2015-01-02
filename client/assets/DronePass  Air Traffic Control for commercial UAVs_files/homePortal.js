@@ -1,6 +1,6 @@
 angular.module('dronePass.homePortal', [])
 
-.controller('HomePortalController', function ($scope, $http, leafletData, PropertyInfo, DroneSimulator, $q) { 
+.controller('HomePortalController', function ($scope, $http, leafletData, PropertyInfo, DroneSimulator) { 
   $scope.addresses = PropertyInfo.addresses;
 
   angular.extend($scope, {
@@ -75,54 +75,42 @@ angular.module('dronePass.homePortal', [])
     }
   }
 
-  $scope.getDroneCoordinates = function () {
-    // Test
-    //var droneSims = DroneSimulator.getDroneCoordinates($scope.xxx, $scope.yyy);
-    // $scope.xxx = -121.91;
-    // $scope.yyy = 37.65;
-    //   setInterval(function (){
-    //   $scope.xxx += .001;
-    //   $scope.yyy += .001;
-    // },2000 )
+  $scope.getDronePositions = function () {
+    // var droneSims = DroneSimulator.getDroneCoordinates();
+    var droneSims = DroneSimulator.getDroneCoordinates($scope.xxx, $scope.yyy);
 
-    var deferred = $q.defer()
 
-    deferred.promise.then(function () {
-      return DroneSimulator.getDroneCoordinates();
-    }).then(function(droneSims){
-      console.log(droneSims)
-      for (var droneSimID in droneSims) {
-          if ($scope.drones[droneSimID]) {
-              $scope.drones[droneSimID] = droneSims[droneSimID];
-        } else {
-          $scope.beginDroneFlight(droneSimID, droneSims[droneSimID])
-          }
-      }
-
-      for (var drone in $scope.drones) {
-        if (!droneSims[drone]) {
-          $scope.endDroneFlight(drone);
+    for (var droneSimID in droneSims) {
+        if ($scope.drones[droneSimID]) {
+            $scope.drones[droneSimID] = droneSims[droneSimID];
+      } else {
+        $scope.beginDroneFlight(droneSimID, droneSims[droneSimID])
         }
-      }
-    }).then(function(){
-      $scope.renderDronePositions()
-    })
+    }
 
-    deferred.resolve();
-  };
-  
-  $scope.renderDronePositions = function () {
-    for (var i = 0; i < $scope.featureCollection.length; i++) {
-      if ($scope.featureCollection[i].properties.figure === 'drone') {
-        var id = $scope.featureCollection[i].properties.droneID;
-        $scope.featureCollection[i].geometry = $scope.drones[id];
-        console.log($scope.drones[id]);
+    for (var drone in $scope.drones) {
+      if (!droneSims[drone]) {
+        $scope.endDroneFlight(drone);
       }
     }
-  }
+    setTimeout (function () {
+      for (var i = 0; i < $scope.featureCollection.length; i++) {
+        if ($scope.featureCollection[i].properties.figure === 'drone') {
+          var id = $scope.featureCollection[i].properties.droneID;
+          $scope.featureCollection[i].geometry = $scope.drones[id];
+          console.log($scope.drones[id]);
+        }
+      }
+    }, 4000)
 
-  setInterval($scope.getDroneCoordinates, 2000);
-
+  };
+  $scope.xxx = -121.91;
+  $scope.yyy = 37.65;
+  setInterval($scope.getDronePositions, 2000);
+  setInterval(function (){
+    $scope.xxx += .01;
+    $scope.yyy += .01;
+  },2000 )
   /************** Address Selection ***************************/
   // Allows user to select address based on search, form entry, or click 
   $scope.selectedCoordinates =[];
