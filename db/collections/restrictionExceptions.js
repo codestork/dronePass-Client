@@ -5,4 +5,4 @@ var RestrictionExceptions = new db.Collection();
 
 RestrictionExceptions.model = RestrictionException;
 
-module.exports = RestrictionExceptions;
+module.exports = RestrictionExceptions
