@@ -29,6 +29,31 @@ angular.module('dronePass.homePortal', [])
       data: {
         "type": "FeatureCollection",
         "features": []
+        // {
+        //   "type": "Feature",
+        //   "properties": {id: 1, user: 'liz', permission: 0},
+        //   "geometry": {
+        //     "type":"MultiPolygon",
+        //     "coordinates":[[
+        //       [[ -121.07539899754, 37.6653423600288],
+        //       [-122.075814597179, 38.665224522955],
+        //       [-122.075508328885, 37.6654469910699],
+        //       [ -121.07539899754, 37.6653423600288]]
+        //       ]]
+        //     }
+        //   },
+        //   {
+        //     "type": "Feature",
+        //     "properties": {id: 2, user: 'liz', permission: 0},
+        //     "geometry": {
+        //       "type":"MultiPolygon",
+        //       "coordinates":[[
+        //         [[ -123.07539899754, 37.662423600288],
+        //         [-126.075814597179, 38.675224522955],
+        //         [-122.075508928885, 37.6654469910699],
+        //         [ -123.07839899754, 37.6653423600288]]
+        //         ]]
+        //       }
       },
       style: {
         fillColor: "yellow",
