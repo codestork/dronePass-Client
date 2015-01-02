@@ -73,10 +73,6 @@ var dronePass = angular.module('dronePass', [
 
     $httpProvider.interceptors.push('AttachTokens');
 })
-.
-factory('mySocket', function (socketFactory) {
-  return socketFactory();
-})
 .factory('AttachTokens', function ($window) {
   // this is an $httpInterceptor
   // its job is to stop all out going request
