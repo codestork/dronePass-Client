@@ -1,6 +1,6 @@
 angular.module('dronePass.droneSimulator', [])
 
-  .factory('DroneSimulator', function () {
+  .factory('DroneSimulator', function ($http) {
     var getDroneCoordinates = function () {
       return $http({
         method: 'GET',

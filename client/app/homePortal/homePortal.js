@@ -1,7 +1,6 @@
 angular.module('dronePass.homePortal', [])
 
 .controller('HomePortalController', function ($scope, $http, leafletData, PropertyInfo, DroneSimulator, $q) { 
-  $scope.addresses = PropertyInfo.addresses;
 
   angular.extend($scope, {
     center: {
@@ -17,6 +16,7 @@ angular.module('dronePass.homePortal', [])
         basemap: {
           name: 'Mapbox map',
           type: 'xyz',
+          zIndex: -20,
           url: 'http://api.tiles.mapbox.com/v4/lizport10.kiapnjfg/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibGl6cG9ydDEwIiwiYSI6IkNnaGZuam8ifQ.ytq8ZMrhPrnoWQsPnfkZMQ',
           layerOptions: {
             apikey: 'pk.eyJ1IjoibGl6cG9ydDEwIiwiYSI6IkNnaGZuam8ifQ.ytq8ZMrhPrnoWQsPnfkZMQ',
@@ -146,7 +146,7 @@ angular.module('dronePass.homePortal', [])
     }
   }
 
-  setInterval($scope.getDroneCoordinates, 2000);
+  // setInterval($scope.getDroneCoordinates, 2000);
 
   /************** Address Selection ***************************/
   // Allows user to select address based on search, form entry, or click 
@@ -181,14 +181,26 @@ angular.module('dronePass.homePortal', [])
   //[ToDo]: Implement form entry option, and write database queries to account for all methods of entry
 
   /***************** Database Queries ***********************/
+  $scope.addresses = PropertyInfo.addresses;
 
-  // Registers an address
+  $scope.newAddress = {};
+
+  var formatAddress = function (addressObj) {
+    var addressString= "";
+    for (var addressInput in addressObj) {
+      addressString += addressObj[addressInput] + ", ";
+    }
+    return addressString.substring(addressString.length -2, 2);
+  }
+
   $scope.registerAddress = function () {
-    PropertyInfo.registerAddress($scope.selectedCoordinates)
+    var address = formatAddress($scope.newAddress);
+    PropertyInfo.registerAddress($scope.selectedCoordinates, address)
       .then(function(newAddressPolygon) {
-        $scope.geojson.data.features.push(newAddressPolygon);
+        $scope.featureCollection.push(newAddressPolygon);
       })
   };
+
 
   // deletes selectedAddress
   $scope.deleteAddress = function () {

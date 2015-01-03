@@ -17,9 +17,10 @@ angular.module('dronePass.propertyInfo', [])
   // registering a property
   // use mapbox geocoding to get the coordinates of a property using address entry
   //[v2] use click on map to add address
-  var registerAddress = function (coordinates) {
+  var registerAddress = function (coordinates, address) {
     var addressRegistry = {
       coordinates: coordinates,
+      addres: address,
     };
     return $http({
       method: 'POST',
