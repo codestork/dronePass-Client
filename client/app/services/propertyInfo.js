@@ -34,15 +34,11 @@ angular.module('dronePass.propertyInfo', [])
 
   };
   // removes an address from a user's list of homes
-  var removeAddress = function (address) {
-    var addressDeletion= {
-      address: address,
-      userToken: userToken
-    };
+  var removeAddress = function (gid) {
+    
     return $http({
       method: 'DELETE',
-      url: '/deleteAddress',
-      data: addressDeletion
+      url: '/removeAddress/' + gid,
     })
     .then(function (res) {
       return res.data;

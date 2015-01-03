@@ -118,10 +118,9 @@
           </form>
         </ol>
         <li ng-click="listAddresses=!listAddresses"> Remove Address</li>
-          <ol ng-show="listPermissions" ng-repeat="address in data.addresses">
-            <li > {{address}}
-              <a ng-click="removeAddress()"> Remove Address</a>
-            </li>
+          <ol ng-show="listAddresses" ng-repeat="address in addresses">
+            <li > {{address.address}} </li>
+            <input ng-click="removeAddress(address)" type="submit" value="Remove Address" class="btn btn-default btn-raised white" >
           </ol>
       </ol>
     </div>
