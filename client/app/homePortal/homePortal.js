@@ -129,10 +129,12 @@ angular.module('dronePass.homePortal', [])
   // enables address search
   leafletData.getMap('map').then(function(map) {
    $scope.geoSearch = new L.Control.GeoSearch({
-      provider: new L.GeoSearch.Provider.OpenStreetMap()
+      provider: new L.GeoSearch.Provider.Google()
     });
    $scope.geoSearch.addTo(map);
   });
+
+
 
   // adds searched Coordinates to selected for DB query
   leafletData.getMap('map').then(function(map) {
@@ -147,7 +149,6 @@ angular.module('dronePass.homePortal', [])
       console.log($scope.selectedCoordinates)
     });
   });
-
 
   // lets user draw polygons on map
   leafletData.getMap('map').then(function(map) {
@@ -186,7 +187,6 @@ angular.module('dronePass.homePortal', [])
       "geometry": JSON.parse(registeredAddress.lot_geom)
     }
 
-    console.log( JSON.parse(registeredAddress.lot_geom));
     return newAddressPolygon;
   }
 
@@ -200,13 +200,25 @@ angular.module('dronePass.homePortal', [])
 
     PropertyInfo.registerAddress($scope.selectedCoordinates, address)
       .then(function(registeredAddress) {
-        $scope.addresses[registeredAddress.gid] = registeredAddress.address;
-        console.log($scope.addresses);
+        $scope.addresses[registeredAddress.gid] = registeredAddress;
         var newAddressPolygon = createAddressFeature(registeredAddress)
-        $scope.featureCollection.push(newAddressPolygon);
+        $scope.addFeature(newAddressPolygon);
       })
   };
 
+  $scope.getRegisteredAddresses = function () {
+    PropertyInfo.getRegisteredAddresses().then(function(userAddresses) {
+      if (userAddresses) {
+        for (var i = 0; i < userAddresses.length; i++) {
+          var newAddressPolygon = createAddressFeature(userAddresses[i]);
+          $scope.addFeature(newAddressPolygon);
+          $scope.addresses[userAddresses[i].gid] = userAddresses[i];
+        }
+      }
+    })
+  }
+
+  $scope.getRegisteredAddresses();
 
   // deletes selectedAddress
   $scope.deleteAddress = function () {
@@ -232,7 +244,7 @@ angular.module('dronePass.homePortal', [])
   $scope.getAddresses = function () {
     PropertyInfo.getAddresses().then(function (newAddressePolygons) {
       for (var j = 0; j < newAddressesPolygons.addressArray; j++) {
-       $scope.geojson.data.features.push(newAddressPolygons[a]);
+       $scope.addFeature(newAddressPolygons[a]);
       }
     });
   }

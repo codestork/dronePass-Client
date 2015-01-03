@@ -66,14 +66,11 @@ angular.module('dronePass.propertyInfo', [])
     });
   };
   // displays all homes for a user and the permissions set on each
-  var getProperties = function () {
-    var user = {
-      userToken: userToken
-    };
+  var getRegisteredAddresses = function () {
+
     return $http({
       method: 'GET',
-      url: '/getProperties',
-      data: user
+      url: '/getRegisteredAddresses',
     })
     .then(function (res) {
       return res.data;
@@ -85,6 +82,6 @@ angular.module('dronePass.propertyInfo', [])
     registerAddress: registerAddress,
     removeAddress: removeAddress,
     togglePermissions: togglePermissions,
-    getProperties: getProperties,
+    getRegisteredAddresses: getRegisteredAddresses
   };
 });
