@@ -17,9 +17,10 @@ angular.module('dronePass.propertyInfo', [])
   // registering a property
   // use mapbox geocoding to get the coordinates of a property using address entry
   //[v2] use click on map to add address
-  var registerAddress = function (coordinates) {
+  var registerAddress = function (coordinates, address) {
     var addressRegistry = {
       coordinates: coordinates,
+      address: address,
     };
     return $http({
       method: 'POST',
@@ -33,15 +34,11 @@ angular.module('dronePass.propertyInfo', [])
 
   };
   // removes an address from a user's list of homes
-  var removeAddress = function (address) {
-    var addressDeletion= {
-      address: address,
-      userToken: userToken
-    };
+  var removeAddress = function (gid) {
+    
     return $http({
       method: 'DELETE',
-      url: '/deleteAddress',
-      data: addressDeletion
+      url: '/removeAddress/' + gid,
     })
     .then(function (res) {
       return res.data;
@@ -49,30 +46,28 @@ angular.module('dronePass.propertyInfo', [])
   };
 
   // toggles flight path permissions for drones above a specific address
-  var togglePermissions = function (address, permission) {
+  var togglePermissions = function (address, restriction_start_time, restriction_end_time) {
     var permissionRegistry = {
-      address: address,
-      userToken: userToken,
-      permission: permission
+      parcel_gid: address.parcel_gid,
+      restriction_start_time: restriction_start_time,
+      restriction_end_time: restriction_end_time
     };
     return $http({
       method: 'POST',
-      url: '/togglePermission',
+      url: '/togglePermissions',
       data: permissionRegistry
     })
     .then(function (res) {
+      console.log(res.data);
       return res.data;
     });
   };
   // displays all homes for a user and the permissions set on each
-  var getProperties = function () {
-    var user = {
-      userToken: userToken
-    };
+  var getRegisteredAddresses = function () {
+
     return $http({
       method: 'GET',
-      url: '/getProperties',
-      data: user
+      url: '/getRegisteredAddresses',
     })
     .then(function (res) {
       return res.data;
@@ -84,6 +79,6 @@ angular.module('dronePass.propertyInfo', [])
     registerAddress: registerAddress,
     removeAddress: removeAddress,
     togglePermissions: togglePermissions,
-    getProperties: getProperties,
+    getRegisteredAddresses: getRegisteredAddresses
   };
 });

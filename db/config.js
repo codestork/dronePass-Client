@@ -34,11 +34,12 @@ knex.schema.hasTable('users').then(function(exists) {
 knex.schema.hasTable('parcelData').then(function(exists) {
   if (!exists) {
     knex.schema.createTable('parcelData', function (parcel) {
-      parcel.integer('gid').primary();
+      parcel.integer('gid').primary().unique();
       parcel.integer('user_id').unsigned().references('users.user_id');
+      parcel.string('address').unique();
       parcel.json('lot_geom');
-      parcel.integer('parcel_gid');
-      parcel.integer('restrictionHeight'); //v2
+      parcel.integer('parcel_gid').unique();
+      parcel.integer('restriction_height'); //v2
       parcel.time('restriction_start_time');
       parcel.time('restriction_end_time');
     }).then(function(table) {
