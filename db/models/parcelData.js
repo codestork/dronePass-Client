@@ -5,7 +5,7 @@ var bluebird = require('bluebird');
 var ParcelData = db.Model.extend({
   tableName: 'parcelData',
   defaults: {
-    restrictionHeight: 200
+    restriction_height: 200
   }
 });
 

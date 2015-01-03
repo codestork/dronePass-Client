@@ -20,7 +20,7 @@ angular.module('dronePass.propertyInfo', [])
   var registerAddress = function (coordinates, address) {
     var addressRegistry = {
       coordinates: coordinates,
-      addres: address,
+      address: address,
     };
     return $http({
       method: 'POST',

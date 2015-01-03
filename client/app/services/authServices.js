@@ -28,9 +28,8 @@ angular.module('dronePass.authServices', [])
       data: user
     })
     .then(function (res) {
-      console.log(res)
       return res.data.token;
-      });
+    });
   };
 
   var isAuth = function (authDefer) {

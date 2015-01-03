@@ -29,31 +29,6 @@ angular.module('dronePass.homePortal', [])
       data: {
         "type": "FeatureCollection",
         "features": []
-        // {
-        //   "type": "Feature",
-        //   "properties": {id: 1, user: 'liz', permission: 0},
-        //   "geometry": {
-        //     "type":"MultiPolygon",
-        //     "coordinates":[[
-        //       [[ -121.07539899754, 37.6653423600288],
-        //       [-122.075814597179, 38.665224522955],
-        //       [-122.075508328885, 37.6654469910699],
-        //       [ -121.07539899754, 37.6653423600288]]
-        //       ]]
-        //     }
-        //   },
-        //   {
-        //     "type": "Feature",
-        //     "properties": {id: 2, user: 'liz', permission: 0},
-        //     "geometry": {
-        //       "type":"MultiPolygon",
-        //       "coordinates":[[
-        //         [[ -123.07539899754, 37.662423600288],
-        //         [-126.075814597179, 38.675224522955],
-        //         [-122.075508928885, 37.6654469910699],
-        //         [ -123.07839899754, 37.6653423600288]]
-        //         ]]
-        //       }
       },
       style: {
         fillColor: "yellow",
@@ -153,13 +128,19 @@ angular.module('dronePass.homePortal', [])
   $scope.selectedCoordinates =[];
   // enables address search
   leafletData.getMap('map').then(function(map) {
-    new L.Control.GeoSearch({
+   $scope.geoSearch = new L.Control.GeoSearch({
       provider: new L.GeoSearch.Provider.OpenStreetMap()
-    }).addTo(map)
-    //.geosearch(PropertyInfo.addresses.centerZip);
+    });
+   $scope.geoSearch.addTo(map);
   });
 
   // adds searched Coordinates to selected for DB query
+  leafletData.getMap('map').then(function(map) {
+    map.on('geosearch_showlocation', function (result) {
+      $scope.selectedCoordinates = [result.Location.X, result.Location.Y]
+    });
+  });
+
   leafletData.getMap('map').then(function(map) {
     map.on('geosearch_showlocation', function (result) {
       $scope.selectedCoordinates = [result.Location.X, result.Location.Y]
@@ -181,22 +162,47 @@ angular.module('dronePass.homePortal', [])
   //[ToDo]: Implement form entry option, and write database queries to account for all methods of entry
 
   /***************** Database Queries ***********************/
-  $scope.addresses = PropertyInfo.addresses;
+  $scope.addresses = {};
 
   $scope.newAddress = {};
 
   var formatAddress = function (addressObj) {
     var addressString= "";
     for (var addressInput in addressObj) {
-      addressString += addressObj[addressInput] + ", ";
+      addressString = addressString + addressObj[addressInput] + ", ";
     }
-    return addressString.substring(addressString.length -2, 2);
+    return addressString.substring(0, addressString.length -2)
+  }
+
+  var createAddressFeature = function (registeredAddress) {
+
+    var newAddressPolygon = {
+      "type": "Feature",
+      "properties": {gid: registeredAddress.gid,
+                     parcel_gid: registeredAddress.parcel_gid,
+                     figure: 'address',
+                     restriction_start_time: registeredAddress.restriction_start_time,
+                     restriction_end_time: registeredAddress.restriction_end_time },
+      "geometry": JSON.parse(registeredAddress.lot_geom)
+    }
+
+    console.log( JSON.parse(registeredAddress.lot_geom));
+    return newAddressPolygon;
   }
 
   $scope.registerAddress = function () {
+
     var address = formatAddress($scope.newAddress);
+
+    leafletData.getMap('map').then(function(map) {
+      $scope.geoSearch.geosearch(address);
+    });
+
     PropertyInfo.registerAddress($scope.selectedCoordinates, address)
-      .then(function(newAddressPolygon) {
+      .then(function(registeredAddress) {
+        $scope.addresses[registeredAddress.gid] = registeredAddress.address;
+        console.log($scope.addresses);
+        var newAddressPolygon = createAddressFeature(registeredAddress)
         $scope.featureCollection.push(newAddressPolygon);
       })
   };
