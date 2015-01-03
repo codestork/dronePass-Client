@@ -28,6 +28,7 @@
     "angular-leaflet-directive": "~0.7.10",
     "font-awesome": "~4.2.0",
     "normalize.css": "~3.0.2",
-    "L.GeoSearch": "*"
+    "L.GeoSearch": "*",
+    "moment": "~2.8.4"
   }
 }

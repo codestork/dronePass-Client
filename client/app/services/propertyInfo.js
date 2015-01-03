@@ -50,18 +50,19 @@ angular.module('dronePass.propertyInfo', [])
   };
 
   // toggles flight path permissions for drones above a specific address
-  var togglePermissions = function (address, permission) {
+  var togglePermissions = function (address, restriction_start_time, restriction_end_time) {
     var permissionRegistry = {
-      address: address,
-      userToken: userToken,
-      permission: permission
+      parcel_gid: address.parcel_gid,
+      restriction_start_time: restriction_start_time,
+      restriction_end_time: restriction_end_time
     };
     return $http({
       method: 'POST',
-      url: '/togglePermission',
+      url: '/togglePermissions',
       data: permissionRegistry
     })
     .then(function (res) {
+      console.log(res.data);
       return res.data;
     });
   };
