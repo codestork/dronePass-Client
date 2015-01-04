@@ -99,7 +99,7 @@ var dronePass = angular.module('dronePass', [
       data: {}
     })
     .then(function (res) {
-      $state.transitionTo('signin');
+      $state.transitionTo('landingPage');
     });  
   };
 })

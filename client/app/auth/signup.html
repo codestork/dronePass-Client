@@ -1,6 +1,6 @@
 <div id='signup'>
   <h1>Sign Up</h1>
-  <form name="signupForm">
+  <form name="signupForm" ng-submit="signup()">
     <div class="group">
       <label>Email</label>
       <input type='email' ng-model='user.username' required>
@@ -26,7 +26,7 @@
       <span class="bar"></span>
     </div>
     <!-- To Do : Add zip to logic so as to center map around zip code -->
-    <button class="btn btn-default btn-raised white" ng-click='signup()'>Sign Up</button>
+    <input type="submit" value="Sign Up" class="btn btn-default btn-raised white" >
   </form>
   <a class="link" href="#/signin">Already have an account? <strong>Signin</strong> ...</a>
 </div>

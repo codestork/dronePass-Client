@@ -25,11 +25,11 @@ app.post('/signout', authHandler.signoutUser);
 app.get('/checkAuth', authHandler.checkAuth);
 app.delete('/removeUser', authHandler.removeUser);
 app.post('/registerAddress', parcelHandler.registerAddress);
-app.delete('/removeAddress', parcelHandler.removeAddress);
+app.delete('/removeAddress/:gid', parcelHandler.removeAddress);
 app.get('/getRegisteredAddresses', parcelHandler.getRegisteredAddresses);
 app.post('/togglePermissions', parcelHandler.togglePermissions);
 app.post('/setException', parcelHandler.setException);
-app.delete('/removeException', parcelHandler.removeException);
+app.delete('/removeException/:exceptionID', parcelHandler.removeException);
 app.get('/getExceptions', parcelHandler.getExceptions);
 
 app.listen(port);
