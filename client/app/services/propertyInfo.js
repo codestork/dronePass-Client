@@ -21,6 +21,8 @@ angular.module('dronePass.propertyInfo', [])
     var addressRegistry = {
       coordinates: coordinates,
       address: address,
+      restriction_end_time: null,
+      restriction_start_time: null
     };
     return $http({
       method: 'POST',
