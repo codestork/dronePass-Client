@@ -30,6 +30,7 @@
     "normalize.css": "~3.0.2",
     "L.GeoSearch": "*",
     "angular-socket-io": "~0.7.0",
-    "moment": "~2.8.4"
+    "moment": "~2.8.4",
+    "socket.io-client": "~1.2.1"
   }
 }
