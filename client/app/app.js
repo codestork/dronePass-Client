@@ -9,8 +9,7 @@ var dronePass = angular.module('dronePass', [
   'dronePass.auth',
   'ngFx',
   'ui.router',
-  'leaflet-directive',
-  'btford.socket-io',
+  'leaflet-directive'
 ])
 
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {

@@ -101,10 +101,18 @@ angular.module('dronePass.homePortal', [])
   $scope.drones = {}
   $scope.droneSimData = null;
   
-  socket.on('ReceiveCoordinatesEvent', function (ev, data) {
-    //format information received from denny
-    $scope.droneSimData = formattedCoordinates
-  }
+  DroneSimulator.on('update', function (ev, data) {
+    console.log(ev);
+    console.log(data);
+  })
+  // DroneSimulator.on('update', function (data) {
+  //   console.log(data);
+  //   //format information received from denny
+  //   $scope.droneSimData = formattedCoordinates
+  // })
+
+  // setInterval(function () {
+  //   DroneSimulator.emit('current', {})}, 1000);
 
   $scope.beginDroneFlight = function (droneID, droneData) {
     var newDrone = {
