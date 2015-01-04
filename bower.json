@@ -29,6 +29,8 @@
     "font-awesome": "~4.2.0",
     "normalize.css": "~3.0.2",
     "L.GeoSearch": "*",
-    "moment": "~2.8.4"
+    "angular-socket-io": "~0.7.0",
+    "moment": "~2.8.4",
+    "socket.io-client": "~1.2.1"
   }
 }

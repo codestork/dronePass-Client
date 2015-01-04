@@ -98,7 +98,17 @@ angular.module('dronePass.homePortal', [])
   }
   /***************** Drone Simulator ***********************/
 
-  $scope.drones = {}  
+  $scope.drones = {}
+  $scope.droneSimData = null;
+  
+  DroneSimulator.on('update', function (ev, data) {
+    console.log(ev);
+    console.log(data);
+    //$scope.droneSimData = formattedCoordinates
+  })
+
+  setInterval(function () {
+    DroneSimulator.emit('current', {})}, 1000);
 
   $scope.beginDroneFlight = function (droneID, droneData) {
     var newDrone = {
@@ -120,31 +130,20 @@ angular.module('dronePass.homePortal', [])
   }
 
   $scope.getDroneCoordinates = function () {
-    // Test
-    //var droneSims = DroneSimulator.getDroneCoordinates($scope.xxx, $scope.yyy);
-    // $scope.xxx = -121.91;
-    // $scope.yyy = 37.65;
-    //   setInterval(function (){
-    //   $scope.xxx += .001;
-    //   $scope.yyy += .001;
-    // },2000 )
 
     var deferred = $q.defer()
 
-    deferred.promise.then(function () {
-      return DroneSimulator.getDroneCoordinates();
-    }).then(function(droneSims){
-      console.log(droneSims)
-      for (var droneSimID in droneSims) {
+    deferred.promise.then(function(){
+      for (var droneSimID in $scope.droneSimData) {
           if ($scope.drones[droneSimID]) {
-              $scope.drones[droneSimID] = droneSims[droneSimID];
+              $scope.drones[droneSimID] = $scope.droneSimData[droneSimID];
         } else {
-          $scope.beginDroneFlight(droneSimID, droneSims[droneSimID])
+          $scope.beginDroneFlight(droneSimID, $scope.droneSimData[droneSimID])
           }
       }
 
       for (var drone in $scope.drones) {
-        if (!droneSims[drone]) {
+        if (!$scope.droneSimData[drone]) {
           $scope.endDroneFlight(drone);
         }
       }
