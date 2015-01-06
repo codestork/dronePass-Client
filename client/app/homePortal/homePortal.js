@@ -63,15 +63,15 @@ angular.module('dronePass.homePortal', [])
         return;
       }
     }
-      featureCollection.push(newFeature);
+    featureCollection.push(newFeature);
   };
 
   var renderPolygons = function (userAddresses) {
     for (var i = 0; i < userAddresses.length; i++) {
-          var newAddressPolygon = createAddressFeature(userAddresses[i]);
-          $scope.addFeature(newAddressPolygon, 'polygon');
-          $scope.addresses[userAddresses[i].gid] = userAddresses[i];
-        }
+      var newAddressPolygon = createAddressFeature(userAddresses[i]);
+      $scope.addFeature(newAddressPolygon, 'polygon');
+      $scope.addresses[userAddresses[i].gid] = userAddresses[i];
+    }
   }
 
   var formatAddress = function (addressObj) {
@@ -145,10 +145,9 @@ angular.module('dronePass.homePortal', [])
       }else {
         $scope.beginDroneFlight(droneData)
       }
-  // end drone function to be reconfigured once we get multple drones again
-      // for (var drones in droneData) {
-      //     // $scope.endDroneFlight(drone); 
-      //   }
+
+      // ToDo: Add event listener for end of drone Flight
+
     }).then(function(){
       $scope.renderDronePositions()
     })
