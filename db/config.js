@@ -34,7 +34,8 @@ knex.schema.hasTable('users').then(function(exists) {
 knex.schema.hasTable('parcelData').then(function(exists) {
   if (!exists) {
     knex.schema.createTable('parcelData', function (parcel) {
-      parcel.integer('gid').primary().unique();
+      parcel.increments('id').unique().primary();
+      parcel.integer('gid').unique()
       parcel.integer('user_id').unsigned().references('users.user_id');
       parcel.string('address').unique();
       parcel.json('lot_geom');
