@@ -53,8 +53,6 @@ var dronePass = angular.module('dronePass', [
       }
     })
     .state('homePortal', {
-      templateUrl: 'app/homePortal/homePortal.html',
-      controller: 'HomePortalController',
       url: '/homePortal',
       resolve: { 
         auth: ['Auth', '$q', function (Auth, $q) {
@@ -68,14 +66,19 @@ var dronePass = angular.module('dronePass', [
         leave: 'grow-out',
         ease: 'back',
         speed: 400
-      }
-    });
+      },
+     views: {
+         '': {
+           templateUrl: 'app/homePortal/homePortal.html',
+           controller: 'HomePortalController'
+         },
+         'states@HomePortal': {
+           templateUrl: 'app/homePortal/states.html'
+         }
+    }
+  });
 
     $httpProvider.interceptors.push('AttachTokens');
-})
-.
-factory('mySocket', function (socketFactory) {
-  return socketFactory();
 })
 .factory('AttachTokens', function ($window) {
   // this is an $httpInterceptor
@@ -103,7 +106,7 @@ factory('mySocket', function (socketFactory) {
       data: {}
     })
     .then(function (res) {
-      $state.transitionTo('signin');
+      $state.transitionTo('landingPage');
     });  
   };
 })

@@ -57,6 +57,27 @@ module.exports = function(grunt) {
       }
     },
 
+    wiredep: {
+
+      task: {
+
+        // Point to the files that should be updated when
+        // you run `grunt wiredep`
+        src: [
+          'app/views/**/*.html',   // .html support...
+          'app/styles/main.scss',  // .scss & .sass support...
+          '.travis.yml'         // and .yml & .yaml support out of the box!
+        ],
+
+        options: {
+          // See wiredep's configuration documentation for the options
+          // you may pass:
+
+          // https://github.com/taptapship/wiredep#configuration
+        }
+      } 
+  },
+
     cssmin: {
     },
     watch: {
@@ -96,6 +117,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-wiredep');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-mocha-test');

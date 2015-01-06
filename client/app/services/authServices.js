@@ -11,6 +11,7 @@ angular.module('dronePass.authServices', [])
   var signin = function (user) {
     return $http({
       method: 'POST',
+      dataType: 'json',
       url: '/signin',
       data: user
     })
@@ -22,13 +23,13 @@ angular.module('dronePass.authServices', [])
   var signup = function (user) {
     return $http({
       method: 'POST',
+      dataType: 'json',
       url: '/signup',
       data: user
     })
     .then(function (res) {
-      console.log(res)
       return res.data.token;
-      });
+    });
   };
 
   var isAuth = function (authDefer) {
