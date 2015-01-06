@@ -48,7 +48,7 @@ angular.module('dronePass.homePortal', [])
   });
    /***************** Utilities ***********************/
 
-  var featureCollection = $scope.geojson.data.features;
+  var featureCollection = $scope.featureCollection = $scope.geojson.data.features;
 
   $scope.addFeature = function (newFeature, type) {
     var id;
