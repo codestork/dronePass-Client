@@ -53,8 +53,6 @@ var dronePass = angular.module('dronePass', [
       }
     })
     .state('homePortal', {
-      templateUrl: 'app/homePortal/homePortal.html',
-      controller: 'HomePortalController',
       url: '/homePortal',
       resolve: { 
         auth: ['Auth', '$q', function (Auth, $q) {
@@ -68,8 +66,17 @@ var dronePass = angular.module('dronePass', [
         leave: 'grow-out',
         ease: 'back',
         speed: 400
-      }
-    });
+      },
+     views: {
+         '': {
+           templateUrl: 'app/homePortal/homePortal.html',
+           controller: 'HomePortalController'
+         },
+         'states@HomePortal': {
+           templateUrl: 'app/homePortal/states.html'
+         }
+    }
+  });
 
     $httpProvider.interceptors.push('AttachTokens');
 })
