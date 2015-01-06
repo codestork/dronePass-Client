@@ -1,20 +1,75 @@
 <div>
-  <container id="mapContainer">
 <!--   <div class="group addressSearch">
     <label class="addressSearch">Search Address</label>
     <input class="address" type="text" value="address" ng-model="address">
     <span class="highlight"></span>
   </div> -->
-  <leaflet id="map"center="center" controls="controls" overlays="overlays" geojson="geojson" paths="paths" layers="layers" markers="markers" event-broadcast="events">
-  </leaflet>
+  <container id="mapContainer">
+    <leaflet id="map"center="center" controls="controls" overlays="overlays" geojson="geojson" paths="paths" layers="layers" markers="markers" event-broadcast="events">
+    </leaflet>
   </container>
-
-<div id="ownerDashboard">
-    <ol>
-      <li ng-click="registerAddress()"> Register Address</li>
-      <li ng-click="removeAddress()"> Remove Address</li>
-      <li ng-click="togglePermission()"> Set Permission </li>
-    </ol>
+  <div id="ownerDashboard">
+      <ol>
+        <li ng-click="showAddressForm=!showAddressForm"> Register Address</li>
+          <form ng-submit="registerAddress()" name="addressRegistry" ng-show="showAddressForm">
+            <div class="group">
+              <label>Address Line 1</label>
+              <input type='text' ng-model='newAddress.line1' required>
+              <span class="highlight"></span>
+              <span class="bar"></span>
+            </div>
+            <div class="group">
+              <label>Address Line 2</label>
+              <input type='text' ng-model='newAddress.line2'>
+              <span class="highlight"></span>
+              <span class="bar"></span>
+            </div>
+            <div class="group">
+              <label>City</label>
+              <input type="text" ng-model='newAddress.city' required>
+              <span class="highlight"></span>
+              <span class="bar"></span>
+            </div>
+            <div class="group">
+              <label>State</label>
+              <select ui-view="states@HomePortal" autocomplete="on" name="State" ng-model="newAddress.state"  required>
+              </select>
+              <span class="highlight"></span>
+              <span class="bar"></span>
+            </div>
+            <div class="group">
+              <label>Zip</label>
+              <input type="number" ng-model='newAddress.zip' required>
+              <span class="highlight"></span>
+              <span class="bar"></span>
+            </div>
+            <input type="submit" value="Register Address" class="btn btn-default btn-raised white">
+          </form>
+        <li ng-click="listPermissions=!listPermissions"> Set Permission </li>
+        <ol ng-show="listPermissions" ng-repeat="address in addresses">
+          <li ng-click="ShowTimes=!ShowTimes"> {{address.address}} </li>
+          <form name="setPermission" ng-show="ShowTimes" ng-submit='togglePermissions(address, restriction_start_time, restriction_end_time)' >
+            <div class="group">
+              <label>Restriction start time</label>
+              <input type="time" ng-model='restriction_start_time' >
+              <span class="highlight"></span>
+              <span class="bar"></span>
+            </div>
+            <div class="group">
+              <label>Restriction end time</label>
+              <input type="time" ng-model='restriction_end_time'>
+              <span class="highlight"></span>
+              <span class="bar"></span>
+            </div>
+            <input type="submit" value="Set Restrictions for Drone Flight" class="btn btn-default btn-raised white" >
+            <input type="submit" ng-click = "restriction_start_time=null; restriction_end_time=null"value="Allow All Drones" class="btn btn-default btn-raised white">
+          </form>
+        </ol>
+        <li ng-click="listAddresses=!listAddresses"> Remove Address</li>
+          <ol ng-show="listAddresses" ng-repeat="address in addresses">
+            <li > {{address.address}} </li>
+            <input ng-click="removeAddress(address)" type="submit" value="Remove Address" class="btn btn-default btn-raised white" >
+          </ol>
+      </ol>
+    </div>
   </div>
-</div>
-

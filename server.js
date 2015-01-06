@@ -25,12 +25,12 @@ app.post('/signout', authHandler.signoutUser);
 app.get('/checkAuth', authHandler.checkAuth);
 app.delete('/removeUser', authHandler.removeUser);
 app.post('/registerAddress', parcelHandler.registerAddress);
-app.delete('/removeAddress', parcelHandler.removeAddress);
+app.delete('/removeAddress/:gid', parcelHandler.removeAddress);
 app.get('/getRegisteredAddresses', parcelHandler.getRegisteredAddresses);
-app.post('/togglePermissions', parcelHandler.togglePermissions);
-app.post('/setException', parcelHandler.setException);
-app.delete('/removeException', parcelHandler.removeException);
-app.get('/getExceptions', parcelHandler.getExceptions);
+app.post('/updatePermission', parcelHandler.updatePermission);
+app.post('/setExemption', parcelHandler.setExemption);
+app.delete('/removeExemption/:exemptionID', parcelHandler.removeExemption);
+app.get('/getExemptions', parcelHandler.getExemptions);
 
 app.listen(port);
 console.log('You are now logged into port ' + port);
