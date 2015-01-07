@@ -1,7 +1,6 @@
 angular.module('dronePass.homePortal', [])
 
 .controller('HomePortalController', function ($scope, $http, leafletData, PropertyInfo, DroneSimulator, $q) { 
-
   angular.extend($scope, {
     center: {
         lat:  37.65,
