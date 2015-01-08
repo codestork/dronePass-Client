@@ -5,7 +5,7 @@ angular.module('dronePass.homePortal', [])
     center: {
         lat:  37.65,
         lng: -121.91,
-        zoom: 12,
+        zoom: 10,
     },
     controls: {
       draw: {}
@@ -29,11 +29,11 @@ angular.module('dronePass.homePortal', [])
         "features": []
       },
       style: {
-        fillColor: "yellow",
-        weight: 4,
-        opacity: 1,
-        color: 'blue',
-        dashArray: '3',
+        fillColor: '#CC66FF',
+        weight: 3,
+        opacity: .8,
+        color: '#AB8ACC',
+        dashArray: '1',
         fillOpacity: 0.7
       }
     },
@@ -71,6 +71,9 @@ $rootScope.landing = true;
       var newAddressPolygon = createAddressFeature(userAddresses[i]);
       $scope.addFeature(newAddressPolygon, 'polygon');
       $scope.addresses[userAddresses[i].gid] = userAddresses[i];
+      if(i === 0) {
+        $scope.zoomToAddress(newAddressPolygon);
+      }
     }
   }
 
@@ -166,7 +169,6 @@ $rootScope.landing = true;
     }
   }
 
-  // setInterval($scope.getDroneCoordinates, 2000);
 
   /************** Address Selection ***************************/
   // Allows user to select address based on search, form entry, or click 
@@ -174,9 +176,10 @@ $rootScope.landing = true;
   // enables address search
   leafletData.getMap('map').then(function(map) {
    $scope.geoSearch = new L.Control.GeoSearch({
-      provider: new L.GeoSearch.Provider.Google()
+      provider: new L.GeoSearch.Provider.Google(),
     });
    $scope.geoSearch.addTo(map);
+   $scope.geoSearch._config.zoomLevel = 15;
   });
 
 
@@ -196,7 +199,7 @@ $rootScope.landing = true;
   });
 
   $scope.zoomToAddress = function (address) {
-    var coordinates = JSON.parse(address.lot_geom).coordinates[0][0][0]
+    var coordinates = address.geometry.coordinates[0][0][0]
     $scope.center = {
         lat: coordinates[1],
         lng: coordinates[0],
@@ -222,8 +225,8 @@ $rootScope.landing = true;
         $scope.selectedCoordinates = [result.Locations[0].X, result.Locations[0].Y];
         PropertyInfo.registerAddress($scope.selectedCoordinates, $scope.newAddress)
         .then(function(registeredAddress) {
-          $scope.addresses[registeredAddress.gid] = registeredAddress;
           var newAddressPolygon = createAddressFeature(registeredAddress)
+          $scope.addresses[registeredAddress.gid] = newAddressPolygon;
           $scope.addFeature(newAddressPolygon, 'polygon');
           $scope.zoomToAddress(newAddressPolygon);
         });
@@ -232,7 +235,11 @@ $rootScope.landing = true;
     }).then(function () {
       leafletData.getMap('map').then(function(map) {
         $scope.geoSearch.geosearch($scope.newAddress);
-    });
+    }).then(function () {
+      for (var addressLine in $scope.newAddress) {
+        $scope.newAddress[addressLine] = "";
+      }
+    })
     });
 
     deferred.resolve();
@@ -274,6 +281,8 @@ $rootScope.landing = true;
         $scope.addresses[updatedAddress.gid] = updatedAddress;
         var newAddressPolygon = createAddressFeature(updatedAddress);
         $scope.addFeature(newAddressPolygon, 'polygon');
+        $scope.restriction_start_time = "";
+        $scope.restriction_end_time = "";
       });
   }
 
