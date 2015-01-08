@@ -1,5 +1,72 @@
-<div class="background">
-  <h1 class="title">DronePass</h1>
-  <a class="landingPage" ui-sref="signin"><h2>Log In</h2></a>
-  <a class="landingPage" ui-sref="signup"><h2>Sign Up</h2><a>
+<div class="overlay">
+  <div class="row landing-heading">
+    <div class="col-md-9">
+      <h1 class="title">DronePass</h1>
+    </div>
+    <aside class="notify col-md-2">
+      <h4 class="balance-text">We’re hiring!</h4>
+      <a href="https://github.com/codestork">Find out more
+        <span class="glyphicon glyphicon-chevron-right" </span>
+      </a>
+    </aside>
+    <div class="col-md-1"></div>
+  </div>
+  <div class="row menu">
+    <div class="col-md-4" id="banner-text" class="carousel slide carousel-sync" data-interval="1000" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#banner-text" data-slide-to="0" class="active"></li>
+        <li data-target="#banner-text" data-slide-to="1"></li>
+        <li data-target="#banner-text" data-slide-to="2"></li>
+      </ol>
+      <div class="banner-text carousel-inner" >
+        <div class="active item one banner-text">
+          <h2> Find your drone </h2>
+          <h3> Track the drones over your neighborhood and anticipate upcoming deliveries</h3> 
+        </div>
+        <div  class="item two banner-text">
+          <h2> Manage your Airspace</h2>
+          <h3> Set the times when you want drones flying over your airspace with our seamless API</h3>
+        </div>
+        <div  class="item three banner-text">
+          <h2> Cut the FAA Lines </h2>
+          <h3> Let DronePass liaise with the FAA on your behalf to register your properties and set flight times</h3>
+        </div>
+      </div>
+    </div>
+    <div class='col-md-5'></div>
+    <nav class="navbar navbar-default landingPage col-md-3" role="navigation">
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav nav-stacked transparent">
+       <li><a href="#"><b>Home</b></a></li>
+        <li ><a ui-sref="signin">Sign In </a></li>
+        <li><a ui-sref="signup">Sign Up </a></li>
+        <li><a ui-sref="homePortal">Home Portal</a></li>
+        <!-- <li><a ui-sref="#">About</a></li>To do: Link to bottom of page -->
+      </ul>
+    </nav>
+  </div>
 </div>
+<div id="landing-page"class="carousel slide carousel-sync" data-interval="1000" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#landing-page" data-slide-to="0" class="active"></li>
+    <li data-target="#landing-page" data-slide-to="1"></li>
+    <li data-target="#landing-page" data-slide-to="2"></li>
+  </ol>
+  <div class="background carousel-inner" >
+    <div class="active item one background-image"></div>
+    <div class="item two background-image"></div>
+    <div class="item three background-image"></div>
+  </div>
+</div>
+<!-- ToDo: About DronePass -->
+
+
+<script type="text/javascript">
+var $ = jQuery.noConflict(); $(document).ready(function()  {
+ $('#banner-text, #landing-page').carousel({
+    interval: 4000,
+    pause: false,
+    cycle: true
+  });
+});
+</script>

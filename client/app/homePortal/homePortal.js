@@ -1,12 +1,11 @@
 angular.module('dronePass.homePortal', [])
 
-.controller('HomePortalController', function ($scope, $http, leafletData, PropertyInfo, DroneSimulator, $q) { 
-
+.controller('HomePortalController', function ($scope, $rootScope, $http, leafletData, PropertyInfo, DroneSimulator, $q) { 
   angular.extend($scope, {
     center: {
         lat:  37.65,
         lng: -121.91,
-        zoom: 12,
+        zoom: 10,
     },
     controls: {
       draw: {}
@@ -16,11 +15,10 @@ angular.module('dronePass.homePortal', [])
         basemap: {
           name: 'Mapbox map',
           type: 'xyz',
-          zIndex: -20,
           url: 'http://api.tiles.mapbox.com/v4/lizport10.kiapnjfg/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibGl6cG9ydDEwIiwiYSI6IkNnaGZuam8ifQ.ytq8ZMrhPrnoWQsPnfkZMQ',
           layerOptions: {
             apikey: 'pk.eyJ1IjoibGl6cG9ydDEwIiwiYSI6IkNnaGZuam8ifQ.ytq8ZMrhPrnoWQsPnfkZMQ',
-              mapid: 'lizport10.kiapnjfg'
+              mapid: 'lizport10.kiapnjfg',
           }
         }
       }
@@ -31,11 +29,11 @@ angular.module('dronePass.homePortal', [])
         "features": []
       },
       style: {
-        fillColor: "yellow",
-        weight: 4,
-        opacity: 1,
-        color: 'blue',
-        dashArray: '3',
+        fillColor: '#CC66FF',
+        weight: 3,
+        opacity: .8,
+        color: '#AB8ACC',
+        dashArray: '1',
         fillOpacity: 0.7
       }
     },
@@ -46,6 +44,8 @@ angular.module('dronePass.homePortal', [])
       }
     }
   });
+
+$rootScope.landing = true;
    /***************** Utilities ***********************/
 
   var featureCollection = $scope.featureCollection = $scope.geojson.data.features;
@@ -70,7 +70,10 @@ angular.module('dronePass.homePortal', [])
     for (var i = 0; i < userAddresses.length; i++) {
       var newAddressPolygon = createAddressFeature(userAddresses[i]);
       $scope.addFeature(newAddressPolygon, 'polygon');
-      $scope.addresses[userAddresses[i].gid] = userAddresses[i];
+      $scope.addresses[userAddresses[i].gid] = newAddressPolygon;
+      if(i === 0) {
+        $scope.zoomToAddress(newAddressPolygon);
+      }
     }
   }
 
@@ -86,14 +89,14 @@ angular.module('dronePass.homePortal', [])
     var newDrone = {
       "type": "Feature",
       "properties": {"droneID": droneData.callSign, "figure": "drone"},
+      "icon": 'assets/drone-icon.png',
       "geometry": {
         "type": "Point",
-        "coordinates": droneData.location
+        "coordinates": droneData.locationWGS84
       }
     }
     return newDrone;
   }
-
   var createAddressFeature = function (registeredAddress) {
 
     var newAddressPolygon = {
@@ -101,6 +104,7 @@ angular.module('dronePass.homePortal', [])
       "properties": {gid: registeredAddress.gid,
                      parcel_gid: registeredAddress.parcel_gid,
                      figure: 'address',
+                     address: registeredAddress.address,
                      restriction_start_time: registeredAddress.restriction_start_time,
                      restriction_end_time: registeredAddress.restriction_end_time },
       "geometry": JSON.parse(registeredAddress.lot_geom)
@@ -113,9 +117,9 @@ angular.module('dronePass.homePortal', [])
   $scope.drones = {}
   
   setInterval(function () {
-    DroneSimulator.emit('reportIn', {})}, 1000);
+    DroneSimulator.emit('CT_allDronesStates', {})}, 1000);
 
-  DroneSimulator.on('update', function (droneData) {
+  DroneSimulator.on('TC_update', function (droneData) {
     $scope.getDroneCoordinates(droneData);
   })
 
@@ -136,9 +140,10 @@ angular.module('dronePass.homePortal', [])
   }
 
   $scope.getDroneCoordinates = function (droneData) {
-
+    for (key in droneData) {
+      droneData = droneData[key];
+    }
     var deferred = $q.defer()
-
     deferred.promise.then(function(){
       if ($scope.drones[droneData.callSign]) {
         $scope.drones[droneData.callSign] = formatDrone(droneData)
@@ -164,7 +169,6 @@ angular.module('dronePass.homePortal', [])
     }
   }
 
-  // setInterval($scope.getDroneCoordinates, 2000);
 
   /************** Address Selection ***************************/
   // Allows user to select address based on search, form entry, or click 
@@ -172,14 +176,15 @@ angular.module('dronePass.homePortal', [])
   // enables address search
   leafletData.getMap('map').then(function(map) {
    $scope.geoSearch = new L.Control.GeoSearch({
-      provider: new L.GeoSearch.Provider.Google()
+      provider: new L.GeoSearch.Provider.Google(),
     });
    $scope.geoSearch.addTo(map);
+   $scope.geoSearch._config.zoomLevel = 15;
   });
+
 
   leafletData.getMap('map').then(function(map) {
     map.on('geosearch_showlocation', function (result) {
-      console.log('pin down')
     });
   });
 
@@ -193,6 +198,16 @@ angular.module('dronePass.homePortal', [])
     });
   });
 
+  $scope.zoomToAddress = function (address) {
+    var coordinates = address.geometry.coordinates[0][0][0]
+    $scope.center = {
+        lat: coordinates[1],
+        lng: coordinates[0],
+        zoom: 15
+    }
+  };
+
+
 
   /***************** Database Requests ***********************/
   $scope.addresses = {};
@@ -200,29 +215,31 @@ angular.module('dronePass.homePortal', [])
   $scope.newAddress = {};
 
   $scope.registerAddress = function () {
-    var deferred = $q.defer()
+    var newAddress = formatAddress($scope.newAddress);
+    var deferred = $q.defer();
     // refactor later;
-    deferred.promise.then(function(){
-      $scope.newAddress = formatAddress($scope.newAddress);
-    }).then(function(){
+    deferred.promise.then(function (){
       leafletData.getMap('map').then(function(map) {
         map.on('geosearch_foundlocations', function (result) {
         $scope.selectedCoordinates = [result.Locations[0].X, result.Locations[0].Y];
-        console.log($scope.selectedCoordinates);
-        console.log($scope.newAddress);
-        PropertyInfo.registerAddress($scope.selectedCoordinates, $scope.newAddress)
+        PropertyInfo.registerAddress($scope.selectedCoordinates, newAddress)
         .then(function(registeredAddress) {
-          $scope.addresses[registeredAddress.gid] = registeredAddress;
-          var newAddressPolygon = createAddressFeature(registeredAddress)
+          var newAddressPolygon = createAddressFeature(registeredAddress);
+          $scope.addresses[registeredAddress.gid] = newAddressPolygon;
+          console.log('what is being pushed to addresses',newAddressPolygon)
           $scope.addFeature(newAddressPolygon, 'polygon');
+          $scope.zoomToAddress(newAddressPolygon);
         });
         });
       });
     }).then(function () {
       leafletData.getMap('map').then(function(map) {
-        $scope.geoSearch.geosearch($scope.newAddress);
-    });
-    });
+        $scope.geoSearch.geosearch(newAddress);
+       });
+      for (var addressLine in $scope.newAddress) {
+        $scope.newAddress[addressLine] = "";
+      }
+    })
 
     deferred.resolve();
     
@@ -239,9 +256,9 @@ angular.module('dronePass.homePortal', [])
   $scope.getRegisteredAddresses();
 
   // deletes selectedAddress
+
   $scope.removeAddress = function (address) {
-    var gid = address.gid;
-    console.log(gid);
+    var gid = address.properties.gid;
     PropertyInfo.removeAddress(gid)
       .then(function() {
         delete $scope.addresses[gid];
@@ -253,15 +270,15 @@ angular.module('dronePass.homePortal', [])
       })
   }
 
-  $scope.togglePermissions = function (address, restriction_start_time, restriction_end_time) {
+  $scope.updatePermission = function (address, restriction_start_time, restriction_end_time) {
     if (restriction_end_time && restriction_start_time) {
       restriction_start_time= moment(restriction_start_time).format('hh:mm:ss')
       restriction_end_time= moment(restriction_end_time).format('hh:mm:ss')
     }
-    PropertyInfo.togglePermissions(address, restriction_start_time, restriction_end_time)
-      .then(function(toggledAddress) {
-        $scope.addresses[toggledAddress.gid] = toggledAddress;
-        var newAddressPolygon = createAddressFeature(toggledAddress);
+    PropertyInfo.updatePermission(address.properties, restriction_start_time, restriction_end_time)
+      .then(function(updatedAddress) {
+        var newAddressPolygon = createAddressFeature(updatedAddress);
+        $scope.addresses[updatedAddress.gid] = newAddressPolygon;
         $scope.addFeature(newAddressPolygon, 'polygon');
       });
   }
