@@ -1,19 +1,19 @@
 <div id='signin'>
-  <h1>Sign In</h1>
+  <div class="indentLeft">
+  <h1 class="title">DronePass</h1>
   <form name="signinForm" ng-submit='signin()'>
     <div class="group">
-      <label>Email</label>
-      <input type='email' ng-model='user.username' required>
+      <input type='email' placeholder="email" ng-model='user.username' required>
       <span class="highlight"></span>
       <span class="bar"></span>
     </div>
     <div class="group">
-      <label>Password</label>
-      <input type="password" ng-model='user.password' required>
+      <input type="password" placeholder="password" ng-model='user.password' required>
       <span class="highlight"></span>
       <span class="bar"></span>
     </div>
     <input type="submit" value="Sign In" class="btn btn-default btn-raised white">
   </form>
   <a class="link" href="#/signup">Don't have an account? <strong>Signup</strong> ...</a>
+  </div>
 </div>

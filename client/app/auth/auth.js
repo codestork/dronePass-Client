@@ -1,7 +1,8 @@
 angular.module('dronePass.auth', [])
 
-.controller('AuthController', function ($scope, $window, $state, PropertyInfo, Auth) {
+.controller('AuthController', function ($scope, $rootScope, $window, $state, PropertyInfo, Auth) {
   $scope.user = {};
+  $rootScope.landing = true;
 
   $scope.signin = function () {
     // sign in function

@@ -1,6 +1,6 @@
 angular.module('dronePass.homePortal', [])
 
-.controller('HomePortalController', function ($scope, $http, leafletData, PropertyInfo, DroneSimulator, $q) { 
+.controller('HomePortalController', function ($scope, $rootScope, $http, leafletData, PropertyInfo, DroneSimulator, $q) { 
   angular.extend($scope, {
     center: {
         lat:  37.65,
@@ -45,6 +45,8 @@ angular.module('dronePass.homePortal', [])
       }
     }
   });
+
+$rootScope.landing = true;
    /***************** Utilities ***********************/
 
   var featureCollection = $scope.featureCollection = $scope.geojson.data.features;

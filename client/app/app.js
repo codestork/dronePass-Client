@@ -14,13 +14,18 @@ var dronePass = angular.module('dronePass', [
 ])
 
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
+  
   $urlRouterProvider.otherwise('/landingPage');
-
   $stateProvider
     .state('landingPage', {
       templateUrl: '/app/landingPage/landingPage.html',
       url: '/landingPage',
       authenticate: false,
+      resolve: { 
+        navbar: ['$rootScope', function ($rootScope) {
+          return $rootScope.landing = false;
+        }]
+      },
       animation: {
         enter: 'grow-in',
         leave: 'shrink-out',

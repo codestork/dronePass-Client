@@ -1,32 +1,25 @@
 <div id='signup'>
-  <h1>Sign Up</h1>
+<div class="indentLeft">
+  <h1 class="title">DronePass</h1>
+  <p class="subtitle">Manage your airspace interactions with drones</h1>
   <form name="signupForm" ng-submit="signup()">
     <div class="group">
-      <label>Email</label>
-      <input type='email' ng-model='user.username' required>
+      <input type='email' placeholder="email"ng-model='user.username' required>
       <span class="highlight"></span>
       <span class="bar"></span>
     </div>
     <div class="group">
-      <label>Name</label>
-      <input type='text' ng-model='user.name' required>
+      <input type='text' placeholder="name" ng-model='user.name' required>
       <span class="highlight"></span>
       <span class="bar"></span>
     </div>
     <div class="group">
-      <label>Password</label>
-      <input type="password" ng-model='user.password' required>
+      <input type="password" placeholder="password" ng-model='user.password' required>
       <span class="highlight"></span>
       <span class="bar"></span>
     </div>
-    <div class="group">
-      <label>Zip Code</label>
-      <input type="number" ng-model='user.zipCode'> 
-      <span class="highlight"></span>
-      <span class="bar"></span>
-    </div>
-    <!-- To Do : Add zip to logic so as to center map around zip code -->
     <input type="submit" value="Sign Up" class="btn btn-default btn-raised white" >
   </form>
   <a class="link" href="#/signin">Already have an account? <strong>Signin</strong> ...</a>
+  </div>
 </div>

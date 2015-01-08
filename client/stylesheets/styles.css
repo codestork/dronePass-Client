@@ -10,6 +10,7 @@ html, body {
   height: 100%;
   width: 100%;
   padding: 0;
+  position: relative;
   margin: 0;
   background-color: #F0F7FF;
 }
@@ -42,22 +43,28 @@ body {
 
 
 /*********** Main NavBar ***************/
+
+nav.main {
+  position: relative;
+  width: 100%;
+}
 nav.main div.navbar-collapse.collapse {
   float: right;
 }
-nav.main {
-  position: absolute;
+
+.navbar-brand.title {
+  font-family: 'Julius Sans One', sans-serif;
+  font-weight: bolder;
 }
 nav.navbar.main  a {
-  font-weight: bold;
-  font-size: 1.2em;
+  font-size: 16px;
   margin-left: 5px;
   color: white;
 }
 
 nav.navbar.navbar-default.main {
   margin-bottom: 0;
-  background-color: #D6A96D;
+  background-color: #680000;
 }
 
 /*************** Landing Page ******************/
@@ -104,14 +111,14 @@ nav.navbar.navbar-default.main {
   bottom: auto;
   top: 0px;
   overflow: hidden;
-  animation:move 4s ease alternate; /* Change this to alternate to stop the loop. */
-  -ms-animation:move 4s ease alternate;
-  -webkit-animation:move 4s ease alternate;
-  -0-animation:move 4s ease alternate;
-  -moz-animation:move 4s ease alternate;
+  animation:move 4s ease-out alternate; /* Change this to alternate to stop the loop. */
+  -ms-animation:move 4s ease-out alternate;
+  -webkit-animation:move 4s ease-out alternate;
+  -0-animation:move 4s ease-out alternate;
+  -moz-animation:move 4s ease-out alternate;
   position: absolute;
-  -webkit-filter: opacity(50%) brightness(0.5) blur(1px);
-  filter: opacity(50%) brightness(0.5);
+  -webkit-filter: opacity(70%) brightness(0.7);
+  filter: opacity(70%) brightness(0.7);
 }
 
 @-webkit-keyframes move {
@@ -271,6 +278,63 @@ ul.nav.nav-stacked.transparent a:hover {
   transition: padding .15s ease-out;
   -webkit-transition: padding .15s ease-out;
 }
+/********************* Login / Signup ********************/
+
+#signin, #signup {
+  width: 100%;
+  height: 100%;
+  font-size: 1.2em; 
+  background: url('../assets/phpljbxan.jpg') no-repeat;
+  background-size: 100%;
+  filter: opacity(70%) brightness(0.95);
+  -webkit-filter: opacity(70%) brightness(0.95);
+}
+
+#signin h1.title , #signup h1.title {
+  padding-top: 40px;
+  padding-left: 0;
+  text-align: left;
+  font-size: 48px;
+  text-shadow: 1px 1px 1px rgba(50, 50, 50, 0.5);
+}
+
+#signup p, #signup a, #singin a {
+  text-shadow: 1px 1px 1px rgba(50, 50, 50, 0.5);
+}
+
+
+form[name="signinForm"], form[name="signupForm"] {
+  text-align: left;
+}
+
+#signin .group > input, #signup .group > input{
+  display: block;
+  text-indent: 5px;
+}
+
+.indentLeft {
+  margin-left: 40px;
+}
+
+#signin a, #signup a {
+  text-align: left;
+  font-size: 14px;
+  display: block;
+  color: white;
+}
+
+#signin a:active, #signup a:active, #signin a:hover, #signup a:hover, #signin a:focus, #signup a:focus {
+  text-decoration: underline;
+  color: white;
+}
+
+#signup p {
+  text-align: left;
+  color: white;
+  display: block;
+  width: 40%;
+}
+
 /********************* Map ********************/
 .angular-leaflet-map {
   position: fixed;
@@ -281,27 +345,32 @@ ul.nav.nav-stacked.transparent a:hover {
 
 /************** Dashboard *************/
 
-.group{ 
-  position:relative; 
-  margin-bottom:45px; 
-}
 
-input{
+.group > input{
   font-size:18px;
   padding:10px 10px 10px 5px;
   display:block;
   margin-left: 0;
   width:300px;
   border:none;
-  border-bottom:1px solid #757575;
+  margin-top: 4px;
+  border-radius: 2px;
+
 }
 
+input[type="submit"] {
+  margin-left: auto;
+  margin-right: auto;
+}
 div.group.addressSearch {
   margin-top: 20px;
 }
 
 div.group {
-  margin-bottom: 20px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 2px;
 }
 input:focus{
   outline:none;
@@ -309,13 +378,6 @@ input:focus{
 
 a.link {
   color: black;
-}
-
-#signin, #signup {
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
-  font-size: 1.2em; 
 }
 
 .btn.btn-default.btn-raised.white {
