@@ -436,17 +436,35 @@ label.addressSearch {
   margin-right: 10px;
 }
 
+#ownerDashboard span.glyphicon {
+  float: right;
+}
+
 #ownerDashboard{
   position: absolute;
   margin-top: 10px;
   width: 20%;
   right: 0;
   top: 0;
+  color: black;
   box-sizing: border-box;
-  padding: 0;
   margin-right: 40px;
   z-index: 20;
-  background-color: #680000;
+  font-size: 12px;
+  padding: 0;
+  text-shadow: .5px .5px .5px rgba(50, 50, 50, 0.5);
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  background: rgb(95, 0, 0);
+  background: -moz-linear-gradient(90deg, rgb(95, 0, 0) 30%, rgb(104, 0, 0) 70%);
+  background: -webkit-linear-gradient(90deg, rgb(95, 0, 0) 30%, rgb(104, 0, 0) 70%);
+  background: -o-linear-gradient(90deg, rgb(95, 0, 0) 30%, rgb(104, 0, 0) 70%);
+  background: -ms-linear-gradient(90deg, rgb(95, 0, 0) 30%, rgb(104, 0, 0) 70%);
+  background: linear-gradient(0deg, rgb(95, 0, 0) 30%, rgb(104, 0, 0) 70%);
+  -webkit-box-shadow: 0px 2px 1px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    0px 2px 1px rgba(50, 50, 50, 0.75);
+  box-shadow:         0px 2px 1px rgba(50, 50, 50, 0.75);
 }
 
 img.leaflet-marker-icon.leaflet-zoom-animated.leaflet-clickable[tabindex="0"] {
@@ -454,39 +472,52 @@ img.leaflet-marker-icon.leaflet-zoom-animated.leaflet-clickable[tabindex="0"] {
 }
 #ownerDashboard .group > input{
   width: 95%;
+  margin-left: auto;
 }
 #ownerDashboard ol {
   padding: 0;
   margin: 0;
 }
 
-#ownerDashboard li{
+#ownerDashboard select {
+  display: block;
+}
+#ownerDashboard li.mainItem {
   display: inline-block;
   width: 100%;
   text-indent: 5px;
   padding: 10px;
   color: #680000;
   text-shadow: .5px .5px .5px rgba(50, 50, 50, 0.5);
-  -webkit-border-radius: 2px;
+  --webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
-  background: white;
-  background: -moz-linear-gradient(90deg, rgb(250, 250, 250) 30%, rgb(255, 254, 249) 70%);
-  background: -webkit-linear-gradient(90deg, rgb(250, 250, 250) 30%, rgb(255, 254, 249) 70%);
-  background: -o-linear-gradient(90deg, rgb(250, 250, 250) 30%, rgb(255, 254, 249) 70%);
-  background: -ms-linear-gradient(90deg, rgb(250, 250, 250) 30%, rgb(255, 254, 249) 70%);
-  background: linear-gradient(0deg, rgb(250, 250, 250) 30%, rgb(255, 254, 249) 70%);
+  background: rgb(226, 226, 226);
+  background: -moz-linear-gradient(90deg, rgb(230, 230, 230) 30%, rgb(255, 255, 255) 70%);
+  background: -webkit-linear-gradient(90deg, rgb(230, 230, 230) 30%, rgb(255, 255, 255) 70%);
+  background: -o-linear-gradient(90deg, rgb(230, 230, 230) 30%, rgb(255, 255, 255) 70%);
+  background: -ms-linear-gradient(90deg, rgb(230, 230, 230) 30%, rgb(255, 255, 255) 70%);
+  background: linear-gradient(0deg, rgb(230, 230, 230) 30%, rgb(255, 255, 255) 70%);
   -webkit-box-shadow: 1px 1px 1px rgba(50, 50, 50, 0.75);
   -moz-box-shadow:    1px 1px 1px rgba(50, 50, 50, 0.75);
   box-shadow:         1px 1px 1px rgba(50, 50, 50, 0.75);
 }
 
-#ownerDashboard li:hover {
 
+#ownerDashboard li:hover {
   border-top: 1px solid #ABD1EA;
   border-bottom: 1px solid #C6E8FF;
-
-
 }
 
+.group > input.register {
+  margin-left: auto;
+  font-size: 12px;
+  margin-right: auto;
+}
+
+.btn.register {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

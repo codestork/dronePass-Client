@@ -70,7 +70,7 @@ $rootScope.landing = true;
     for (var i = 0; i < userAddresses.length; i++) {
       var newAddressPolygon = createAddressFeature(userAddresses[i]);
       $scope.addFeature(newAddressPolygon, 'polygon');
-      $scope.addresses[userAddresses[i].gid] = userAddresses[i];
+      $scope.addresses[userAddresses[i].gid] = newAddressPolygon;
       if(i === 0) {
         $scope.zoomToAddress(newAddressPolygon);
       }
@@ -97,7 +97,7 @@ $rootScope.landing = true;
     }
     return newDrone;
   }
-
+  console.log($scope.addresses);
   var createAddressFeature = function (registeredAddress) {
 
     var newAddressPolygon = {
@@ -105,6 +105,7 @@ $rootScope.landing = true;
       "properties": {gid: registeredAddress.gid,
                      parcel_gid: registeredAddress.parcel_gid,
                      figure: 'address',
+                     address: registeredAddress.address,
                      restriction_start_time: registeredAddress.restriction_start_time,
                      restriction_end_time: registeredAddress.restriction_end_time },
       "geometry": JSON.parse(registeredAddress.lot_geom)
@@ -215,18 +216,18 @@ $rootScope.landing = true;
   $scope.newAddress = {};
 
   $scope.registerAddress = function () {
-    var deferred = $q.defer()
+    var newAddress = formatAddress($scope.newAddress);
+    var deferred = $q.defer();
     // refactor later;
-    deferred.promise.then(function(){
-      $scope.newAddress = formatAddress($scope.newAddress);
-    }).then(function(){
+    deferred.promise.then(function (){
       leafletData.getMap('map').then(function(map) {
         map.on('geosearch_foundlocations', function (result) {
         $scope.selectedCoordinates = [result.Locations[0].X, result.Locations[0].Y];
-        PropertyInfo.registerAddress($scope.selectedCoordinates, $scope.newAddress)
+        PropertyInfo.registerAddress($scope.selectedCoordinates, newAddress)
         .then(function(registeredAddress) {
-          var newAddressPolygon = createAddressFeature(registeredAddress)
+          var newAddressPolygon = createAddressFeature(registeredAddress);
           $scope.addresses[registeredAddress.gid] = newAddressPolygon;
+          console.log('what is being pushed to addresses',newAddressPolygon)
           $scope.addFeature(newAddressPolygon, 'polygon');
           $scope.zoomToAddress(newAddressPolygon);
         });
@@ -234,13 +235,12 @@ $rootScope.landing = true;
       });
     }).then(function () {
       leafletData.getMap('map').then(function(map) {
-        $scope.geoSearch.geosearch($scope.newAddress);
-    }).then(function () {
+        $scope.geoSearch.geosearch(newAddress);
+       });
       for (var addressLine in $scope.newAddress) {
         $scope.newAddress[addressLine] = "";
       }
     })
-    });
 
     deferred.resolve();
     
@@ -259,7 +259,7 @@ $rootScope.landing = true;
   // deletes selectedAddress
 
   $scope.removeAddress = function (address) {
-    var gid = address.gid;
+    var gid = address.properties.gid;
     PropertyInfo.removeAddress(gid)
       .then(function() {
         delete $scope.addresses[gid];
@@ -276,13 +276,11 @@ $rootScope.landing = true;
       restriction_start_time= moment(restriction_start_time).format('hh:mm:ss')
       restriction_end_time= moment(restriction_end_time).format('hh:mm:ss')
     }
-    PropertyInfo.updatePermission(address, restriction_start_time, restriction_end_time)
+    PropertyInfo.updatePermission(address.properties, restriction_start_time, restriction_end_time)
       .then(function(updatedAddress) {
-        $scope.addresses[updatedAddress.gid] = updatedAddress;
         var newAddressPolygon = createAddressFeature(updatedAddress);
+        $scope.addresses[updatedAddress.gid] = newAddressPolygon;
         $scope.addFeature(newAddressPolygon, 'polygon');
-        $scope.restriction_start_time = "";
-        $scope.restriction_end_time = "";
       });
   }
 
