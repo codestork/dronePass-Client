@@ -22,13 +22,14 @@
                 <span class="bar"></span>
               </div>
               <div class="group">
+                <label name"state">State</label>
                 <select class="register" ui-view="states@HomePortal" placeholder="state" autocomplete="on" name="State" ng-model="newAddress.state"  required>
                 </select>
                 <span class="highlight"></span>
                 <span class="bar"></span>
               </div>
               <div class="group">
-                <input class="register" type="number" placeholder="Zip Code" ng-model='newAddress.zip' required>
+                <input class="register zip" type="number" placeholder="Zip Code" ng-model='newAddress.zip' required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
               </div>
@@ -36,28 +37,29 @@
             </form>
           <li class="list-group-item mainItem" ng-click="listPermissions=!listPermissions"> Set Permission <span class="glyphicon glyphicon-chevron-down"></span></li>
           <ol class="list group" ng-show="listPermissions" ng-repeat="address in addresses">
-            <li class="list-group-item" ng-click="ShowTimes=!ShowTimes; zoomToAddress(address)"> {{address.properties.address}} </li>
+            <li class="list-group-item addressSelect" ng-click="ShowTimes=!ShowTimes; zoomToAddress(address)"> {{address.properties.address}} <span class="glyphicon glyphicon-time"></span>
+            <!-- <button class="btn btn-fab btn-fab-mini btn-raised btn-sm btn-success"><i class="mdi-navigation-check"></i></button> -->
+            </li>
             <form name="setPermission" ng-show="ShowTimes" ng-submit='updatePermission(address, restriction_start_time, restriction_end_time)' >
-              <div class="group">
+              <div class="group time">
                 <label>Restriction start time</label>
                 <input type="time" ng-model='restriction_start_time' >
                 <span class="highlight"></span>
                 <span class="bar"></span>
               </div>
-              <div class="group">
+              <div class="group time">
                 <label>Restriction end time</label>
                 <input type="time" ng-model='restriction_end_time'>
                 <span class="highlight"></span>
                 <span class="bar"></span>
               </div>
-              <input type="submit" value="Set Restrictions for Drone Flight" class="btn btn-default btn-raised white" >
-              <input type="submit" ng-click = "restriction_start_time=null; restriction_end_time=null"value="Allow All Drones" class="btn btn-default btn-raised white">
+              <input type="submit" value="Set Restrictions" class="btn btn-default btn-raised white time" >
+              <input type="submit" ng-click = "restriction_start_time=null; restriction_end_time=null"value="Remove All Restrictions" class="btn btn-default btn-raised white time">
             </form>
           </ol>
           <li class="list-group-item mainItem" ng-click="listAddresses=!listAddresses"> Remove Address<span class="glyphicon glyphicon-chevron-down"></span></li>
             <ol  class="list group" ng-show="listAddresses" ng-repeat="address in addresses">
-              <li class="list-group-item" ng-click="ShowTimes=!ShowTimes; zoomToAddress(address)"> {{address.properties.address}} </li>
-              <input ng-click="removeAddress(address)" type="submit" value="Remove Address" class="btn btn-default btn-raised white" >
+              <li class="list-group-item addressSelect" ng-click="ShowTimes=!ShowTimes; zoomToAddress(address)"> {{address.properties.address}} <span ng-click="removeAddress(address)" class="glyphicon glyphicon-remove-circle"></span></li>
             </ol>
         </ol>
       </div>

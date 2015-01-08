@@ -97,7 +97,6 @@ $rootScope.landing = true;
     }
     return newDrone;
   }
-  console.log($scope.addresses);
   var createAddressFeature = function (registeredAddress) {
 
     var newAddressPolygon = {

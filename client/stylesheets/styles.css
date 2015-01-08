@@ -439,7 +439,15 @@ label.addressSearch {
 #ownerDashboard span.glyphicon {
   float: right;
 }
-
+input[type="submit"].time {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-align: center;
+  text-indent: none;
+  padding: 5px 0;
+}
 #ownerDashboard{
   position: absolute;
   margin-top: 10px;
@@ -474,11 +482,23 @@ img.leaflet-marker-icon.leaflet-zoom-animated.leaflet-clickable[tabindex="0"] {
   width: 95%;
   margin-left: auto;
 }
+
+#ownerDashboard .group > input {
+  height: 25px;
+}
 #ownerDashboard ol {
   padding: 0;
   margin: 0;
 }
 
+.list-group-item.addressSelect {
+  font-size: 11px;
+}
+#ownerDashboard label{
+  color: white;
+  text-indent: 5px;
+  font-weight: normal;
+}
 #ownerDashboard select {
   display: block;
 }
@@ -513,6 +533,26 @@ img.leaflet-marker-icon.leaflet-zoom-animated.leaflet-clickable[tabindex="0"] {
   margin-left: auto;
   font-size: 12px;
   margin-right: auto;
+}
+
+#ownerDashboard .group > input.register.zip {
+  padding: 0;
+  text-indent: 5px;
+  display: block;
+}
+
+#ownerDashboard .group > input[type="time"]{
+  margin-left: 5px;
+  width: 70%;
+  display: block;
+  font-size: 12px;
+}
+
+#ownerDashboard .group > select {
+  margin-left: 5px;
+  display: block;
+  font-size: 12px;
+  height: 25px;
 }
 
 .btn.register {
