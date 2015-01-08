@@ -3,8 +3,8 @@
     <leaflet id="map"center="center" controls="controls" overlays="overlays" geojson="geojson" paths="paths" layers="layers" markers="markers" event-broadcast="events">
     </leaflet>
     <div id="ownerDashboard">
-        <ol>
-          <li ng-click="showAddressForm=!showAddressForm"> Register Address</li>
+        <ol class="list group">
+          <li class="list-group-item" ng-click="showAddressForm=!showAddressForm"> Register Address</li>
             <form ng-submit="registerAddress()" name="addressRegistry" ng-show="showAddressForm">
               <div class="group">
                 <input type='text' placeholder="Address Line 1" ng-model='newAddress.line1' required>
@@ -34,9 +34,9 @@
               </div>
               <input type="submit" value="Register Address" class="btn btn-default btn-raised white">
             </form>
-          <li ng-click="listPermissions=!listPermissions"> Set Permission </li>
-          <ol ng-show="listPermissions" ng-repeat="address in addresses">
-            <li ng-click="ShowTimes=!ShowTimes"> {{address.address}} </li>
+          <li class="list-group-item" ng-click="listPermissions=!listPermissions"> Set Permission </li>
+          <ol class="list group" ng-show="listPermissions" ng-repeat="address in addresses">
+            <li class="list-group-item" ng-click="ShowTimes=!ShowTimes; zoomToAddress(address)"> {{address.address}} </li>
             <form name="setPermission" ng-show="ShowTimes" ng-submit='updatePermission(address, restriction_start_time, restriction_end_time)' >
               <div class="group">
                 <label>Restriction start time</label>
@@ -54,9 +54,9 @@
               <input type="submit" ng-click = "restriction_start_time=null; restriction_end_time=null"value="Allow All Drones" class="btn btn-default btn-raised white">
             </form>
           </ol>
-          <li ng-click="listAddresses=!listAddresses"> Remove Address</li>
-            <ol ng-show="listAddresses" ng-repeat="address in addresses">
-              <li > {{address.address}} </li>
+          <li class="list-group-item" ng-click="listAddresses=!listAddresses"> Remove Address</li>
+            <ol  class="list group" ng-show="listAddresses" ng-repeat="address in addresses">
+              <li class="list-group-item" ng-click="ShowTimes=!ShowTimes; zoomToAddress(address)"> {{address.address}} </li>
               <input ng-click="removeAddress(address)" type="submit" value="Remove Address" class="btn btn-default btn-raised white" >
             </ol>
         </ol>

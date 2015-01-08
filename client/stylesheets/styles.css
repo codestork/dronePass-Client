@@ -449,6 +449,9 @@ label.addressSearch {
   background-color: #680000;
 }
 
+img.leaflet-marker-icon.leaflet-zoom-animated.leaflet-clickable[tabindex="0"] {
+  height: 400px;
+}
 #ownerDashboard .group > input{
   width: 95%;
 }

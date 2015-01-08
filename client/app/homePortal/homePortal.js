@@ -15,11 +15,10 @@ angular.module('dronePass.homePortal', [])
         basemap: {
           name: 'Mapbox map',
           type: 'xyz',
-          zIndex: -20,
           url: 'http://api.tiles.mapbox.com/v4/lizport10.kiapnjfg/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibGl6cG9ydDEwIiwiYSI6IkNnaGZuam8ifQ.ytq8ZMrhPrnoWQsPnfkZMQ',
           layerOptions: {
             apikey: 'pk.eyJ1IjoibGl6cG9ydDEwIiwiYSI6IkNnaGZuam8ifQ.ytq8ZMrhPrnoWQsPnfkZMQ',
-              mapid: 'lizport10.kiapnjfg'
+              mapid: 'lizport10.kiapnjfg',
           }
         }
       }
@@ -87,9 +86,10 @@ $rootScope.landing = true;
     var newDrone = {
       "type": "Feature",
       "properties": {"droneID": droneData.callSign, "figure": "drone"},
+      "icon": 'assets/drone-icon.png',
       "geometry": {
         "type": "Point",
-        "coordinates": droneData.location
+        "coordinates": droneData.locationWGS84
       }
     }
     return newDrone;
@@ -114,7 +114,7 @@ $rootScope.landing = true;
   $scope.drones = {}
   
   setInterval(function () {
-    DroneSimulator.emit('CT_allDronesState', {})}, 1000);
+    DroneSimulator.emit('CT_allDronesStates', {})}, 1000);
 
   DroneSimulator.on('TC_update', function (droneData) {
     $scope.getDroneCoordinates(droneData);
@@ -141,7 +141,6 @@ $rootScope.landing = true;
       droneData = droneData[key];
     }
     var deferred = $q.defer()
-    console.log(droneData);
     deferred.promise.then(function(){
       if ($scope.drones[droneData.callSign]) {
         $scope.drones[droneData.callSign] = formatDrone(droneData)
@@ -180,9 +179,9 @@ $rootScope.landing = true;
    $scope.geoSearch.addTo(map);
   });
 
+
   leafletData.getMap('map').then(function(map) {
     map.on('geosearch_showlocation', function (result) {
-      console.log('pin down')
     });
   });
 
@@ -195,6 +194,16 @@ $rootScope.landing = true;
       console.log(JSON.stringify(layer.toGeoJSON()));
     });
   });
+
+  $scope.zoomToAddress = function (address) {
+    var coordinates = JSON.parse(address.lot_geom).coordinates[0][0][0]
+    $scope.center = {
+        lat: coordinates[1],
+        lng: coordinates[0],
+        zoom: 15
+    }
+  };
+
 
 
   /***************** Database Requests ***********************/
@@ -211,13 +220,12 @@ $rootScope.landing = true;
       leafletData.getMap('map').then(function(map) {
         map.on('geosearch_foundlocations', function (result) {
         $scope.selectedCoordinates = [result.Locations[0].X, result.Locations[0].Y];
-        console.log($scope.selectedCoordinates);
-        console.log($scope.newAddress);
         PropertyInfo.registerAddress($scope.selectedCoordinates, $scope.newAddress)
         .then(function(registeredAddress) {
           $scope.addresses[registeredAddress.gid] = registeredAddress;
           var newAddressPolygon = createAddressFeature(registeredAddress)
           $scope.addFeature(newAddressPolygon, 'polygon');
+          $scope.zoomToAddress(newAddressPolygon);
         });
         });
       });
@@ -245,7 +253,6 @@ $rootScope.landing = true;
 
   $scope.removeAddress = function (address) {
     var gid = address.gid;
-    console.log(gid);
     PropertyInfo.removeAddress(gid)
       .then(function() {
         delete $scope.addresses[gid];
