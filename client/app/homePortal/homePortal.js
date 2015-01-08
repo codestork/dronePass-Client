@@ -114,9 +114,9 @@ $rootScope.landing = true;
   $scope.drones = {}
   
   setInterval(function () {
-    DroneSimulator.emit('reportIn', {})}, 1000);
+    DroneSimulator.emit('CT_allDronesState', {})}, 1000);
 
-  DroneSimulator.on('update', function (droneData) {
+  DroneSimulator.on('TC_update', function (droneData) {
     $scope.getDroneCoordinates(droneData);
   })
 
@@ -137,9 +137,11 @@ $rootScope.landing = true;
   }
 
   $scope.getDroneCoordinates = function (droneData) {
-
+    for (key in droneData) {
+      droneData = droneData[key];
+    }
     var deferred = $q.defer()
-
+    console.log(droneData);
     deferred.promise.then(function(){
       if ($scope.drones[droneData.callSign]) {
         $scope.drones[droneData.callSign] = formatDrone(droneData)
@@ -240,6 +242,7 @@ $rootScope.landing = true;
   $scope.getRegisteredAddresses();
 
   // deletes selectedAddress
+
   $scope.removeAddress = function (address) {
     var gid = address.gid;
     console.log(gid);
@@ -254,15 +257,15 @@ $rootScope.landing = true;
       })
   }
 
-  $scope.togglePermissions = function (address, restriction_start_time, restriction_end_time) {
+  $scope.updatePermission = function (address, restriction_start_time, restriction_end_time) {
     if (restriction_end_time && restriction_start_time) {
       restriction_start_time= moment(restriction_start_time).format('hh:mm:ss')
       restriction_end_time= moment(restriction_end_time).format('hh:mm:ss')
     }
-    PropertyInfo.togglePermissions(address, restriction_start_time, restriction_end_time)
-      .then(function(toggledAddress) {
-        $scope.addresses[toggledAddress.gid] = toggledAddress;
-        var newAddressPolygon = createAddressFeature(toggledAddress);
+    PropertyInfo.updatePermission(address, restriction_start_time, restriction_end_time)
+      .then(function(updatedAddress) {
+        $scope.addresses[updatedAddress.gid] = updatedAddress;
+        var newAddressPolygon = createAddressFeature(updatedAddress);
         $scope.addFeature(newAddressPolygon, 'polygon');
       });
   }
