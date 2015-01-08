@@ -175,7 +175,8 @@ div.overlay a{
 
 div.overlay a:hover, div.overlay a:focus, div.overlay a:active {
   color: white;
-  text-decoration: underline;
+  -webkit-transform: translate(10px);
+  transform: translate(10px);
 }
 
 .carousel {
@@ -210,19 +211,6 @@ aside.notify.col-md-2 a {
   margin: 0 0;
   padding: 0;
 }
-
-aside.notify.col-md-2 a:hover {
-  text-decoration: none;
-  -webkit-transform: translate(10px);
-  transform: translate(10px);
-}
-
-.glyphicon-chevron-right:hover{
-  text-decoration: none;
-  -webkit-transform: translate(5px);
-  transform: translate(5px);
-}
-
 
 aside.notify {
   text-align: left;
@@ -275,10 +263,6 @@ ul.nav.nav-stacked.transparent a:hover {
   transform: translate(5px);
 }
 
-.glyphicon:hover, .glyphicon:focus, .glyphicon:active  {
-  transition: padding .15s ease-out;
-  -webkit-transition: padding .15s ease-out;
-}
 /********************* Login / Signup ********************/
 
 #signin, #signup {
@@ -325,8 +309,8 @@ form[name="signinForm"], form[name="signupForm"] {
 }
 
 #signin a:active, #signup a:active, #signin a:hover, #signup a:hover, #signin a:focus, #signup a:focus {
-  text-decoration: underline;
   color: white;
+  text-decoration: underline;
 }
 
 #signup p {
@@ -539,8 +523,8 @@ img.leaflet-marker-icon.leaflet-zoom-animated.leaflet-clickable[tabindex="0"] {
   padding: 0;
   text-indent: 5px;
   display: block;
+  width:;
 }
-
 #ownerDashboard .group > input[type="time"]{
   margin-left: 5px;
   width: 70%;
