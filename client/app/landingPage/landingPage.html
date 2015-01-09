@@ -1,18 +1,17 @@
 <div class="overlay">
-  <div class="row landing-heading">
-    <div class="col-md-9">
+  <div class="row">
+    <div class="col-md-8 col-xs-12 title">
       <h1 class="title">DronePass</h1>
     </div>
-    <aside class="notify col-md-2">
+    <aside class="notify col-md-4 col-xs-6">
       <h4 class="balance-text">We’re hiring!</h4>
       <a href="https://github.com/codestork">Find out more
-      <i class="mdi-navigation-chevron-right"> </i>
+        <i class="mdi-navigation-chevron-right"> </i>
       </a>
     </aside>
-    <div class="col-md-1"></div>
   </div>
   <div class="row menu">
-    <div class="col-md-4" id="banner-text" class="carousel slide carousel-sync" data-interval="1000" data-ride="carousel">
+    <div class="col-md-4 col-xs-6" id="banner-text" class="carousel slide carousel-sync" data-interval="1000" data-ride="carousel">
       <ol class="carousel-indicators">
         <li data-target="#banner-text" data-slide-to="0" class="active"></li>
         <li data-target="#banner-text" data-slide-to="1"></li>
@@ -33,19 +32,19 @@
         </div>
       </div>
     </div>
-    <div class='col-md-5'></div>
-    <nav class="navbar navbar-default landingPage col-md-3" role="navigation">
-      <div class="collapse navbar-collapse navbar-ex1-collapse">
-      <ul class="nav nav-stacked transparent">
+    <div class='col-xs-6 col-md-4'></div>
+    <div class="landingPage col-xs-6 col-md-4">
+      <ul class="transparent">
        <li><a href="#"><b>Home</b></a></li>
-        <li ><a ui-sref="signin">Sign In </a></li>
+        <li><a ui-sref="signin">Sign In </a></li>
         <li><a ui-sref="signup">Sign Up </a></li>
         <li><a ui-sref="homePortal">Home Portal</a></li>
-        <!-- <li><a ui-sref="#">About</a></li>To do: Link to bottom of page -->
+        <li><a href="https://github.com/codestork">About this Project</a></li>
       </ul>
-    </nav>
-  </div>
-</div>
+    </div>
+  </div> <!--row menu -->
+</div> <!-- overlay -->
+
 <div id="landing-page"class="carousel slide carousel-sync" data-interval="1000" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#landing-page" data-slide-to="0" class="active"></li>
@@ -58,8 +57,6 @@
     <div class="item three background-image"></div>
   </div>
 </div>
-<!-- ToDo: About DronePass -->
-
 
 <script type="text/javascript">
 var $ = jQuery.noConflict(); $(document).ready(function()  {

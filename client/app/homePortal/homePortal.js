@@ -8,7 +8,6 @@ angular.module('dronePass.homePortal', [])
         zoom: 10,
     },
     controls: {
-      draw: {}
     },
     layers: {
       baselayers: {
@@ -185,16 +184,6 @@ $rootScope.landing = true;
 
   leafletData.getMap('map').then(function(map) {
     map.on('geosearch_showlocation', function (result) {
-    });
-  });
-
-  // lets user draw polygons on map
-  leafletData.getMap('map').then(function(map) {
-      var drawnItems = $scope.controls.edit.featureGroup;
-      map.on('draw:created', function (e) {
-      var layer = e.layer;
-      drawnItems.addLayer(layer);
-      console.log(JSON.stringify(layer.toGeoJSON()));
     });
   });
 

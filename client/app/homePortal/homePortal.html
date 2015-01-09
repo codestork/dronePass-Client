@@ -5,7 +5,7 @@
     <div id="ownerDashboard">
         <ol class="list group">
           <li class="list-group-item mainItem" ng-click="showAddressForm=!showAddressForm"> Register Address<span class="glyphicon glyphicon-chevron-down"></span></li>
-            <form ng-submit="registerAddress()" name="addressRegistry" ng-show="showAddressForm">
+            <form ng-submit="registerAddress();showAddressForm=!showAddressForm" name="addressRegistry" ng-show="showAddressForm">
               <div class="group">
                 <input class="register"type='text' placeholder="Address Line 1" ng-model='newAddress.line1' required>
                 <span class="highlight"></span>
@@ -29,18 +29,26 @@
                 <span class="bar"></span>
               </div>
               <div class="group">
-                <input class="register zip" type="number" placeholder="Zip Code" ng-model='newAddress.zip' required>
+                <label name="zip">Zip Code</label>
+                <input class="register zip" type="number" ng-model='newAddress.zip' required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
               </div>
               <input type="submit" value="Register Address" class="btn btn-default btn-raised white register">
             </form>
-          <li class="list-group-item mainItem" ng-click="listPermissions=!listPermissions"> Set Permission <span class="glyphicon glyphicon-chevron-down"></span></li>
+          <li class="list-group-item mainItem" ng-click="listPermissions=!listPermissions"> Set Restriction Times <span class="glyphicon glyphicon-chevron-down"></span></li>
           <ol class="list group" ng-show="listPermissions" ng-repeat="address in addresses">
             <li class="list-group-item addressSelect" ng-click="ShowTimes=!ShowTimes; zoomToAddress(address)"> {{address.properties.address}} <span class="glyphicon glyphicon-time"></span>
             <!-- <button class="btn btn-fab btn-fab-mini btn-raised btn-sm btn-success"><i class="mdi-navigation-check"></i></button> -->
             </li>
-            <form name="setPermission" ng-show="ShowTimes" ng-submit='updatePermission(address, restriction_start_time, restriction_end_time)' >
+
+            <form name="setPermission" ng-show="ShowTimes" ng-submit="updatePermission(address, restriction_start_time, restriction_end_time);ShowTimes=!ShowTimes">
+            <div class="togglebutton">
+                <label>
+                  Set Restrictions
+                  <input type="checkbox" checked=""><span class="toggle"></span>
+                </label>
+              </div>
               <div class="group time">
                 <label>Restriction start time</label>
                 <input type="time" ng-model='restriction_start_time' >

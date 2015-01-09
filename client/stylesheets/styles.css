@@ -1,10 +1,13 @@
 
 /*********** Main ***************/
 html, body {
-  height: 100%;
   margin:0;
   padding:0;
+  width: auto;
+  overflow-x: hidden;
+  height: 100%;
 }
+
 
 .container-fluid.main{
   padding: 0;
@@ -15,102 +18,94 @@ html, body {
   margin: 0;
   background-color: transparent;
 }
-.clearfix:after {
-     visibility: hidden;
-     display: block;
-     font-size: 0;
-     content: " ";
-     clear: both;
-     height: 0;
-}
-
-*, :after, :before {
-  box-sizing: border-box;
-  webkit-padding-start: 0;
-  margin: 0;
-}
 
 body {
-  min-width: 320px;
   opacity: 1;
   webkit-transition: opacity .2s linear;
   transition: opacity .2s linear;
   font-family: open-sans,'Segoe WP','Segoe UI',Helvetica,Arial,sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.428571429;
   color: #373737;
   background-color: #fdfdfe;
 }
 
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
 
 /*********** Main NavBar ***************/
 
-nav.main {
-  position: relative;
-  width: 100%;
-}
 nav.main div.navbar-collapse.collapse {
   float: right;
+  padding: 0;
+}
+
+nav .container {
+  padding: 0;
+  margin-right: .6em;
+}
+
+nav.navbar.navbar-default.main {
+  margin-bottom: 0;
+  background-color: #680000;
+  position: relative;
+  width: 100%;
 }
 
 .navbar-brand.title {
   font-family: 'Julius Sans One', sans-serif;
   font-weight: bolder;
 }
-nav.navbar.main  a {
-  font-size: 16px;
-  margin-left: 5px;
-  color: white;
-}
 
-nav.navbar.navbar-default.main {
-  margin-bottom: 0;
-  background-color: #680000;
+nav.navbar.main  a {
+  font-size: 1.2em;
 }
 
 /*************** Landing Page ******************/
 
 .background.carousel-inner{
-  position: relative;
   height: 100%; 
   width: 100%;
+  min-height: 100%;
   margin: 0;
   overflow: hidden;
 }
-.item.banner-text > h2, .item.banner-text > h3 {
+
+.item.banner-text {
   text-align: left;
-  padding-left: 60px;
+  padding: 0 0 0 3.8em;
+  margin: 0;
 }
 
  .item.banner-text > h3 {
   font-weight: lighter;
  }
 
- .banner-text {
-  border-top: none;
- }
-.banner-text.carousel-inner {
+.carousel-inner {
   -webkit-transition: 2.5s ease-in-out left;
   -moz-transition:2.5s ease-in-out left;
   -o-transition: 2.5s ease-in-out left;
   transition: 2.5s ease-in-out left;
-  position: absolute;
+  position: relative;
 }
+
 .background.carousel-inner >.item {
-  width: 120%; height: 120%;
+  width: 110%;
+  height: 110%;
   -webkit-transition: 2.5s ease-in-out left;
   -moz-transition:2.5s ease-in-out left;
   -o-transition: 2.5s ease-in-out left;
   transition: 2.5s ease-in-out left;
-  -webkit-background-size: 100%; 
-  -moz-background-size: 100%;
-  -o-background-size: 100%;
-  background-size: 100%;
-  margin: 0px;
-  left: 0px;
+  -webkit-background-size: cover; 
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  margin: 0;
+  min-width: 100%;
+  left: 0;
   right: auto;
   bottom: auto;
-  top: 0px;
+  top: 0;
   overflow: hidden;
   animation:move 4s ease-out alternate; /* Change this to alternate to stop the loop. */
   -ms-animation:move 4s ease-out alternate;
@@ -139,9 +134,8 @@ nav.navbar.navbar-default.main {
   }
 }
 
-.overlay {
-  text-shadow: 1px 1px 1px rgba(50, 50, 50, 0.5);
-}
+
+
 .carousel-indicators {
   display: none;
 }
@@ -153,31 +147,33 @@ nav.navbar.navbar-default.main {
   left:0;
   width:100%;
   text-align:center;
+  text-shadow: .05em .05em .05em rgba(50, 50, 50, 0.5);
 }
-
 h1.title, a.landingPage{
-  padding-top: 40px;
   text-align: left;
-  padding-left: 50px;
-  color:white;
   margin: 0;
   font-weight: bolder;
-  font-size: 72px;
+  font-size: 4.5em;
   font-family: 'Julius Sans One', sans-serif;
+}
+
+div.title {
+  padding-top: 3em;
+  padding-left: 5em;
 }
 
 div.overlay a{
   display: inline;
   text-align: left;
-  font-size: 14px;
   color: white;
 }
 
 div.overlay a:hover, div.overlay a:focus, div.overlay a:active {
   color: white;
-  -webkit-transform: translate(10px);
-  transform: translate(10px);
+  -webkit-transform: translate(.6em);
+  transform: translate(.6em);
 }
+
 
 .carousel {
   height: 100%;
@@ -185,7 +181,6 @@ div.overlay a:hover, div.overlay a:focus, div.overlay a:active {
 
 .carousel .one {
   background: url('../assets/drone-in-sunset.jpg') no-repeat;
-
 }
 .carousel .two {
   background: url('../assets/parcelVis2.jpeg') no-repeat;
@@ -199,68 +194,59 @@ div.overlay a:hover, div.overlay a:focus, div.overlay a:active {
     z-index:2;
 }
 
-aside.notify h4 {
-  padding-top: 58px;
-}
-
-div.row.menu {
-  margin-top: 150px;
-}
-
-aside.notify.col-md-2 a {
-  margin: 0 0;
-  padding: 0;
+aside.notify.col-md-4 a {
+  margin: 0;
+  line-height: 1.5em;
+  font-size: 1.2em;
+  border-bottom: .1em solid #fdfdfe;
 }
 
 aside.notify {
   text-align: left;
-  border-bottom: 1px solid #fdfdfe;
-  margin: 0;
+  padding-left: 5em;
+  padding-top: 3em;
+}
+
+h4.balance-text {
   padding: 0;
 }
 
-.navbar.landingPage {
+div.landingPage {
   text-align: left;
-  margin-top: 25px;
-  padding-left: 0;
-  margin-left:0;
-  display: inline-block;
-  list-style-type: none;
+  padding: .6em 0 0 4.5em;
+  margin: 0;
   background-color: rgba(0, 0, 0, 0);
 }
 
-ul.nav.nav-stacked.transparent {
+ul.transparent {
   background-color: rgba(0, 0, 0, 0);
+  list-style-type: none;
   border-bottom: none;
   padding-left: 0;
   margin-left:0;
 }
 
-ul.nav.nav-stacked.transparent li {
+ul.transparent li {
+  text-decoration: none;
   text-align: left;
   padding-left: 0;
-  margin-left:-10px;
+  margin-left:-.6em;
 }
 
-.collapse.navbar-collapse.navbar-ex1-collapse {
-  padding-left: 0;
-  margin-left:0;
-}
-
-ul.nav.nav-stacked.transparent a{
-  text-align: left;
-  font-size: 18px;
-  margin-top: 8px;
-  line-height: 1px;
+ul.transparent > li > a{
+  font-size: 1.3em;
+  margin-top: .5em;
+  line-height: .05em;
   font-weight: lighter;
   display: inline-block;
 }
 
-ul.nav.nav-stacked.transparent a:hover {
-  border-right: 3px solid #fff;
+ul.transparent > li > a:hover {
+  border-right: 5px solid #fff;
   background-color: rgba(0, 0, 0, 0);
-  -webkit-transform: translate(5px);
-  transform: translate(5px);
+  -webkit-transform: translate(1em);
+  transform: translate(1em);
+  text-decoration: none;
 }
 
 /********************* Login / Signup ********************/
@@ -270,21 +256,25 @@ ul.nav.nav-stacked.transparent a:hover {
   height: 100%;
   font-size: 1.2em; 
   background: url('../assets/droneinFlight.jpg') no-repeat;
-  background-size: 100%;
+  -webkit-background-size: cover; 
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   filter: grayscale(100%);
   -webkit-filter: grayscale(100%);
 }
 
 #signin h1.title , #signup h1.title {
-  padding-top: 40px;
+  padding-top: 1.5em;
   padding-left: 0;
+  color: white;
   text-align: left;
-  font-size: 48px;
-  text-shadow: 1px 1px 1px rgba(50, 50, 50, 0.5);
+  font-size: 3em;
+  text-shadow: .05em .05em .05em rgba(50, 50, 50, 0.5);
 }
 
 #signup p, #signup a, #singin a {
-  text-shadow: 1px 1px 1px rgba(50, 50, 50, 0.5);
+  text-shadow: .05em .05em .05em rgba(50, 50, 50, 0.5);
 }
 
 
@@ -294,18 +284,20 @@ form[name="signinForm"], form[name="signupForm"] {
 
 #signin .group > input, #signup .group > input{
   display: block;
-  text-indent: 5px;
+  text-indent: .3em;
+  width: 25%;
+  margin-top: .5em;
 }
 
 .indentLeft {
-  margin-left: 40px;
+  margin-left: 2.5em;
 }
 
 #signin a, #signup a {
   text-align: left;
-  font-size: 14px;
   display: block;
   color: white;
+  font-size: 1.2em;
 }
 
 #signin a:active, #signup a:active, #signin a:hover, #signup a:hover, #signin a:focus, #signup a:focus {
@@ -313,11 +305,12 @@ form[name="signinForm"], form[name="signupForm"] {
   text-decoration: underline;
 }
 
-#signup p {
+#signup p.subtitle {
   text-align: left;
   color: white;
-  display: block;
-  width: 40%;
+  width: 100%;
+  font-size: 1.2em;
+  
 }
 
 #mapContainer {
@@ -343,14 +336,13 @@ form[name="signinForm"], form[name="signupForm"] {
 
 
 .group > input{
-  font-size:18px;
-  padding:10px 10px 10px 5px;
+  font-size:1.1em;
+  padding:.6em .6em .6em .3em;
   display:block;
   margin-left: 0;
-  width: 260px;
   border:none;
-  margin-top: 4px;
-  border-radius: 2px;
+  margin-top: .25em;
+  border-radius: .1em;
 
 }
 
@@ -359,20 +351,20 @@ input[type="submit"] {
   margin-right: auto;
 }
 div.group.addressSearch {
-  margin-top: 20px;
+  margin-top: 1.25em;
 }
 
 .leaflet-control-geosearch, .leaflet-control-geosearch ul {
 
-  font-size:12px;
-  padding:10px 10px 10px 5px;
+  font-size:.8em;
+  padding:.6em .6em .6em .3em;
   display:block;
   margin-left: auto;
   margin-right: auto;
   display: block;
   border:none;
-  margin-top: 4px;
-  border-radius: 2px;
+  margin-top: .25em;
+  border-radius: .1em;
 }
 
 .leaflet-control-geosearch.leaflet-control {
@@ -382,21 +374,23 @@ div.group.addressSearch {
 }
 
 #leaflet-control-geosearch-qry {
-  width:500px;
-  height: 25px;
-  text-indent: 5px;
-  border-radius: 2px;
+  width: 50%
+  height: 1.5em;
+  text-indent: .3em;
+  border-radius: .1em;
   border: none;
-  -webkit-box-shadow: 2px 2px 2px 0px gray;
-  -moz-box-shadow:    2px 2px 2px 0px gray;
-  box-shadow:         2px 2px 2px 0px gray;
+  -webkit-box-shadow: .1em .1em .1em 0 gray;
+  -moz-box-shadow:    .1em .1em .1em 0 gray;
+  box-shadow:         .1em .1em .1em 0 gray;
 }
+
+
 
 div.group {
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  border-radius: 2px;
+  border-radius: .1em;
 }
 input:focus{
   outline:none;
@@ -416,127 +410,127 @@ input.address {
 }
 
 label.addressSearch {
-  margin-left: 20px;
-  margin-right: 10px;
+  margin-left: 1.25em;
+  margin-right: .6em;
 }
 
 #ownerDashboard span.glyphicon {
   float: right;
 }
 input[type="submit"].time {
-  width: 95%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
   display: block;
   text-align: center;
   text-indent: none;
-  padding: 5px 0;
+  padding: .3em 0;
 }
 #ownerDashboard{
   position: absolute;
-  margin-top: 10px;
+  margin-top: .6em;
   width: 20%;
   right: 0;
   top: 0;
   color: black;
   box-sizing: border-box;
-  margin-right: 40px;
+  margin-right: 2.5em;
   z-index: 20;
-  font-size: 12px;
+  font-size: .8em;
   padding: 0;
-  text-shadow: .5px .5px .5px rgba(50, 50, 50, 0.5);
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
+  text-shadow: .03em .03em .03em rgba(50, 50, 50, 0.5);
+  -webkit-border-radius: .1em;
+  -moz-border-radius: .1em;
+  border-radius: .1em;
   background: rgb(95, 0, 0);
   background: -moz-linear-gradient(90deg, rgb(95, 0, 0) 30%, rgb(104, 0, 0) 70%);
   background: -webkit-linear-gradient(90deg, rgb(95, 0, 0) 30%, rgb(104, 0, 0) 70%);
   background: -o-linear-gradient(90deg, rgb(95, 0, 0) 30%, rgb(104, 0, 0) 70%);
   background: -ms-linear-gradient(90deg, rgb(95, 0, 0) 30%, rgb(104, 0, 0) 70%);
   background: linear-gradient(0deg, rgb(95, 0, 0) 30%, rgb(104, 0, 0) 70%);
-  -webkit-box-shadow: 0px 2px 1px rgba(50, 50, 50, 0.75);
-  -moz-box-shadow:    0px 2px 1px rgba(50, 50, 50, 0.75);
-  box-shadow:         0px 2px 1px rgba(50, 50, 50, 0.75);
+  -webkit-box-shadow: 0 .1em .05em rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    0 .1em .05em rgba(50, 50, 50, 0.75);
+  box-shadow:         0 .1em .05em rgba(50, 50, 50, 0.75);
 }
 
-img.leaflet-marker-icon.leaflet-zoom-animated.leaflet-clickable[tabindex="0"] {
-  height: 400px;
-}
 #ownerDashboard .group > input{
-  width: 95%;
+  width: 90%;
+  height: 1.5em;
   margin-left: auto;
+  margin-right: auto;
 }
 
-#ownerDashboard .group > input {
-  height: 25px;
-}
 #ownerDashboard ol {
   padding: 0;
   margin: 0;
 }
 
 .list-group-item.addressSelect {
-  font-size: 11px;
+  font-size: .9em;
 }
 #ownerDashboard label{
   color: white;
-  text-indent: 5px;
+  text-indent: .9em;
   font-weight: normal;
+  width: 30%;
+  display: inline-block;
 }
-#ownerDashboard select {
-  display: block;
-}
+
+
 #ownerDashboard li.mainItem {
   display: inline-block;
   width: 100%;
-  text-indent: 5px;
-  padding: 10px;
+  text-indent: .3em;
+  padding: .6em;
   color: #680000;
-  text-shadow: .5px .5px .5px rgba(50, 50, 50, 0.5);
-  --webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
+  text-shadow: .03em .03em .03em rgba(50, 50, 50, 0.5);
+  --webkit-border-radius: .1em;
+  -moz-border-radius: .1em;
+  border-radius: .1em;
   background: rgb(226, 226, 226);
   background: -moz-linear-gradient(90deg, rgb(230, 230, 230) 30%, rgb(255, 255, 255) 70%);
   background: -webkit-linear-gradient(90deg, rgb(230, 230, 230) 30%, rgb(255, 255, 255) 70%);
   background: -o-linear-gradient(90deg, rgb(230, 230, 230) 30%, rgb(255, 255, 255) 70%);
   background: -ms-linear-gradient(90deg, rgb(230, 230, 230) 30%, rgb(255, 255, 255) 70%);
   background: linear-gradient(0deg, rgb(230, 230, 230) 30%, rgb(255, 255, 255) 70%);
-  -webkit-box-shadow: 1px 1px 1px rgba(50, 50, 50, 0.75);
-  -moz-box-shadow:    1px 1px 1px rgba(50, 50, 50, 0.75);
-  box-shadow:         1px 1px 1px rgba(50, 50, 50, 0.75);
+  -webkit-box-shadow: .05em .05em .05em rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    .05em .05em .05em rgba(50, 50, 50, 0.75);
+  box-shadow:         .05em .05em .05em rgba(50, 50, 50, 0.75);
 }
 
 
 #ownerDashboard li:hover {
-  border-top: 1px solid #ABD1EA;
-  border-bottom: 1px solid #C6E8FF;
+  border-top: .05em solid #ABD1EA;
+  border-bottom: .05em solid #C6E8FF;
 }
 
 .group > input.register {
-  margin-left: auto;
-  font-size: 12px;
-  margin-right: auto;
+  margin-top: .6em;
+  font-size: .9em;
+}
+
+
+#ownerDashboard .group > input[type="time"]{
+  margin-left: .3em;
+  width: 70%;
+  display: block;
+  font-size: .9em;
+}
+
+#ownerDashboard .group > select {
+  margin-top: .6em;
+  display: inline-block;
+  font-size: .9em;
+  width: 63%;
+  height: 1.5em;
 }
 
 #ownerDashboard .group > input.register.zip {
   padding: 0;
-  text-indent: 5px;
-  display: block;
-  width:;
-}
-#ownerDashboard .group > input[type="time"]{
-  margin-left: 5px;
-  width: 70%;
-  display: block;
-  font-size: 12px;
-}
-
-#ownerDashboard .group > select {
-  margin-left: 5px;
-  display: block;
-  font-size: 12px;
-  height: 25px;
+  margin-top: .6em;
+  width: 63%;
+  text-indent: .3em;
+  display: inline-block;
 }
 
 .btn.register {
@@ -544,4 +538,3 @@ img.leaflet-marker-icon.leaflet-zoom-animated.leaflet-clickable[tabindex="0"] {
   margin-right: auto;
   display: block;
 }
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
