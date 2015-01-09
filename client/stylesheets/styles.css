@@ -59,8 +59,11 @@ nav.main div.navbar-collapse.collapse {
 }
 
 nav .container {
-  padding: 0;
-  margin-right: .6em;
+  padding: .5em 1em;
+  font-size: .8em;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 nav.navbar.navbar-default.main {
@@ -70,9 +73,10 @@ nav.navbar.navbar-default.main {
   width: 100%;
 }
 
-.navbar-brand.title {
+.navbar-header a.navbar-brand.title {
   font-family: 'Julius Sans One', sans-serif;
   font-weight: bolder;
+  font-size: 1.5em;
 }
 
 nav.navbar.main  a {
@@ -280,6 +284,10 @@ ul.transparent > li > a:hover {
   -webkit-filter: grayscale(100%);
 }
 
+a.link {
+  color: white;
+}
+
 #signin h1.title , #signup h1.title {
   padding-top: 1.5em;
   padding-left: 0;
@@ -291,8 +299,11 @@ ul.transparent > li > a:hover {
 
 #signup p, #signup a, #singin a {
   text-shadow: .05em .05em .05em rgba(50, 50, 50, 0.5);
+  font-size: 1em;
+  text-align: left;
+  display: block;
+  color: white;
 }
-
 
 form[name="signinForm"], form[name="signupForm"] {
   text-align: left;
@@ -301,19 +312,13 @@ form[name="signinForm"], form[name="signupForm"] {
 #signin .group > input, #signup .group > input{
   display: block;
   text-indent: .3em;
-  width: 25%;
+  width: 30%;
   margin-top: .5em;
+  font-size: .8em;
 }
 
 .indentLeft {
   margin-left: 2.5em;
-}
-
-#signin a, #signup a {
-  text-align: left;
-  display: block;
-  color: white;
-  font-size: 1.2em;
 }
 
 #signin a:active, #signup a:active, #signin a:hover, #signup a:hover, #signin a:focus, #signup a:focus {
@@ -408,10 +413,6 @@ div.group {
 }
 input:focus{
   outline:none;
-}
-
-a.link {
-  color: black;
 }
 
 .btn.btn-default.btn-raised.white {
