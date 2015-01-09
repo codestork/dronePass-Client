@@ -4,7 +4,7 @@ html, body {
   margin:0;
   padding:0;
   width: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   height: 100%;
 }
 
@@ -25,6 +25,7 @@ body {
   transition: opacity .2s linear;
   font-family: open-sans,'Segoe WP','Segoe UI',Helvetica,Arial,sans-serif;
   font-size: 16px;
+  min-width: 320px;
   line-height: 1.428571429;
   color: #373737;
   background-color: #fdfdfe;
@@ -32,6 +33,23 @@ body {
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
+/**** Bootstrap Overides ******/
+h2, .h2 {
+  font-size: 2em;
+}
+
+h3, .h3 {
+  font-size: 1.5em;
+}
+
+h4, .h4 {
+  font-size: 1.125em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
 
 /*********** Main NavBar ***************/
 
@@ -73,13 +91,13 @@ nav.navbar.main  a {
 
 .item.banner-text {
   text-align: left;
-  padding: 0 0 0 3.8em;
   margin: 0;
 }
 
- .item.banner-text > h3 {
+.banner-text h3{
+  margin-top: 1em;
   font-weight: lighter;
- }
+}
 
 .carousel-inner {
   -webkit-transition: 2.5s ease-in-out left;
@@ -134,8 +152,6 @@ nav.navbar.main  a {
   }
 }
 
-
-
 .carousel-indicators {
   display: none;
 }
@@ -149,17 +165,12 @@ nav.navbar.main  a {
   text-align:center;
   text-shadow: .05em .05em .05em rgba(50, 50, 50, 0.5);
 }
+
 h1.title, a.landingPage{
   text-align: left;
-  margin: 0;
   font-weight: bolder;
   font-size: 4.5em;
   font-family: 'Julius Sans One', sans-serif;
-}
-
-div.title {
-  padding-top: 3em;
-  padding-left: 5em;
 }
 
 div.overlay a{
@@ -167,13 +178,6 @@ div.overlay a{
   text-align: left;
   color: white;
 }
-
-div.overlay a:hover, div.overlay a:focus, div.overlay a:active {
-  color: white;
-  -webkit-transform: translate(.6em);
-  transform: translate(.6em);
-}
-
 
 .carousel {
   height: 100%;
@@ -197,26 +201,38 @@ div.overlay a:hover, div.overlay a:focus, div.overlay a:active {
 aside.notify.col-md-4 a {
   margin: 0;
   line-height: 1.5em;
-  font-size: 1.2em;
+  font-size: 1.1em;
+  padding: .3em 0;
   border-bottom: .1em solid #fdfdfe;
+  display: inline-block;
 }
 
-aside.notify {
+.notify h3 {
+  margin-top: .5em;
+}
+
+aside.notify.col-md-4 i {
+  font-size: 1.2em;
+  vertical-align: middle;
+}
+
+aside.notify.col-md-4 a:hover, aside.notify.col-md-4 a:focus, aside.notify.col-md-4 a:active {
+  text-decoration: none;
+  -webkit-transform: translate(1em, 0);
+  transform: translate(1em, 0);
+}
+
+aside.notify, div.landingPage, div.title, div#banner-text {
   text-align: left;
   padding-left: 5em;
   padding-top: 3em;
-}
-
-h4.balance-text {
-  padding: 0;
-}
-
-div.landingPage {
-  text-align: left;
-  padding: .6em 0 0 4.5em;
   margin: 0;
   background-color: rgba(0, 0, 0, 0);
 }
+
+ div.landingPage, div#banner-text {
+  margin-top: 4em;
+ }
 
 ul.transparent {
   background-color: rgba(0, 0, 0, 0);
@@ -228,7 +244,7 @@ ul.transparent {
 
 ul.transparent li {
   text-decoration: none;
-  font-size: 1.5em;
+  font-size: 1.1em;
   text-align: left;
   padding: 0;
   margin-top: .5em;
@@ -383,8 +399,6 @@ div.group.addressSearch {
   -moz-box-shadow:    .1em .1em .1em 0 gray;
   box-shadow:         .1em .1em .1em 0 gray;
 }
-
-
 
 div.group {
   position: relative;
