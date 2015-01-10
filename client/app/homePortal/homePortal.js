@@ -259,10 +259,19 @@ $rootScope.landing = true;
       })
   }
 
-  $scope.updatePermission = function (address, restriction_start_time, restriction_end_time) {
-    if (restriction_end_time && restriction_start_time) {
-      restriction_start_time= moment(restriction_start_time).format('hh:mm:ss')
-      restriction_end_time= moment(restriction_end_time).format('hh:mm:ss')
+  $scope.times = {
+    restriction_start_time: null,
+    restriction_end_time: null
+  }
+
+  $scope.updatePermission = function (address) {
+    
+    if ($scope.times.restriction_end_time && $scope.times.restriction_start_time) {
+      restriction_start_time= moment($scope.times.restriction_start_time).format('hh:mm:ss')
+      restriction_end_time= moment($scope.times.restriction_end_time).format('hh:mm:ss')
+    } else {
+      restriction_start_time= null;
+      restriction_end_time= null;
     }
     PropertyInfo.updatePermission(address.properties, restriction_start_time, restriction_end_time)
       .then(function(updatedAddress) {

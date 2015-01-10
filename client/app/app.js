@@ -104,7 +104,7 @@ var dronePass = angular.module('dronePass', [
 })
 .controller ('signout', function ($window, $scope, $http, $state, Auth) {
   $scope.signout = function () {
-    $window.localStorage.removeItem('com.dronePass');
+  $window.localStorage.removeItem('com.dronePass');
     return $http({
       method: 'POST',
       url: '/signout',

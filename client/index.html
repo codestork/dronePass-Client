@@ -25,30 +25,24 @@
   </head>
   <body>
     <nav class="navbar navbar-default main" ng-show="landing">
-      <div class="container fluid">
+      <div class="container-fluid">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="mainNav">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a ui-sref="landingPage"  class="navbar-brand title">DronePass</a>
+          <a ui-sref="landingPage" class="navbar-brand title">DronePass</a>
         </div>
-      <div class="navbar-collapse collapse" id="mainNav">
-        <ul class="nav navbar-nav"> 
-          <li>
-            <a ui-sref="homePortal" ui-sref-active="active-state">Homeowner Portal <span class="sr-only">(current)</span></a>
-          </li>
-          <li>
-            <a ui-sref="signin" ui-sref-active="active-state">Sign In</a>
-          </li>
-          <li ng-controller="signout">
-           <a ui-sref="signin" ng-click="signout()" ui-sref-active="active-state">Sign Out</a>
-          </li>
-        </ul>
-      </div> <!-- /.navbar-collapse -->
-      </div><!-- /container fluid -->
+        <div id="navbar" class="navbar-collapse collapse" aria-expanded="true" id="mainNav">
+          <ul class="nav navbar-nav navbar-right">
+            <li ><a ui-sref="homePortal" ui-sref-active="active-state"> Homeowner Portal <span class="sr-only">(current)</span></a></li>
+            <li><a ui-sref="signin" ui-sref-active="active-state"> Sign In </a></li>
+            <li class="signout" ng-controller="signout"><a ui-sref="signin" ng-click="signout()" ui-sref-active="active-state" > Sign Out </a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div><!--/.container-fluid -->
     </nav>
     <div ui-view class="container-fluid main"></div>
   </body>

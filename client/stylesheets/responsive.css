@@ -17,6 +17,9 @@
   body {
     font-size: 14px;
   }
+  #signin .group > input, #signup .group > input{
+    width: 50%;
+  }
 
 }
 
@@ -25,11 +28,17 @@
   body {
     font-size: 12px;
   }
+  #signin .group > input, #signup .group > input{
+    width: 50%;
+  }
 }
 
 /* Landscape phones and smaller */
 @media (max-width: 480px) {
   body {
     font-size: 10.5px;
+  }
+  #signin .group > input, #signup .group > input{
+    width: 75%;
   }
 }

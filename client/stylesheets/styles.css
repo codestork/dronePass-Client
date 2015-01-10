@@ -53,11 +53,6 @@ h1, h2, h3, h4, h5, h6 {
 
 /*********** Main NavBar ***************/
 
-nav.main div.navbar-collapse.collapse {
-  float: right;
-  padding: 0;
-}
-
 nav .container {
   padding: .5em 1em;
   font-size: .8em;
@@ -79,9 +74,28 @@ nav.navbar.navbar-default.main {
   font-size: 1.5em;
 }
 
-nav.navbar.main  a {
-  font-size: 1.2em;
+nav.navbar.main a {
+  font-size: 1.1em;
+  padding-right: 1em;
 }
+
+nav .navbar-collapse a:active, nav .navbar-collapse a:hover, nav .navbar-collapse a:focus {
+  text-shadow: .03em .03em .03em rgba(50, 50, 50, 0.5);
+  -webkit-border-radius: .1em;
+  -moz-border-radius: .1em;
+  border-radius: .1em;
+  background: rgb(95, 0, 0);
+  background: -moz-linear-gradient(90deg, rgb(60, 0, 0) 10%, rgb(120, 0, 0) 90%);
+  background: -webkit-linear-gradient(90deg, rgb(60, 0, 0) 10%, rgb(120, 0, 0) 90%);
+  background: -o-linear-gradient(90deg, rgb(60, 0, 0) 10%, rgb(120, 0, 0) 90%);
+  background: -ms-linear-gradient(90deg, rgb(60, 0, 0) 10%, rgb(120, 0, 0) 90%);
+  background: linear-gradient(0deg, rgb(60, 0, 0) 10%, rgb(120, 0, 0) 90%);
+} 
+
+nav.navbar.navbar-default.main .container-fluid {
+  padding-right: 0;
+}
+
 
 /*************** Landing Page ******************/
 
@@ -275,22 +289,26 @@ ul.transparent > li > a:hover {
   width: 100%;
   height: 100%;
   font-size: 1.2em; 
-  background: url('../assets/droneinFlight.jpg') no-repeat;
+  background: url('../assets/stripey-drone.jpg') no-repeat;
   -webkit-background-size: cover; 
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
   filter: grayscale(100%);
-  -webkit-filter: grayscale(100%);
+  -webkit-filter: grayscale(80%);
 }
 
 a.link {
   color: white;
 }
 
+#signup .row {
+  margin-left: 4em;
+}
+
 #signin h1.title , #signup h1.title {
-  padding-top: 1.5em;
   padding-left: 0;
+  padding-top: .5em;
   color: white;
   text-align: left;
   font-size: 3em;
@@ -317,10 +335,6 @@ form[name="signinForm"], form[name="signupForm"] {
   font-size: .8em;
 }
 
-.indentLeft {
-  margin-left: 2.5em;
-}
-
 #signin a:active, #signup a:active, #signin a:hover, #signup a:hover, #signin a:focus, #signup a:focus {
   color: white;
   text-decoration: underline;
@@ -329,9 +343,7 @@ form[name="signinForm"], form[name="signupForm"] {
 #signup p.subtitle {
   text-align: left;
   color: white;
-  width: 100%;
-  font-size: 1.2em;
-  
+  width: 100%;  
 }
 
 #mapContainer {
@@ -344,7 +356,7 @@ form[name="signinForm"], form[name="signupForm"] {
   z-index: 0;
   height: 100%;
 }
-/********************* Map ********************/
+/********************* Leaflet Overrides  ********************/
 .angular-leaflet-map {
   position: relative;
   z-index: 1;
@@ -353,8 +365,57 @@ form[name="signinForm"], form[name="signupForm"] {
   width: 100%;
 }
 
+.leaflet-control-geosearch, .leaflet-control-geosearch ul {
+  font-size:.8em;
+  padding:.6em .6em .6em .3em;
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  border:none;
+  margin-top: .25em;
+  border-radius: .1em;
+}
+
+.leaflet-control-container, .leaflet-top.leaflet-center {
+  width: 100%;
+  margin-top: 1em;
+}
+.leaflet-control-geosearch.leaflet-control {
+  margin-left: 8em;
+  width: 100%;
+  display: block;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.leaflet-control-zoom.leaflet-bar.leaflet-control {
+  margin-left: 2em;
+}
+
+#leaflet-control-geosearch-qry {
+  width: 50%;
+  height: 3em;
+  text-indent: 1em;
+  border-radius: .1em;
+  font-size: 1.2em;
+  border: none;
+  -webkit-box-shadow: .1em .1em .1em 0 gray;
+  -moz-box-shadow:    .1em .1em .1em 0 gray;
+  box-shadow:         .1em .1em .1em 0 gray;
+}
+
 /************** Dashboard *************/
 
+body #homePortal {
+  overflow: auto;
+}
+div.group {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: .1em;
+}
 
 .group > input{
   font-size:1.1em;
@@ -371,46 +432,6 @@ input[type="submit"] {
   margin-left: auto;
   margin-right: auto;
 }
-div.group.addressSearch {
-  margin-top: 1.25em;
-}
-
-.leaflet-control-geosearch, .leaflet-control-geosearch ul {
-
-  font-size:.8em;
-  padding:.6em .6em .6em .3em;
-  display:block;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  border:none;
-  margin-top: .25em;
-  border-radius: .1em;
-}
-
-.leaflet-control-geosearch.leaflet-control {
-  margin-left: 100px;
-  margin-top: 0;
-  padding-top: 0;
-}
-
-#leaflet-control-geosearch-qry {
-  width: 50%
-  height: 1.5em;
-  text-indent: .3em;
-  border-radius: .1em;
-  border: none;
-  -webkit-box-shadow: .1em .1em .1em 0 gray;
-  -moz-box-shadow:    .1em .1em .1em 0 gray;
-  box-shadow:         .1em .1em .1em 0 gray;
-}
-
-div.group {
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: .1em;
-}
 input:focus{
   outline:none;
 }
@@ -419,19 +440,19 @@ input:focus{
   background-color: white;
 }
 
-input.address {
-  display: inline-block;
-  width: 60%;
-}
-
-label.addressSearch {
-  margin-left: 1.25em;
-  margin-right: .6em;
+#ownerDashboard .btn.btn-default.btn-raised.white {
+  margin-left: auto;
+  margin-right: auto;
+  height: 2em;
+  width: 75%;
+  display: block;
+  padding: .3em;
 }
 
 #ownerDashboard span.glyphicon {
   float: right;
 }
+
 input[type="submit"].time {
   width: 90%;
   margin-left: auto;
@@ -441,10 +462,11 @@ input[type="submit"].time {
   text-indent: none;
   padding: .3em 0;
 }
+
 #ownerDashboard{
   position: absolute;
-  margin-top: .6em;
-  width: 20%;
+  margin-top: 1em;
+  width: 25%;
   right: 0;
   top: 0;
   color: black;
@@ -470,7 +492,8 @@ input[type="submit"].time {
 
 #ownerDashboard .group > input{
   width: 90%;
-  height: 1.5em;
+  height: 2.5em;
+  text-indent: 1em;
   margin-left: auto;
   margin-right: auto;
 }
@@ -483,6 +506,7 @@ input[type="submit"].time {
 .list-group-item.addressSelect {
   font-size: .9em;
 }
+
 #ownerDashboard label{
   color: white;
   text-indent: .9em;
@@ -491,8 +515,36 @@ input[type="submit"].time {
   display: inline-block;
 }
 
+#ownerDashboard div.time label {
+  width: 50%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+#ownerDashboard div.radio > label {
+  width: 80%;
+}
+
+#ownerDashboard div.time {
+  display: block;
+  margin-bottom: 1em;
+  width: 95%;
+  text-align:left;
+}
+
+#ownerDashboard .group > input[type="time"]{
+  width: 40%;
+  display: inline-block;
+  float: right;
+  margin-right: 1em;
+  font-size: .9em;
+  text-indent: .5em;
+  margin-top: auto;
+  margin-bottom: auto;
+}
 
 #ownerDashboard li.mainItem {
+  cursor: pointer;
   display: inline-block;
   width: 100%;
   text-indent: .3em;
@@ -513,10 +565,20 @@ input[type="submit"].time {
   box-shadow:         .05em .05em .05em rgba(50, 50, 50, 0.75);
 }
 
+div.togglebutton, #ownerDashboard div.togglebutton label {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-#ownerDashboard li:hover {
-  border-top: .05em solid #ABD1EA;
-  border-bottom: .05em solid #C6E8FF;
+.togglebutton label .toggle, .togglebutton label input[type="checkbox][disabled"]:first-child+.toggle{
+  width: 95%;
+}
+
+#ownerDashboard li.list-group-item.addressSelect:hover,#ownerDashboard li.list-group-item.addressSelect:active, #ownerDashboard li.list-group-item.addressSelect:focus {
+  cursor: pointer;
+  color: #680000;
+  font-weight: bold;
 }
 
 .group > input.register {
@@ -525,19 +587,12 @@ input[type="submit"].time {
 }
 
 
-#ownerDashboard .group > input[type="time"]{
-  margin-left: .3em;
-  width: 70%;
-  display: block;
-  font-size: .9em;
-}
-
 #ownerDashboard .group > select {
   margin-top: .6em;
   display: inline-block;
   font-size: .9em;
   width: 63%;
-  height: 1.5em;
+  height: 2.5em;
 }
 
 #ownerDashboard .group > input.register.zip {
@@ -548,8 +603,13 @@ input[type="submit"].time {
   display: inline-block;
 }
 
-.btn.register {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
+.radio input[type=radio] {
+  display: inline-block;
+}
+
+.mdi-image-timelapse, .mdi-navigation-cancel {
+  font-size: 1.5em;
+  vertical-align: middle;
+  margin-right: .2em;
+  float: right;
 }
