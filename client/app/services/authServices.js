@@ -47,12 +47,29 @@ angular.module('dronePass.authServices', [])
     } else {
       authDefer.reject();
     }
+  }; 
 
+  var isLoggedIn = function () {
+    if (!!$window.localStorage.getItem('com.dronePass')) {
+      return $http({
+          method: 'GET',
+          url: '/checkAuth',
+        })
+        .success(function (data, status, headers, config) {
+          return true;
+        })
+        .error( function (data, status, headers, config) {
+          return false;
+        });
+    } else {
+      return false;
+    }
   }; 
   
   return {
       signin: signin,
       signup: signup,
-      isAuth: isAuth
+      isAuth: isAuth,
+      isLoggedIn: isLoggedIn
    };
   })

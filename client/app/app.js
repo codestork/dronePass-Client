@@ -127,6 +127,10 @@ var dronePass = angular.module('dronePass', [
   $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
     $state.transitionTo('signin');
   });
+
+  $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+    $rootScope.isLoggedIn = Auth.isLoggedIn()
+  })
   
 });
 
