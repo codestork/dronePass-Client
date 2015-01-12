@@ -104,7 +104,7 @@ var dronePass = angular.module('dronePass', [
 })
 .controller ('signout', function ($window, $scope, $http, $state, Auth) {
   $scope.signout = function () {
-    $window.localStorage.removeItem('com.dronePass');
+  $window.localStorage.removeItem('com.dronePass');
     return $http({
       method: 'POST',
       url: '/signout',
@@ -127,6 +127,10 @@ var dronePass = angular.module('dronePass', [
   $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
     $state.transitionTo('signin');
   });
+
+  $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+    $rootScope.isLoggedIn = Auth.isLoggedIn()
+  })
   
 });
 

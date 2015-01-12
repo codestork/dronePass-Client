@@ -1,10 +1,13 @@
 
 /*********** Main ***************/
 html, body {
-  height: 100%;
   margin:0;
   padding:0;
+  width: auto;
+  overflow: hidden;
+  height: 100%;
 }
+
 
 .container-fluid.main{
   padding: 0;
@@ -15,102 +18,130 @@ html, body {
   margin: 0;
   background-color: transparent;
 }
-.clearfix:after {
-     visibility: hidden;
-     display: block;
-     font-size: 0;
-     content: " ";
-     clear: both;
-     height: 0;
-}
-
-*, :after, :before {
-  box-sizing: border-box;
-  webkit-padding-start: 0;
-  margin: 0;
-}
 
 body {
-  min-width: 320px;
   opacity: 1;
   webkit-transition: opacity .2s linear;
   transition: opacity .2s linear;
   font-family: open-sans,'Segoe WP','Segoe UI',Helvetica,Arial,sans-serif;
-  font-size: 14px;
+  font-size: 16px;
+  min-width: 320px;
   line-height: 1.428571429;
   color: #373737;
   background-color: #fdfdfe;
 }
 
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+/**** Bootstrap Overides ******/
+h2, .h2 {
+  font-size: 2em;
+}
+
+h3, .h3 {
+  font-size: 1.5em;
+}
+
+h4, .h4 {
+  font-size: 1.125em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
 
 /*********** Main NavBar ***************/
 
-nav.main {
-  position: relative;
+nav .container {
+  padding: .5em 1em;
+  font-size: .8em;
   width: 100%;
-}
-nav.main div.navbar-collapse.collapse {
-  float: right;
-}
-
-.navbar-brand.title {
-  font-family: 'Julius Sans One', sans-serif;
-  font-weight: bolder;
-}
-nav.navbar.main  a {
-  font-size: 16px;
-  margin-left: 5px;
-  color: white;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 nav.navbar.navbar-default.main {
   margin-bottom: 0;
   background-color: #680000;
+  position: relative;
+  width: 100%;
 }
+
+.navbar-header a.navbar-brand.title {
+  font-family: 'Julius Sans One', sans-serif;
+  font-weight: bolder;
+  font-size: 1.5em;
+}
+
+nav.navbar.main a {
+  font-size: 1.1em;
+  padding-right: 1em;
+}
+
+nav .navbar-collapse a:active, nav .navbar-collapse a:hover, nav .navbar-collapse a:focus {
+  text-shadow: .03em .03em .03em rgba(50, 50, 50, 0.5);
+  -webkit-border-radius: .1em;
+  -moz-border-radius: .1em;
+  border-radius: .1em;
+  background: rgb(95, 0, 0);
+  background: -moz-linear-gradient(90deg, rgb(60, 0, 0) 10%, rgb(120, 0, 0) 90%);
+  background: -webkit-linear-gradient(90deg, rgb(60, 0, 0) 10%, rgb(120, 0, 0) 90%);
+  background: -o-linear-gradient(90deg, rgb(60, 0, 0) 10%, rgb(120, 0, 0) 90%);
+  background: -ms-linear-gradient(90deg, rgb(60, 0, 0) 10%, rgb(120, 0, 0) 90%);
+  background: linear-gradient(0deg, rgb(60, 0, 0) 10%, rgb(120, 0, 0) 90%);
+} 
+
+nav.navbar.navbar-default.main .container-fluid {
+  padding-right: 0;
+}
+
 
 /*************** Landing Page ******************/
 
 .background.carousel-inner{
-  position: relative;
   height: 100%; 
   width: 100%;
+  min-height: 100%;
   margin: 0;
   overflow: hidden;
 }
-.item.banner-text > h2, .item.banner-text > h3 {
+
+.item.banner-text {
   text-align: left;
-  padding-left: 60px;
+  margin: 0;
 }
 
- .item.banner-text > h3 {
+.banner-text h3{
+  margin-top: 1em;
   font-weight: lighter;
- }
-
- .banner-text {
-  border-top: none;
- }
-.banner-text.carousel-inner {
-  -webkit-transition: 2.5s ease-in-out left;
-  -moz-transition:2.5s ease-in-out left;
-  -o-transition: 2.5s ease-in-out left;
-  transition: 2.5s ease-in-out left;
-  position: absolute;
 }
-.background.carousel-inner >.item {
-  width: 120%; height: 120%;
+
+.carousel-inner {
   -webkit-transition: 2.5s ease-in-out left;
   -moz-transition:2.5s ease-in-out left;
   -o-transition: 2.5s ease-in-out left;
   transition: 2.5s ease-in-out left;
-  -webkit-background-size: 100%; 
-  -moz-background-size: 100%;
-  -o-background-size: 100%;
-  background-size: 100%;
-  margin: 0px;
-  left: 0px;
+  position: relative;
+}
+
+.background.carousel-inner >.item {
+  width: 110%;
+  height: 110%;
+  -webkit-transition: 2.5s ease-in-out left;
+  -moz-transition:2.5s ease-in-out left;
+  -o-transition: 2.5s ease-in-out left;
+  transition: 2.5s ease-in-out left;
+  -webkit-background-size: cover; 
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  margin: 0;
+  min-width: 100%;
+  left: 0;
   right: auto;
   bottom: auto;
-  top: 0px;
+  top: 0;
   overflow: hidden;
   animation:move 4s ease-out alternate; /* Change this to alternate to stop the loop. */
   -ms-animation:move 4s ease-out alternate;
@@ -139,9 +170,6 @@ nav.navbar.navbar-default.main {
   }
 }
 
-.overlay {
-  text-shadow: 1px 1px 1px rgba(50, 50, 50, 0.5);
-}
 .carousel-indicators {
   display: none;
 }
@@ -153,29 +181,20 @@ nav.navbar.navbar-default.main {
   left:0;
   width:100%;
   text-align:center;
+  text-shadow: .05em .05em .05em rgba(50, 50, 50, 0.5);
 }
 
 h1.title, a.landingPage{
-  padding-top: 40px;
   text-align: left;
-  padding-left: 50px;
-  color:white;
-  margin: 0;
   font-weight: bolder;
-  font-size: 72px;
+  font-size: 4.5em;
   font-family: 'Julius Sans One', sans-serif;
 }
 
 div.overlay a{
   display: inline;
   text-align: left;
-  font-size: 14px;
   color: white;
-}
-
-div.overlay a:hover, div.overlay a:focus, div.overlay a:active {
-  color: white;
-  text-decoration: underline;
 }
 
 .carousel {
@@ -184,7 +203,6 @@ div.overlay a:hover, div.overlay a:focus, div.overlay a:active {
 
 .carousel .one {
   background: url('../assets/drone-in-sunset.jpg') no-repeat;
-
 }
 .carousel .two {
   background: url('../assets/parcelVis2.jpeg') no-repeat;
@@ -198,111 +216,112 @@ div.overlay a:hover, div.overlay a:focus, div.overlay a:active {
     z-index:2;
 }
 
-aside.notify h4 {
-  padding-top: 58px;
-}
-
-div.row.menu {
-  margin-top: 150px;
-}
-
-aside.notify.col-md-2 a {
-  margin: 0 0;
-  padding: 0;
-}
-
-aside.notify.col-md-2 a:hover {
-  text-decoration: none;
-  -webkit-transform: translate(10px);
-  transform: translate(10px);
-}
-
-.glyphicon-chevron-right:hover{
-  text-decoration: none;
-  -webkit-transform: translate(5px);
-  transform: translate(5px);
-}
-
-
-aside.notify {
-  text-align: left;
-  border-bottom: 1px solid #fdfdfe;
+aside.notify.col-md-4 a {
   margin: 0;
-  padding: 0;
-}
-
-.navbar.landingPage {
-  text-align: left;
-  margin-top: 25px;
-  padding-left: 0;
-  margin-left:0;
+  line-height: 1.5em;
+  font-size: 1.1em;
+  padding: .3em 0;
+  border-bottom: .1em solid #fdfdfe;
   display: inline-block;
-  list-style-type: none;
+}
+
+.notify h3 {
+  margin-top: .5em;
+}
+
+aside.notify.col-md-4 i {
+  font-size: 1.2em;
+  vertical-align: middle;
+}
+
+aside.notify.col-md-4 a:hover, aside.notify.col-md-4 a:focus, aside.notify.col-md-4 a:active {
+  text-decoration: none;
+  -webkit-transform: translate(1em, 0);
+  transform: translate(1em, 0);
+}
+
+aside.notify, div.landingPage, div.title, div#banner-text {
+  text-align: left;
+  padding-left: 5em;
+  padding-top: 3em;
+  margin: 0;
   background-color: rgba(0, 0, 0, 0);
 }
 
-ul.nav.nav-stacked.transparent {
+ div.landingPage, div#banner-text {
+  margin-top: 4em;
+ }
+
+ul.transparent {
   background-color: rgba(0, 0, 0, 0);
+  list-style-type: none;
   border-bottom: none;
   padding-left: 0;
   margin-left:0;
 }
 
-ul.nav.nav-stacked.transparent li {
+ul.transparent li {
+  text-decoration: none;
+  font-size: 1.1em;
   text-align: left;
-  padding-left: 0;
-  margin-left:-10px;
+  padding: 0;
+  margin-top: .5em;
+  /*font-weight: lighter;*/
 }
 
-.collapse.navbar-collapse.navbar-ex1-collapse {
-  padding-left: 0;
-  margin-left:0;
-}
-
-ul.nav.nav-stacked.transparent a{
-  text-align: left;
-  font-size: 18px;
-  margin-top: 8px;
-  line-height: 1px;
-  font-weight: lighter;
+ul.transparent > li > a{
   display: inline-block;
+  padding-right: 1em;
+  line-height: 1.2em;
 }
 
-ul.nav.nav-stacked.transparent a:hover {
-  border-right: 3px solid #fff;
+ul.transparent > li > a:hover {
+  border-right: .2em solid white;
   background-color: rgba(0, 0, 0, 0);
-  -webkit-transform: translate(5px);
-  transform: translate(5px);
+  -webkit-transform: translate(1em, 0);
+  transform: translate(1em, 0);
+  text-decoration: none;
 }
 
-.glyphicon:hover, .glyphicon:focus, .glyphicon:active  {
-  transition: padding .15s ease-out;
-  -webkit-transition: padding .15s ease-out;
-}
 /********************* Login / Signup ********************/
 
 #signin, #signup {
   width: 100%;
   height: 100%;
   font-size: 1.2em; 
-  background: url('../assets/droneinFlight.jpg') no-repeat;
-  background-size: 100%;
+  background: url('../assets/stripey-drone.jpg') no-repeat;
+  -webkit-background-size: cover; 
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   filter: grayscale(100%);
-  -webkit-filter: grayscale(100%);
+  -webkit-filter: grayscale(80%);
+}
+
+a.link {
+  color: white;
+}
+
+#signup .row {
+  margin-left: 4em;
 }
 
 #signin h1.title , #signup h1.title {
-  padding-top: 40px;
   padding-left: 0;
+  padding-top: .5em;
+  color: white;
   text-align: left;
-  font-size: 48px;
-  text-shadow: 1px 1px 1px rgba(50, 50, 50, 0.5);
+  font-size: 3em;
+  text-shadow: .05em .05em .05em rgba(50, 50, 50, 0.5);
 }
 
 #signup p, #signup a, #singin a {
-  text-shadow: 1px 1px 1px rgba(50, 50, 50, 0.5);
+  text-shadow: .05em .05em .05em rgba(50, 50, 50, 0.5);
+  font-size: 1em;
+  text-align: left;
+  display: block;
+  color: white;
 }
-
 
 form[name="signinForm"], form[name="signupForm"] {
   text-align: left;
@@ -310,30 +329,21 @@ form[name="signinForm"], form[name="signupForm"] {
 
 #signin .group > input, #signup .group > input{
   display: block;
-  text-indent: 5px;
-}
-
-.indentLeft {
-  margin-left: 40px;
-}
-
-#signin a, #signup a {
-  text-align: left;
-  font-size: 14px;
-  display: block;
-  color: white;
+  text-indent: .3em;
+  width: 30%;
+  margin-top: .5em;
+  font-size: .8em;
 }
 
 #signin a:active, #signup a:active, #signin a:hover, #signup a:hover, #signin a:focus, #signup a:focus {
-  text-decoration: underline;
   color: white;
+  text-decoration: underline;
 }
 
-#signup p {
+#signup p.subtitle {
   text-align: left;
   color: white;
-  display: block;
-  width: 40%;
+  width: 100%;  
 }
 
 #mapContainer {
@@ -346,7 +356,7 @@ form[name="signinForm"], form[name="signupForm"] {
   z-index: 0;
   height: 100%;
 }
-/********************* Map ********************/
+/********************* Leaflet Overrides  ********************/
 .angular-leaflet-map {
   position: relative;
   z-index: 1;
@@ -355,18 +365,66 @@ form[name="signinForm"], form[name="signupForm"] {
   width: 100%;
 }
 
+.leaflet-control-geosearch, .leaflet-control-geosearch ul {
+  font-size:.8em;
+  padding:.6em .6em .6em .3em;
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  border:none;
+  margin-top: .25em;
+  border-radius: .1em;
+}
+
+.leaflet-control-container, .leaflet-top.leaflet-center {
+  width: 100%;
+  margin-top: 1em;
+}
+.leaflet-control-geosearch.leaflet-control {
+  margin-left: 8em;
+  width: 100%;
+  display: block;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.leaflet-control-zoom.leaflet-bar.leaflet-control {
+  margin-left: 2em;
+}
+
+#leaflet-control-geosearch-qry {
+  width: 50%;
+  height: 3em;
+  text-indent: 1em;
+  border-radius: .1em;
+  font-size: 1.2em;
+  border: none;
+  -webkit-box-shadow: .1em .1em .1em 0 gray;
+  -moz-box-shadow:    .1em .1em .1em 0 gray;
+  box-shadow:         .1em .1em .1em 0 gray;
+}
+
 /************** Dashboard *************/
 
+body #homePortal {
+  overflow: auto;
+}
+div.group {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: .1em;
+}
 
 .group > input{
-  font-size:18px;
-  padding:10px 10px 10px 5px;
+  font-size:1.1em;
+  padding:.6em .6em .6em .3em;
   display:block;
   margin-left: 0;
-  width: 260px;
   border:none;
-  margin-top: 4px;
-  border-radius: 2px;
+  margin-top: .25em;
+  border-radius: .1em;
 
 }
 
@@ -374,190 +432,184 @@ input[type="submit"] {
   margin-left: auto;
   margin-right: auto;
 }
-div.group.addressSearch {
-  margin-top: 20px;
-}
-
-.leaflet-control-geosearch, .leaflet-control-geosearch ul {
-
-  font-size:12px;
-  padding:10px 10px 10px 5px;
-  display:block;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  border:none;
-  margin-top: 4px;
-  border-radius: 2px;
-}
-
-.leaflet-control-geosearch.leaflet-control {
-  margin-left: 100px;
-  margin-top: 0;
-  padding-top: 0;
-}
-
-#leaflet-control-geosearch-qry {
-  width:500px;
-  height: 25px;
-  text-indent: 5px;
-  border-radius: 2px;
-  border: none;
-  -webkit-box-shadow: 2px 2px 2px 0px gray;
-  -moz-box-shadow:    2px 2px 2px 0px gray;
-  box-shadow:         2px 2px 2px 0px gray;
-}
-
-div.group {
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 2px;
-}
 input:focus{
   outline:none;
-}
-
-a.link {
-  color: black;
 }
 
 .btn.btn-default.btn-raised.white {
   background-color: white;
 }
 
-input.address {
-  display: inline-block;
-  width: 60%;
-}
-
-label.addressSearch {
-  margin-left: 20px;
-  margin-right: 10px;
+#ownerDashboard .btn.btn-default.btn-raised.white {
+  margin-left: auto;
+  margin-right: auto;
+  height: 2em;
+  width: 75%;
+  display: block;
+  padding: .3em;
 }
 
 #ownerDashboard span.glyphicon {
   float: right;
 }
+
 input[type="submit"].time {
-  width: 95%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
   display: block;
   text-align: center;
   text-indent: none;
-  padding: 5px 0;
+  padding: .3em 0;
 }
+
 #ownerDashboard{
   position: absolute;
-  margin-top: 10px;
-  width: 20%;
+  margin-top: 1em;
+  width: 25%;
   right: 0;
   top: 0;
   color: black;
   box-sizing: border-box;
-  margin-right: 40px;
+  margin-right: 2.5em;
   z-index: 20;
-  font-size: 12px;
+  font-size: .8em;
   padding: 0;
-  text-shadow: .5px .5px .5px rgba(50, 50, 50, 0.5);
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
+  text-shadow: .03em .03em .03em rgba(50, 50, 50, 0.5);
+  -webkit-border-radius: .1em;
+  -moz-border-radius: .1em;
+  border-radius: .1em;
   background: rgb(95, 0, 0);
   background: -moz-linear-gradient(90deg, rgb(95, 0, 0) 30%, rgb(104, 0, 0) 70%);
   background: -webkit-linear-gradient(90deg, rgb(95, 0, 0) 30%, rgb(104, 0, 0) 70%);
   background: -o-linear-gradient(90deg, rgb(95, 0, 0) 30%, rgb(104, 0, 0) 70%);
   background: -ms-linear-gradient(90deg, rgb(95, 0, 0) 30%, rgb(104, 0, 0) 70%);
   background: linear-gradient(0deg, rgb(95, 0, 0) 30%, rgb(104, 0, 0) 70%);
-  -webkit-box-shadow: 0px 2px 1px rgba(50, 50, 50, 0.75);
-  -moz-box-shadow:    0px 2px 1px rgba(50, 50, 50, 0.75);
-  box-shadow:         0px 2px 1px rgba(50, 50, 50, 0.75);
+  -webkit-box-shadow: 0 .1em .05em rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    0 .1em .05em rgba(50, 50, 50, 0.75);
+  box-shadow:         0 .1em .05em rgba(50, 50, 50, 0.75);
 }
 
-img.leaflet-marker-icon.leaflet-zoom-animated.leaflet-clickable[tabindex="0"] {
-  height: 400px;
-}
 #ownerDashboard .group > input{
-  width: 95%;
+  width: 90%;
+  height: 2.5em;
+  text-indent: 1em;
   margin-left: auto;
+  margin-right: auto;
 }
 
-#ownerDashboard .group > input {
-  height: 25px;
-}
 #ownerDashboard ol {
   padding: 0;
   margin: 0;
 }
 
 .list-group-item.addressSelect {
-  font-size: 11px;
+  font-size: .9em;
 }
+
 #ownerDashboard label{
   color: white;
-  text-indent: 5px;
+  text-indent: .9em;
   font-weight: normal;
+  width: 30%;
+  display: inline-block;
 }
-#ownerDashboard select {
+
+#ownerDashboard div.time label {
+  width: 50%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+#ownerDashboard div.radio > label {
+  width: 80%;
+}
+
+#ownerDashboard div.time {
   display: block;
+  margin-bottom: 1em;
+  width: 95%;
+  text-align:left;
 }
+
+#ownerDashboard .group > input[type="time"]{
+  width: 40%;
+  display: inline-block;
+  float: right;
+  margin-right: 1em;
+  font-size: .9em;
+  text-indent: .5em;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 #ownerDashboard li.mainItem {
+  cursor: pointer;
   display: inline-block;
   width: 100%;
-  text-indent: 5px;
-  padding: 10px;
+  text-indent: .3em;
+  padding: .6em;
   color: #680000;
-  text-shadow: .5px .5px .5px rgba(50, 50, 50, 0.5);
-  --webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
+  text-shadow: .03em .03em .03em rgba(50, 50, 50, 0.5);
+  --webkit-border-radius: .1em;
+  -moz-border-radius: .1em;
+  border-radius: .1em;
   background: rgb(226, 226, 226);
   background: -moz-linear-gradient(90deg, rgb(230, 230, 230) 30%, rgb(255, 255, 255) 70%);
   background: -webkit-linear-gradient(90deg, rgb(230, 230, 230) 30%, rgb(255, 255, 255) 70%);
   background: -o-linear-gradient(90deg, rgb(230, 230, 230) 30%, rgb(255, 255, 255) 70%);
   background: -ms-linear-gradient(90deg, rgb(230, 230, 230) 30%, rgb(255, 255, 255) 70%);
   background: linear-gradient(0deg, rgb(230, 230, 230) 30%, rgb(255, 255, 255) 70%);
-  -webkit-box-shadow: 1px 1px 1px rgba(50, 50, 50, 0.75);
-  -moz-box-shadow:    1px 1px 1px rgba(50, 50, 50, 0.75);
-  box-shadow:         1px 1px 1px rgba(50, 50, 50, 0.75);
+  -webkit-box-shadow: .05em .05em .05em rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    .05em .05em .05em rgba(50, 50, 50, 0.75);
+  box-shadow:         .05em .05em .05em rgba(50, 50, 50, 0.75);
 }
 
+div.togglebutton, #ownerDashboard div.togglebutton label {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-#ownerDashboard li:hover {
-  border-top: 1px solid #ABD1EA;
-  border-bottom: 1px solid #C6E8FF;
+.togglebutton label .toggle, .togglebutton label input[type="checkbox][disabled"]:first-child+.toggle{
+  width: 95%;
+}
+
+#ownerDashboard li.list-group-item.addressSelect:hover,#ownerDashboard li.list-group-item.addressSelect:active, #ownerDashboard li.list-group-item.addressSelect:focus {
+  cursor: pointer;
+  color: #680000;
+  font-weight: bold;
 }
 
 .group > input.register {
-  margin-left: auto;
-  font-size: 12px;
-  margin-right: auto;
+  margin-top: .6em;
+  font-size: .9em;
+}
+
+
+#ownerDashboard .group > select {
+  margin-top: .6em;
+  display: inline-block;
+  font-size: .9em;
+  width: 63%;
+  height: 2.5em;
 }
 
 #ownerDashboard .group > input.register.zip {
   padding: 0;
-  text-indent: 5px;
-  display: block;
+  margin-top: .6em;
+  width: 63%;
+  text-indent: .3em;
+  display: inline-block;
 }
 
-#ownerDashboard .group > input[type="time"]{
-  margin-left: 5px;
-  width: 70%;
-  display: block;
-  font-size: 12px;
+.radio input[type=radio] {
+  display: inline-block;
 }
 
-#ownerDashboard .group > select {
-  margin-left: 5px;
-  display: block;
-  font-size: 12px;
-  height: 25px;
+.mdi-image-timelapse, .mdi-navigation-cancel {
+  font-size: 1.5em;
+  vertical-align: middle;
+  margin-right: .2em;
+  float: right;
 }
-
-.btn.register {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-}
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

@@ -8,7 +8,6 @@ angular.module('dronePass.homePortal', [])
         zoom: 10,
     },
     controls: {
-      draw: {}
     },
     layers: {
       baselayers: {
@@ -120,6 +119,7 @@ $rootScope.landing = true;
     DroneSimulator.emit('CT_allDronesStates', {})}, 1000);
 
   DroneSimulator.on('TC_update', function (droneData) {
+    console.log(droneData);
     $scope.getDroneCoordinates(droneData);
   })
 
@@ -185,16 +185,6 @@ $rootScope.landing = true;
 
   leafletData.getMap('map').then(function(map) {
     map.on('geosearch_showlocation', function (result) {
-    });
-  });
-
-  // lets user draw polygons on map
-  leafletData.getMap('map').then(function(map) {
-      var drawnItems = $scope.controls.edit.featureGroup;
-      map.on('draw:created', function (e) {
-      var layer = e.layer;
-      drawnItems.addLayer(layer);
-      console.log(JSON.stringify(layer.toGeoJSON()));
     });
   });
 
@@ -270,10 +260,19 @@ $rootScope.landing = true;
       })
   }
 
-  $scope.updatePermission = function (address, restriction_start_time, restriction_end_time) {
-    if (restriction_end_time && restriction_start_time) {
-      restriction_start_time= moment(restriction_start_time).format('hh:mm:ss')
-      restriction_end_time= moment(restriction_end_time).format('hh:mm:ss')
+  $scope.times = {
+    restriction_start_time: null,
+    restriction_end_time: null
+  }
+
+  $scope.updatePermission = function (address) {
+    
+    if ($scope.times.restriction_end_time && $scope.times.restriction_start_time) {
+      restriction_start_time= moment($scope.times.restriction_start_time).format('HH:mm:ss')
+      restriction_end_time= moment($scope.times.restriction_end_time).format('HH:mm:ss')
+    } else {
+      restriction_start_time= null;
+      restriction_end_time= null;
     }
     PropertyInfo.updatePermission(address.properties, restriction_start_time, restriction_end_time)
       .then(function(updatedAddress) {
