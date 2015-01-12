@@ -21,6 +21,13 @@
     width: 50%;
   }
 
+  #ownerDashboard {
+    width: 40%;
+  }
+  #leaflet-control-geosearch-qry {
+    width: 30%;
+  }
+
 }
 
 /* Landscape phones and portrait tablets */
@@ -30,6 +37,12 @@
   }
   #signin .group > input, #signup .group > input{
     width: 50%;
+  }
+  #ownerDashboard {
+    width: 40%;
+  }
+  #leaflet-control-geosearch-qry {
+    width: 25%;
   }
 }
 
@@ -41,4 +54,11 @@
   #signin .group > input, #signup .group > input{
     width: 75%;
   }
+  #ownerDashboard {
+    width: 40%;
+  }
+  #leaflet-control-geosearch-qry {
+    width: 30%;
+  }
+
 }
