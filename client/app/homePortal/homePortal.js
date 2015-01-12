@@ -268,8 +268,8 @@ $rootScope.landing = true;
   $scope.updatePermission = function (address) {
     
     if ($scope.times.restriction_end_time && $scope.times.restriction_start_time) {
-      restriction_start_time= moment($scope.times.restriction_start_time).format('hh:mm:ss')
-      restriction_end_time= moment($scope.times.restriction_end_time).format('hh:mm:ss')
+      restriction_start_time= moment($scope.times.restriction_start_time).format('HH:mm:ss')
+      restriction_end_time= moment($scope.times.restriction_end_time).format('HH:mm:ss')
     } else {
       restriction_start_time= null;
       restriction_end_time= null;
