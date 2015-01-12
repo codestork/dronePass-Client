@@ -20,11 +20,11 @@ module.exports = bookshelf;
 knex.schema.hasTable('users').then(function(exists) {
   if (!exists) {
     knex.schema.createTable('users', function (user) {
-      user.increments('user_id').primary()
+      user.increments('id').primary();
       user.string('username', 100).unique();
-      user.string('password', 100)
-      user.integer('name',100)
-      user.integer('owner_authority')
+      user.string('password', 100);
+      user.integer('name',100);
+      user.integer('owner_authority');
     }).then(function(table) {
         console.log(table)
         knex.schema.hasTable('parcelData').then(function(exists) {
@@ -32,7 +32,7 @@ knex.schema.hasTable('users').then(function(exists) {
             knex.schema.createTable('parcelData', function (parcel) {
               parcel.increments('id').unique().primary();
               parcel.integer('gid').unique()
-              parcel.integer('user_id').unsigned().references('users.user_id');
+              parcel.integer('user_id').unsigned().references('users.id');
               parcel.string('address').unique();
               parcel.json('lot_geom');
               parcel.integer('parcel_gid').unique();

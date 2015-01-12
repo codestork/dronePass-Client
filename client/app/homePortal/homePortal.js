@@ -118,8 +118,8 @@ $rootScope.landing = true;
   setInterval(function () {
     DroneSimulator.emit('CT_allDronesStates', {})}, 1000);
 
-  DroneSimulator.on('TC_update', function (droneData) {
-    console.log(droneData);
+    DroneSimulator.on('TC_update', function (droneData) {
+      console.log(droneData);
     $scope.getDroneCoordinates(droneData);
   })
 
