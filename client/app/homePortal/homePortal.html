@@ -72,7 +72,7 @@
           </ol>
           <li class="list-group-item mainItem" ng-click="listAddresses=!listAddresses; showAddressForm=false; listPermissions=false;"> Remove Address<span class="glyphicon glyphicon-chevron-down"></span></li>
             <ol  class="list group" ng-show="listAddresses" ng-repeat="address in addresses">
-              <li class="list-group-item addressSelect" ng-click="ShowTimes=!ShowTimes; zoomToAddress(address)"> {{address.properties.address}} <i class="mdi-navigation-cancel" ng-click="removeAddress(address)"></i>
+              <li class="list-group-item addressSelect" ng-click="ShowTimes=!ShowTimes; zoomToAddress(address); removeAddress(address)"> {{address.properties.address}} <i class="mdi-navigation-cancel"></i>
               </li>
             </ol>
         </ol>

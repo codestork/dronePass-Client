@@ -447,6 +447,7 @@ input:focus{
   width: 75%;
   display: block;
   padding: .3em;
+  font-size: 1em;
 }
 
 #ownerDashboard span.glyphicon {
