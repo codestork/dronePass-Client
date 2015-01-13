@@ -23,8 +23,6 @@
     "ngFx": "~1.0.5",
     "leaflet": "~0.7.3",
     "bootstrap-material-design": "~0.2.1",
-    "leaflet-draw": "~0.2.3",
-    "leaflet.draw": "~0.2.3",
     "angular-leaflet-directive": "~0.7.10",
     "font-awesome": "~4.2.0",
     "normalize.css": "~3.0.2",
@@ -32,6 +30,7 @@
     "angular-socket-io": "~0.7.0",
     "moment": "~2.8.4",
     "socket.io-client": "~1.2.1",
-    "angular-bootstrap": "~0.12.0"
+    "angular-bootstrap": "~0.12.0",
+    "leaflet-plugins": "~1.2.1"
   }
 }

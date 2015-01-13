@@ -27,14 +27,18 @@ angular.module('dronePass.homePortal', [])
         "type": "FeatureCollection",
         "features": []
       },
-      style: {
-        fillColor: '#CC66FF',
-        weight: 3,
-        opacity: .8,
-        color: '#AB8ACC',
-        dashArray: '1',
-        fillOpacity: 0.7
-      }
+      style: function (feature) {return {};},
+      pointToLayer: function(feature, latlng) {
+        var drone = new L.marker(latlng, {icon: L.icon(droneIcon)});
+          var angle = 0;
+          var _rotate = function () {
+            drone.setIconAngle(angle);
+            angle = (angle + 20) % 360;
+            setTimeout(_rotate, 500);
+          }
+          _rotate();
+          return drone;
+      } 
     },
     events: {
        map: {
@@ -87,8 +91,9 @@ $rootScope.landing = true;
   var formatDrone = function (droneData) {
     var newDrone = {
       "type": "Feature",
-      "properties": {"droneID": droneData.callSign, "figure": "drone"},
-      "icon": 'assets/drone-icon.png',
+      "properties": {"droneID": droneData.callSign,
+                      "figure": "drone",
+                    },
       "geometry": {
         "type": "Point",
         "coordinates": droneData.locationWGS84
@@ -96,6 +101,14 @@ $rootScope.landing = true;
     }
     return newDrone;
   }
+
+  var droneIcon = {
+    "iconUrl": "../../assets/drone-icon.png",
+    "iconSize": [25, 25], // size of the icon
+    "iconAnchor": [12.5, 12.5], // point of the icon which will correspond to marker's location
+  }
+
+
   var createAddressFeature = function (registeredAddress) {
 
     var newAddressPolygon = {
@@ -105,7 +118,14 @@ $rootScope.landing = true;
                      figure: 'address',
                      address: registeredAddress.address,
                      restriction_start_time: registeredAddress.restriction_start_time,
-                     restriction_end_time: registeredAddress.restriction_end_time },
+                     restriction_end_time: registeredAddress.restriction_end_time,
+                     fillColor: '#CC66FF',
+                     weight: 3,
+                     opacity: .8,
+                     color: '#AB8ACC',
+                     dashArray: '1',
+                     fillOpacity: 0.7
+                   },
       "geometry": JSON.parse(registeredAddress.lot_geom)
     }
 
@@ -119,7 +139,6 @@ $rootScope.landing = true;
     DroneSimulator.emit('CT_allDronesStates', {})}, 1000);
 
   DroneSimulator.on('TC_update', function (droneData) {
-    console.log(droneData);
     $scope.getDroneCoordinates(droneData);
   });
 
@@ -216,7 +235,6 @@ $rootScope.landing = true;
         .then(function(registeredAddress) {
           var newAddressPolygon = createAddressFeature(registeredAddress);
           $scope.addresses[registeredAddress.gid] = newAddressPolygon;
-          console.log('what is being pushed to addresses',newAddressPolygon)
           $scope.addFeature(newAddressPolygon, 'polygon');
           $scope.zoomToAddress(newAddressPolygon);
         });
