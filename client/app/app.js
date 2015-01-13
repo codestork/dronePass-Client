@@ -25,37 +25,19 @@ var dronePass = angular.module('dronePass', [
         navbar: ['$rootScope', function ($rootScope) {
           return $rootScope.landing = false;
         }]
-      },
-      animation: {
-        enter: 'grow-in',
-        leave: 'shrink-out',
-        ease: 'back',
-        speed: 400
       }
     })
     .state('signin', {
       templateUrl: 'app/auth/signin.html',
       controller: 'AuthController',
       url: '/signin',
-      authenticate: false,
-      animation: {
-        enter: 'grow-in',
-        leave: 'shrink-out',
-        ease: 'back',
-        speed: 400
-      }
+      authenticate: false
     })
     .state('signup', {
       templateUrl: 'app/auth/signup.html',
       controller: 'AuthController',
       url: '/signup',
-      authenticate: false,
-      animation: {
-        enter: 'shrink-in',
-        leave: 'grow-out',
-        ease: 'back',
-        speed: 400
-      }
+      authenticate: false
     })
     .state('homePortal', {
       url: '/homePortal',
@@ -65,12 +47,6 @@ var dronePass = angular.module('dronePass', [
           Auth.isAuth(authDefer)
           return authDefer.promise;
         }]
-      },
-      animation: {
-        enter: 'shrink-in',
-        leave: 'grow-out',
-        ease: 'back',
-        speed: 400
       },
      views: {
          '': {
