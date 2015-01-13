@@ -27,14 +27,18 @@ angular.module('dronePass.homePortal', [])
         "type": "FeatureCollection",
         "features": []
       },
-      style: {
-        fillColor: '#CC66FF',
-        weight: 3,
-        opacity: .8,
-        color: '#AB8ACC',
-        dashArray: '1',
-        fillOpacity: 0.7
-      }
+      style: function (feature) {return {};},
+      pointToLayer: function(feature, latlng) {
+        var drone = new L.marker(latlng, {icon: L.icon(droneIcon)});
+          var angle = 0;
+          var _rotate = function () {
+            drone.setIconAngle(angle);
+            angle = (angle + 20) % 360;
+            setTimeout(_rotate, 500);
+          }
+          _rotate();
+          return drone;
+      } 
     },
     events: {
        map: {
@@ -100,9 +104,10 @@ $rootScope.landing = true;
 
   var droneIcon = {
     "iconUrl": "../../assets/drone-icon.png",
-    "iconSize": [50, 50], // size of the icon
-    "iconAnchor": [12, 0], // point of the icon which will correspond to marker's location
+    "iconSize": [25, 25], // size of the icon
+    "iconAnchor": [12.5, 12.5], // point of the icon which will correspond to marker's location
   }
+
 
   var createAddressFeature = function (registeredAddress) {
 
@@ -113,7 +118,14 @@ $rootScope.landing = true;
                      figure: 'address',
                      address: registeredAddress.address,
                      restriction_start_time: registeredAddress.restriction_start_time,
-                     restriction_end_time: registeredAddress.restriction_end_time },
+                     restriction_end_time: registeredAddress.restriction_end_time,
+                     fillColor: '#CC66FF',
+                     weight: 3,
+                     opacity: .8,
+                     color: '#AB8ACC',
+                     dashArray: '1',
+                     fillOpacity: 0.7
+                   },
       "geometry": JSON.parse(registeredAddress.lot_geom)
     }
 
