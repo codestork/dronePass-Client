@@ -87,8 +87,9 @@ $rootScope.landing = true;
   var formatDrone = function (droneData) {
     var newDrone = {
       "type": "Feature",
-      "properties": {"droneID": droneData.callSign, "figure": "drone"},
-      "icon": 'assets/drone-icon.png',
+      "properties": {"droneID": droneData.callSign,
+                      "figure": "drone",
+                    },
       "geometry": {
         "type": "Point",
         "coordinates": droneData.locationWGS84
@@ -96,6 +97,13 @@ $rootScope.landing = true;
     }
     return newDrone;
   }
+
+  var droneIcon = {
+    "iconUrl": "../../assets/drone-icon.png",
+    "iconSize": [50, 50], // size of the icon
+    "iconAnchor": [12, 0], // point of the icon which will correspond to marker's location
+  }
+
   var createAddressFeature = function (registeredAddress) {
 
     var newAddressPolygon = {
