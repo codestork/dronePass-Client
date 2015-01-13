@@ -245,12 +245,13 @@ $rootScope.landing = true;
         $scope.geoSearch.geosearch(newAddress);
        });
       for (var addressLine in $scope.newAddress) {
+        console.log($scope.newAddress);
         $scope.newAddress[addressLine] = "";
       }
     })
 
     deferred.resolve();
-    
+
   };
 
   $scope.getRegisteredAddresses = function () {
