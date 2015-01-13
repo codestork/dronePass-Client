@@ -88,7 +88,7 @@ $rootScope.landing = true;
     var newDrone = {
       "type": "Feature",
       "properties": {"droneID": droneData.callSign, "figure": "drone"},
-      "icon": 'assets/drone-icon.png',
+      // "icon": 'assets/drone-icon.png',
       "geometry": {
         "type": "Point",
         "coordinates": droneData.locationWGS84
