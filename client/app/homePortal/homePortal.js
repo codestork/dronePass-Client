@@ -119,7 +119,6 @@ $rootScope.landing = true;
     DroneSimulator.emit('CT_allDronesStates', {})}, 1000);
 
     DroneSimulator.on('TC_update', function (droneData) {
-      console.log(droneData);
     $scope.getDroneCoordinates(droneData);
   })
 
@@ -216,7 +215,6 @@ $rootScope.landing = true;
         .then(function(registeredAddress) {
           var newAddressPolygon = createAddressFeature(registeredAddress);
           $scope.addresses[registeredAddress.gid] = newAddressPolygon;
-          console.log('what is being pushed to addresses',newAddressPolygon)
           $scope.addFeature(newAddressPolygon, 'polygon');
           $scope.zoomToAddress(newAddressPolygon);
         });
