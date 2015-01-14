@@ -3,12 +3,19 @@
   body {
     font-size: 18px;
   }
+  #signin .group > input, #signup .group > input {
+    width: 45%;
+  }
 }
 
 /* Portrait tablets and medium desktops */
 @media (min-width: 992px) and (max-width: 1199px) {
   body {
     font-size: 16px;
+  }
+
+  #signin .group > input, #signup .group > input {
+    width: 45%;
   }
 }
 
@@ -44,6 +51,9 @@
   #leaflet-control-geosearch-qry {
     width: 25%;
   }
+  .errorMessage {
+   width: 70%;
+  }
 }
 
 /* Landscape phones and smaller */
@@ -59,6 +69,9 @@
   }
   #leaflet-control-geosearch-qry {
     width: 30%;
+  }
+  .errorMessage {
+   width: 70%;
   }
 
 }

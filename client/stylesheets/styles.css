@@ -64,7 +64,8 @@ nav .container {
 nav.navbar.navbar-default.main {
   margin-bottom: 0;
   background-color: #680000;
-  position: relative;
+  position: absolute;
+  z-index: 100;
   width: 100%;
 }
 
@@ -236,6 +237,8 @@ aside.notify.col-md-4 i {
 
 aside.notify.col-md-4 a:hover, aside.notify.col-md-4 a:focus, aside.notify.col-md-4 a:active {
   text-decoration: none;
+  -webkit-transition-duration: 1s;
+  transition-duration: 1s;
   -webkit-transform: translate(1em, 0);
   transform: translate(1em, 0);
 }
@@ -298,15 +301,8 @@ ul.transparent > li > a:hover {
   -webkit-filter: grayscale(80%);
 }
 
-a.link {
-  color: white;
-}
-
-#signup .row {
-  margin-left: 4em;
-}
-
 #signin h1.title , #signup h1.title {
+  margin-top: 1em;
   padding-left: 0;
   padding-top: .5em;
   color: white;
@@ -315,12 +311,16 @@ a.link {
   text-shadow: .05em .05em .05em rgba(50, 50, 50, 0.5);
 }
 
-#signup p, #signup a, #singin a {
-  text-shadow: .05em .05em .05em rgba(50, 50, 50, 0.5);
-  font-size: 1em;
+#signup p, #singin a, #signup a, a.link{
+  text-shadow: .05em .05em .05em rgba(50, 50, 50, 0.5); 
   text-align: left;
   display: block;
   color: white;
+}
+
+
+#signup a, #singin a, a.link {
+ font-size: .8em 
 }
 
 form[name="signinForm"], form[name="signupForm"] {
@@ -344,6 +344,24 @@ form[name="signinForm"], form[name="signupForm"] {
   text-align: left;
   color: white;
   width: 100%;  
+}
+
+.errorMessage {
+ background-color:  #B54747;
+ opacity: .75;
+ width: 55%;
+ text-indent: .5em;
+ border-radius: .5em;
+ border: .1em solid white;
+ color: white;
+ margin-top: 1em;
+ text-align: center;
+ font-size: .9em;
+ padding: .5em;
+}
+
+.mdi-alert-warning {
+  margin-right: .5em;
 }
 
 #mapContainer {
@@ -403,6 +421,11 @@ form[name="signinForm"], form[name="signupForm"] {
   -webkit-box-shadow: .1em .1em .1em 0 gray;
   -moz-box-shadow:    .1em .1em .1em 0 gray;
   box-shadow:         .1em .1em .1em 0 gray;
+}
+
+.leaflet-control-container {
+  position: relative;
+  margin-top: 4.25em;
 }
 
 
@@ -467,8 +490,8 @@ input[type="submit"].time {
 
 #ownerDashboard{
   position: absolute;
-  margin-top: 1em;
-  width: 25%;
+  margin-top: 5em;
+  width: 30%;
   right: 0;
   top: 0;
   color: black;
@@ -490,6 +513,16 @@ input[type="submit"].time {
   -webkit-box-shadow: 0 .1em .05em rgba(50, 50, 50, 0.75);
   -moz-box-shadow:    0 .1em .05em rgba(50, 50, 50, 0.75);
   box-shadow:         0 .1em .05em rgba(50, 50, 50, 0.75);
+}
+
+container#mapContainer .errorMessage {
+  position: absolute;
+  bottom: 2em;
+  color: black;
+  left: 50%;
+  transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0);
+  z-index: 20;
 }
 
 #ownerDashboard .group > input{

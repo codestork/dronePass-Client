@@ -31,6 +31,6 @@
     "moment": "~2.8.4",
     "socket.io-client": "~1.2.1",
     "angular-bootstrap": "~0.12.0",
-    "leaflet-plugins": "~1.2.1"
+    "leaflet-plugins": "~1.2.1",
   }
 }

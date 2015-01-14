@@ -65,11 +65,13 @@ angular.module('dronePass.authServices', [])
       return false;
     }
   }; 
+
   
   return {
       signin: signin,
       signup: signup,
       isAuth: isAuth,
       isLoggedIn: isLoggedIn
+
    };
   })
