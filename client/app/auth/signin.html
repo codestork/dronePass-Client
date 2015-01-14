@@ -17,6 +17,7 @@
         <input type="submit" value="Sign In" class="btn btn-default btn-raised white">
       </form>
       <a class="link" href="#/signup">Don't have an account? <strong>Signup</strong> ...</a>
+      <div class="errorMessage fx-fade-down fx-speed-2000" ng-if="newError"> <i class="mdi-alert-warning"></i>{{errorMessage}}</div>
     </div> <!-- col.xs.6 -->
     <div class="col-xs-5"></div>
   </div> <!-- end row -->

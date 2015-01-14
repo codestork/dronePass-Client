@@ -1,31 +1,56 @@
 angular.module('dronePass.auth', [])
 
-.controller('AuthController', function ($scope, $rootScope, $window, $state, PropertyInfo, Auth) {
+.controller('AuthController', function ($scope, $rootScope, $window, $state, $timeout, PropertyInfo, Auth) {
   $scope.user = {};
   $rootScope.landing = true;
 
+  $scope.clearFieldsOnError = function (errorMessage) {
+    $scope.newError = true;
+    $scope.errorMessage = errorMessage
+    $scope.user.username = "";
+    $scope.user.password = "";
+    $scope.user.name = "";
+    if ($scope.newError = true) {
+      $timeout(function () {
+        $scope.newError = false;  
+      }, 2500)
+    }
+  }
+
   $scope.signin = function () {
     // sign in function
+    $scope.newError = false;
     Auth.signin($scope.user)
       .then(function (token) {
         $window.localStorage.setItem('com.dronePass', token);
         $state.transitionTo('homePortal');
       })
       .catch(function (error) {
-        console.error(error);
+        $scope.clearFieldsOnError(error.data);
       });
   };
 
   $scope.signup = function () {
     // sign up function
+    $scope.newError = false;
     PropertyInfo.addresses.centerZip = $scope.zipCode;
     Auth.signup($scope.user).then(function (token) {
         $window.localStorage.setItem('com.dronePass', token);
         $state.transitionTo('homePortal');
       })
       .catch(function (error) {
-        console.error(error);
+        $scope.clearFieldsOnError(error.data);
       });
   };
+
+  $scope.redirectMessage = 'You must be logged in to visit the Homeowner Portal'
+
+  if ($rootScope.redirectedFromHomePortal) {
+    $scope.clearFieldsOnError($scope.redirectMessage);
+    $rootScope.redirectedFromHomePortal = false;
+  };
+
+
+
 
 });

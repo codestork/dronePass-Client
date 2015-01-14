@@ -1,6 +1,6 @@
 angular.module('dronePass.homePortal', [])
 
-.controller('HomePortalController', function ($scope, $rootScope, $http, leafletData, PropertyInfo, DroneSimulator, $q) { 
+.controller('HomePortalController', function ($scope, $rootScope, $http, $timeout, leafletData, PropertyInfo, DroneSimulator, $q) { 
   angular.extend($scope, {
     center: {
         lat:  37.65,
@@ -131,6 +131,17 @@ $rootScope.landing = true;
 
     return newAddressPolygon;
   }
+
+  
+  $scope.displayErrorMessage = function (errorMessage) {
+    $scope.newError = true;
+    $scope.errorMessage = errorMessage;
+    if ($scope.newError = true) {
+      $timeout(function () {
+        $scope.newError = false;  
+      }, 2500)
+    }
+  }
   /***************** Drone Simulator ***********************/
 
   $scope.drones = {}
@@ -138,9 +149,9 @@ $rootScope.landing = true;
   setInterval(function () {
     DroneSimulator.emit('CT_allDronesStates', {})}, 1000);
 
-    DroneSimulator.on('TC_update', function (droneData) {
+  DroneSimulator.on('TC_update', function (droneData) {
     $scope.getDroneCoordinates(droneData);
-  })
+  });
 
 
   $scope.beginDroneFlight = function (droneData) {
@@ -216,8 +227,6 @@ $rootScope.landing = true;
     }
   };
 
-
-
   /***************** Database Requests ***********************/
   $scope.addresses = {};
 
@@ -229,15 +238,17 @@ $rootScope.landing = true;
     // refactor later;
     deferred.promise.then(function (){
       leafletData.getMap('map').then(function(map) {
-        map.on('geosearch_foundlocations', function (result) {
-        $scope.selectedCoordinates = [result.Locations[0].X, result.Locations[0].Y];
-        PropertyInfo.registerAddress($scope.selectedCoordinates, newAddress)
-        .then(function(registeredAddress) {
-          var newAddressPolygon = createAddressFeature(registeredAddress);
-          $scope.addresses[registeredAddress.gid] = newAddressPolygon;
-          $scope.addFeature(newAddressPolygon, 'polygon');
-          $scope.zoomToAddress(newAddressPolygon);
-        });
+          map.on('geosearch_foundlocations', function (result) {
+          $scope.selectedCoordinates = [result.Locations[0].X, result.Locations[0].Y];
+          PropertyInfo.registerAddress($scope.selectedCoordinates, newAddress)
+          .then(function(registeredAddress) {
+            var newAddressPolygon = createAddressFeature(registeredAddress);
+            $scope.addresses[registeredAddress.gid] = newAddressPolygon;
+            $scope.addFeature(newAddressPolygon, 'polygon');
+            $scope.zoomToAddress(newAddressPolygon);
+          }).catch(function (error) {
+          $scope.displayErrorMessage(error.data);
+          });
         });
       });
     }).then(function () {
@@ -250,7 +261,7 @@ $rootScope.landing = true;
     })
 
     deferred.resolve();
-    
+
   };
 
   $scope.getRegisteredAddresses = function () {
@@ -258,7 +269,9 @@ $rootScope.landing = true;
       if (userAddresses) {
         renderPolygons(userAddresses);
       }
-    })
+    }).catch(function (error) {
+        $scope.displayErrorMessage(error.data);
+      });
   }
 
   $scope.getRegisteredAddresses();
@@ -275,7 +288,9 @@ $rootScope.landing = true;
             featureCollection.splice(i, 1);
           } 
         }
-      })
+      }).catch(function (error) {
+        $scope.displayErrorMessage(error.data);
+      });
   }
 
   $scope.times = {
@@ -292,11 +307,14 @@ $rootScope.landing = true;
       restriction_start_time= null;
       restriction_end_time= null;
     }
+
     PropertyInfo.updatePermission(address.properties, restriction_start_time, restriction_end_time)
       .then(function(updatedAddress) {
         var newAddressPolygon = createAddressFeature(updatedAddress);
         $scope.addresses[updatedAddress.gid] = newAddressPolygon;
         $scope.addFeature(newAddressPolygon, 'polygon');
+      }).catch(function (error) {
+        $scope.displayErrorMessage(error.data);
       });
   }
 
