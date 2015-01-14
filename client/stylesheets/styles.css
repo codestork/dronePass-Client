@@ -424,8 +424,8 @@ form[name="signinForm"], form[name="signupForm"] {
 }
 
 .leaflet-control-container {
-  position: relative;
-  margin-top: 4.25em;
+  position: absolute;
+  margin-top: 4.5em;
 }
 
 

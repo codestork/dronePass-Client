@@ -47,6 +47,7 @@
   }
   #ownerDashboard {
     width: 40%;
+    margin-top: 7em;
   }
   #leaflet-control-geosearch-qry {
     width: 25%;
@@ -66,6 +67,7 @@
   }
   #ownerDashboard {
     width: 40%;
+    margin-top: 7em;
   }
   #leaflet-control-geosearch-qry {
     width: 30%;
