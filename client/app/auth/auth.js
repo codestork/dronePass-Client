@@ -33,7 +33,6 @@ angular.module('dronePass.auth', [])
   $scope.signup = function () {
     // sign up function
     $scope.newError = false;
-    PropertyInfo.addresses.centerZip = $scope.zipCode;
     Auth.signup($scope.user).then(function (token) {
         $window.localStorage.setItem('com.dronePass', token);
         $state.transitionTo('homePortal');
