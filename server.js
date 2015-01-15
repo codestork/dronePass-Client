@@ -25,7 +25,7 @@ console.log('You are now logged into port ' + port);
 app.post('/signin', authHandler.signinUser);
 app.post('/signup', authHandler.signupUser);
 app.post('/signout', authHandler.signoutUser);
-app.get('/checkAuth', authHandler.checkAuth);
+app.get('/checkAuthentication', authHandler.checkAuthentication);
 app.delete('/removeUser', authHandler.removeUser);
 app.post('/registerAddress', parcelHandler.registerAddress);
 app.delete('/removeAddress/:gid', parcelHandler.removeAddress);
