@@ -1,24 +1,11 @@
 angular.module('dronePass.propertyInfo', [])
 
 .factory('PropertyInfo', function ($http) {
-  /*storage of all addresses for a specific user.
-  When a user logs in, this will be populated with the home addresses specific to this user */
-  /*add address to homes format:
-    addresses{
-      string address: coordinates of point[#, #],
-      etc,
-      etc
-  }; */
-
-  var addresses = {
-    centerZip : null
-  };
 
   // registering a property
-  // use mapbox geocoding to get the coordinates of a property using address entry
+  // use leaflet geocoding to get the coordinates of a property using address entry
   //[v2] use click on map to add address
   var registerAddress = function (coordinates, address) {
-    console.log(address);
     var addressRegistry = {
       coordinates: coordinates,
       address: address,
@@ -33,7 +20,6 @@ angular.module('dronePass.propertyInfo', [])
     .then(function (res) {
       return res.data;
     });
-
 
   };
   // removes an address from a user's list of homes
@@ -78,7 +64,6 @@ angular.module('dronePass.propertyInfo', [])
     // start time
   };
   return {
-    addresses: addresses,
     registerAddress: registerAddress,
     removeAddress: removeAddress,
     updatePermission: updatePermission,

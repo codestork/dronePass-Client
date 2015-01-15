@@ -36,7 +36,7 @@ angular.module('dronePass.authServices', [])
     if (!!$window.localStorage.getItem('com.dronePass')) {
       return $http({
           method: 'GET',
-          url: '/checkAuth',
+          url: '/checkAuthentication',
         })
         .success(function (data, status, headers, config) {
           authDefer.resolve();
@@ -53,7 +53,7 @@ angular.module('dronePass.authServices', [])
     if (!!$window.localStorage.getItem('com.dronePass')) {
       return $http({
           method: 'GET',
-          url: '/checkAuth',
+          url: '/checkAuthentication',
         })
         .success(function (data, status, headers, config) {
           return true;
@@ -72,6 +72,5 @@ angular.module('dronePass.authServices', [])
       signup: signup,
       isAuth: isAuth,
       isLoggedIn: isLoggedIn
-
    };
-  })
+})

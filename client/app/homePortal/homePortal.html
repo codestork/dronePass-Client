@@ -7,7 +7,7 @@
           <li class="list-group-item mainItem" ng-click="showAddressForm=!showAddressForm; listAddresses=false; listPermissions=false"> Register Address <span class="glyphicon glyphicon-chevron-down"></span></li>
             <form ng-submit="registerAddress();showAddressForm=!showAddressForm" name="addressRegistry" ng-show="showAddressForm">
               <div class="group">
-                <input class="register"type='text' placeholder="Address Line 1" ng-model='newAddress.line1' ng-required>
+                <input class="register"type='text' placeholder="Address Line 1" ng-model='newAddress.line1' required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
               </div>
@@ -17,20 +17,20 @@
                 <span class="bar"></span>
               </div>
               <div class="group">
-                <input type="text" class="register" placeholder="City" ng-model='newAddress.city' ng-required>
+                <input type="text" class="register" placeholder="City" ng-model='newAddress.city' required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
               </div>
               <div class="group">
                 <label name"state">State</label>
-                <select class="register" ui-view="states@HomePortal" placeholder="state" autocomplete="on" name="State" ng-model="newAddress.state"  ng-required>
+                <select class="register" ui-view="states@HomePortal" placeholder="state" autocomplete="on" name="State" ng-model="newAddress.state"  required>
                 </select>
                 <span class="highlight"></span>
                 <span class="bar"></span>
               </div>
               <div class="group">
                 <label name="zip">Zip Code</label>
-                <input class="register zip" type="number" ng-model='newAddress.zip' ng-minlength='5' ng-maxlength='5'ng-required>
+                <input class="register zip" type="number" ng-model='newAddress.zip' ng-minlength='5' ng-maxlength='5' required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
               </div>
@@ -57,13 +57,13 @@
             </div>
               <div class="group time clearfix" ng-if="checked" >
                 <label>Restriction start time</label>
-                <input type="time" ng-model='times.restriction_start_time' ng-required>
+                <input type="time" ng-model='times.restriction_start_time' required>
                 <span class="highlight"></span> 
                 <span class="bar"></span>
               </div>
               <div class="group time clearfix" ng-if="checked" >
                 <label>Restriction end time</label>
-                <input type="time" ng-model='times.restriction_end_time' ng-required>
+                <input type="time" ng-model='times.restriction_end_time' required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
               </div>
