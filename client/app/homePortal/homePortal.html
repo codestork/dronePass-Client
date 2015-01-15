@@ -5,7 +5,7 @@
     <div id="ownerDashboard">
         <ol class="list group">
           <li class="list-group-item mainItem" ng-click="showAddressForm=!showAddressForm; listAddresses=false; listPermissions=false"> Register Address <span class="glyphicon glyphicon-chevron-down"></span></li>
-            <form ng-submit="throttle_registerAddress();showAddressForm=!showAddressForm" name="addressRegistry" ng-show="showAddressForm">
+            <form ng-submit="registerAddress();showAddressForm=!showAddressForm" name="addressRegistry" ng-show="showAddressForm">
               <div class="group">
                 <input class="register"type='text' placeholder="Address Line 1" ng-model='newAddress.line1' required>
                 <span class="highlight"></span>

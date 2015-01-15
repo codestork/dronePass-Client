@@ -36,14 +36,19 @@ angular.module('dronePass.homePortal', [])
       style: function (feature) {return {};}, // allows for custom styling
       pointToLayer: function(feature, latlng) { // sets spinning for drone
         var drone = new L.marker(latlng, {icon: L.icon(droneIcon)});
-          var angle = 0;
-          var _rotate = function () {
-            drone.setIconAngle(angle);
-            angle = (angle + 20) % 360;
-            setTimeout(_rotate, 500);
-          }
-          _rotate();
-          return drone;
+        var currRotation = $scope.droneAnimation.currentRotation;
+        var stepTime = $scope.droneAnimation.STEP_TIME;
+        var rotationRate = $scope.droneAnimation.rotationRate;
+
+        drone.setIconAngle(currRotation);
+
+        // ROTATE THE DRONE
+        if ($scope.droneAnimation.currentRotation < 360){
+          $scope.droneAnimation.currentRotation += rotationRate;
+        } else {
+          $scope.droneAnimation.currentRotation = 0;
+        }
+        return drone;
       } 
     },
     events: {
@@ -148,15 +153,61 @@ angular.module('dronePass.homePortal', [])
   }
   /***************** Drone Simulator ***********************/
 
-  $scope.drones = {}
-  
+  $scope.drones = {}  
   // socketIO communications, emitting presence and getting drone Coordinates from tower
+  // Global Variables to help with drone animation
+  var STEP_TIME = 100;
+  var FULL_SPIN_TIME = 10000;
+  $scope.droneAnimation = {
+    STEP_TIME : STEP_TIME,
+    currentRotation : 0,
+    rotationRate : 360 / (FULL_SPIN_TIME / STEP_TIME)
+  };
+
+  var prevDrone = {};
+  var currentTime, timeDelta, previousTime;
+
   setInterval(function () {
     DroneSimulator.emit('CT_allDronesStates', {})
   }, 1000);
 
+  // Gives a change in long and lat needed for each drone tween
+  var intervalDeltas = function( prevPt, nextPt, intervals ){
+    var deltaX = ( nextPt[0] - prevPt[0] ) / intervals;
+    var deltaY = ( nextPt[1] - prevPt[1] ) / intervals;
+    return [ deltaX, deltaY ];
+  }
+
   DroneSimulator.on('TC_update', function (droneData) {
-    $scope.getDroneCoordinates(droneData);
+    for(var key in droneData){
+      var currentDrone = droneData[key];
+      if (currentDrone && $scope.drones[currentDrone.callSign]) {
+        // If there is a new coordinate set received from the Drone Tower, updaate the position
+        if (prevDrone[currentDrone.callSign].locationWGS84[0] !== currentDrone.locationWGS84[0] || prevDrone[currentDrone.callSign].locationWGS84[1] !== currentDrone.locationWGS84[1]){
+          currentTime = new Date;
+          timeDelta = currentTime - previousTime;
+          previousTime = currentTime;
+          var nFrames = timeDelta / STEP_TIME;
+          var stepDist = intervalDeltas(prevDrone[currentDrone.callSign].locationWGS84, currentDrone.locationWGS84, nFrames);
+          for( var i=0; i<nFrames; i++ ){
+            var dronesToRender = {};
+            var newLocation = [ prevDrone[currentDrone.callSign].locationWGS84[0] + (i+1)*stepDist[0], prevDrone[currentDrone.callSign].locationWGS84[1] + (i+1)*stepDist[1]];
+            droneToRender = {callSign: prevDrone[currentDrone.callSign].callSign, locationWGS84: newLocation};
+            var setTimeoutRender = function(renderObj, timeTillRender){
+              setTimeout(function(){
+                $scope.getDroneCoordinates(renderObj);
+              }, timeTillRender);
+            }
+            setTimeoutRender(droneToRender, i*STEP_TIME);
+          }
+        } 
+      // If it is a new drone, render it
+      } else if (currentDrone) {
+        previousTime = new Date;
+        $scope.getDroneCoordinates(currentDrone);
+      }
+      prevDrone[currentDrone.callSign] = currentDrone;
+    }
   });
 
 
@@ -187,14 +238,11 @@ angular.module('dronePass.homePortal', [])
   };
 
   $scope.getDroneCoordinates = function (droneData) {
-    for (key in droneData) {
-      droneData = droneData[key];
-    }
     var deferred = $q.defer()
     deferred.promise.then(function(){
       if ($scope.drones[droneData.callSign]) {
         $scope.drones[droneData.callSign] = createDroneMarker(droneData)
-      }else {
+      } else {
         $scope.beginDroneFlight(droneData)
       }
       // ToDo: Add event listener for end of drone Flight
@@ -234,6 +282,8 @@ angular.module('dronePass.homePortal', [])
 
   leafletData.getMap('map').then(function(map) {
     map.on('geosearch_showlocation', function (result) {
+      // checks if the address being searched is as the result of a register button
+      // does not follow through with registry on search bar search
       if ($scope.registryAddress) {
         $scope.selectedCoordinates = [result.Location.X, result.Location.Y];
         $scope.registerAddressInDB();
@@ -252,6 +302,7 @@ angular.module('dronePass.homePortal', [])
       }).catch(function (error) {
        $scope.displayErrorMessage(error.data);
     });
+    // clears form
     for (var addressLine in $scope.newAddress) {
       $scope.newAddress[addressLine] = "";
     }
@@ -265,8 +316,6 @@ angular.module('dronePass.homePortal', [])
         $scope.geoSearch.geosearch($scope.registryAddress);
     });
   };
-
-  $scope.throttle_registerAddress = _.throttle($scope.registerAddress, 1000);
 
   $scope.getRegisteredAddresses = function () {
     PropertyInfo.getRegisteredAddresses().then(function(userAddresses) {
