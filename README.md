@@ -1,12 +1,12 @@
-# Project Name
+# DronePass
 
-> Pithy project description
+Air Traffic Control for Drones: Airspare authorization and restriction service for landowners, and a real time drone traffic control system. This repo is the Homeowner API section, which allows homeowners to register their land parcels with our Drone Air Traffic Control administrator and set special permission times for when drones may fly over their homes.
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Dave Raleigh
+  - __Scrum Master__: Liz Portnoy
+  - __Development Team Members__: Dennis Lin, Arthur Chan
 
 ## Table of Contents
 
