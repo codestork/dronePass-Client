@@ -30,14 +30,19 @@ angular.module('dronePass.homePortal', [])
       style: function (feature) {return {};},
       pointToLayer: function(feature, latlng) {
         var drone = new L.marker(latlng, {icon: L.icon(droneIcon)});
-          var angle = 0;
-          var _rotate = function () {
-            drone.setIconAngle(angle);
-            angle = (angle + 20) % 360;
-            setTimeout(_rotate, 500);
-          }
-          _rotate();
-          return drone;
+        var currRotation = $scope.droneAnimation.currentRotation;
+        var stepTime = $scope.droneAnimation.STEP_TIME;
+        var rotationRate = $scope.droneAnimation.rotationRate;
+
+        drone.setIconAngle(currRotation);
+
+        // ROTATE THE DRONE
+        if ($scope.droneAnimation.currentRotation < 360){
+          $scope.droneAnimation.currentRotation += rotationRate;
+        } else {
+          $scope.droneAnimation.currentRotation = 0;
+        }
+        return drone;
       } 
     },
     events: {
@@ -145,12 +150,69 @@ $rootScope.landing = true;
   /***************** Drone Simulator ***********************/
 
   $scope.drones = {}
-  
+
+  // Global Variables to help with drone animation
+  var STEP_TIME = 100;
+  var FULL_SPIN_TIME = 10000;
+  $scope.droneAnimation = {};
+  $scope.droneAnimation.STEP_TIME = STEP_TIME;
+  $scope.droneAnimation.currentRotation = 0;
+  $scope.droneAnimation.rotationRate = 360 / (FULL_SPIN_TIME / STEP_TIME);
+  //**************************************************************
+
+
   setInterval(function () {
     DroneSimulator.emit('CT_allDronesStates', {})}, 1000);
 
+  // Gives a change in long and lat needed for each drone tween
+  var intervalDeltas = function( prevPt, nextPt, intervals ){
+    var deltaX = ( nextPt[0] - prevPt[0] ) / intervals;
+    var deltaY = ( nextPt[1] - prevPt[1] ) / intervals;
+    return [ deltaX, deltaY ];
+  }
+
+  var prevDrone = {};
+  var currTime, timeDelta, prevTime;
+
   DroneSimulator.on('TC_update', function (droneData) {
-    $scope.getDroneCoordinates(droneData);
+
+    for(var key in droneData){
+      var currDrone = droneData[key];
+      // If there is a new batch of drone movements submitted
+      if (currDrone && $scope.drones[currDrone.callSign]) {
+        if (prevDrone[currDrone.callSign].locationWGS84[0] !== currDrone.locationWGS84[0] || prevDrone[currDrone.callSign].locationWGS84[1] !== currDrone.locationWGS84[1]){
+          // console.log("NEW MOVE")
+          currTime = new Date;
+          timeDelta = currTime - prevTime;
+          prevTime = currTime;
+          var nFrames = timeDelta / STEP_TIME;
+          var stepDist = intervalDeltas(prevDrone[currDrone.callSign].locationWGS84, currDrone.locationWGS84, nFrames);
+          for( var i=0; i<nFrames; i++ ){
+            var dronesToRender = {};
+            var newLocation = [ prevDrone[currDrone.callSign].locationWGS84[0] + (i+1)*stepDist[0], prevDrone[currDrone.callSign].locationWGS84[1] + (i+1)*stepDist[1]];
+            droneToRender = {callSign: prevDrone[currDrone.callSign].callSign, locationWGS84: newLocation};
+            var setTimeoutRender = function(renderObj, timeTillRender){
+              setTimeout(function(){
+                $scope.getDroneCoordinates(renderObj);
+              }, timeTillRender);
+            }
+            setTimeoutRender(droneToRender, i*STEP_TIME);
+          }
+          prevDrone[currDrone.callSign] = currDrone;
+      // If there the drone coordinates are the same as before
+        } else {
+          // console.log("OLD MOVE")
+          prevDrone[currDrone.callSign] = currDrone;
+        }
+      // If it is a new drone, render it
+      } else if (currDrone) {
+        // console.log("NEW DRONE")
+        prevTime = new Date;
+        $scope.getDroneCoordinates(currDrone);
+        prevDrone[currDrone.callSign] = currDrone;
+      }
+
+    }
   });
 
 
@@ -170,14 +232,12 @@ $rootScope.landing = true;
   }
 
   $scope.getDroneCoordinates = function (droneData) {
-    for (key in droneData) {
-      droneData = droneData[key];
-    }
     var deferred = $q.defer()
     deferred.promise.then(function(){
+
       if ($scope.drones[droneData.callSign]) {
         $scope.drones[droneData.callSign] = formatDrone(droneData)
-      }else {
+      } else {
         $scope.beginDroneFlight(droneData)
       }
 
