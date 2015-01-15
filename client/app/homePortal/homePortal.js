@@ -164,7 +164,7 @@ angular.module('dronePass.homePortal', [])
     rotationRate : 360 / (FULL_SPIN_TIME / STEP_TIME)
   };
 
-  var prevDrone = {};
+  var previousDrone = {};
   var currentTime, timeDelta, previousTime;
 
   setInterval(function () {
@@ -177,28 +177,29 @@ angular.module('dronePass.homePortal', [])
     var deltaY = ( nextPt[1] - prevPt[1] ) / intervals;
     return [ deltaX, deltaY ];
   }
+  var setTimeoutDroneRender = function(renderObj, timeTillRender){
+    setTimeout(function(){
+      $scope.getDroneCoordinates(renderObj);
+    }, timeTillRender);
+  }
 
   DroneSimulator.on('TC_update', function (droneData) {
     for(var key in droneData){
       var currentDrone = droneData[key];
       if (currentDrone && $scope.drones[currentDrone.callSign]) {
         // If there is a new coordinate set received from the Drone Tower, updaate the position
-        if (prevDrone[currentDrone.callSign].locationWGS84[0] !== currentDrone.locationWGS84[0] || prevDrone[currentDrone.callSign].locationWGS84[1] !== currentDrone.locationWGS84[1]){
+        var previousCoordinates = previousDrone[currentDrone.callSign].locationWGS84;
+        if (previousCoordinates[0] !== currentDrone.locationWGS84[0] || previousCoordinates[1] !== currentDrone.locationWGS84[1]){
           currentTime = new Date;
           timeDelta = currentTime - previousTime;
           previousTime = currentTime;
           var nFrames = timeDelta / STEP_TIME;
-          var stepDist = intervalDeltas(prevDrone[currentDrone.callSign].locationWGS84, currentDrone.locationWGS84, nFrames);
+          var stepDist = intervalDeltas(previousCoordinates, currentDrone.locationWGS84, nFrames);
           for( var i=0; i<nFrames; i++ ){
             var dronesToRender = {};
-            var newLocation = [ prevDrone[currentDrone.callSign].locationWGS84[0] + (i+1)*stepDist[0], prevDrone[currentDrone.callSign].locationWGS84[1] + (i+1)*stepDist[1]];
-            droneToRender = {callSign: prevDrone[currentDrone.callSign].callSign, locationWGS84: newLocation};
-            var setTimeoutRender = function(renderObj, timeTillRender){
-              setTimeout(function(){
-                $scope.getDroneCoordinates(renderObj);
-              }, timeTillRender);
-            }
-            setTimeoutRender(droneToRender, i*STEP_TIME);
+            var newLocation = [ previousCoordinates[0] + (i+1)*stepDist[0], previousCoordinates[1] + (i+1)*stepDist[1]];
+            droneToRender = {callSign: previousDrone[currentDrone.callSign].callSign, locationWGS84: newLocation};
+            setTimeoutDroneRender(droneToRender, i*STEP_TIME);
           }
         } 
       // If it is a new drone, render it
@@ -206,7 +207,7 @@ angular.module('dronePass.homePortal', [])
         previousTime = new Date;
         $scope.getDroneCoordinates(currentDrone);
       }
-      prevDrone[currentDrone.callSign] = currentDrone;
+      previousDrone[currentDrone.callSign] = currentDrone;
     }
   });
 
@@ -275,7 +276,7 @@ angular.module('dronePass.homePortal', [])
     }
   };
 
-  /***************** Database Requests ***********************/
+  /***************** Address Registry ***********************/
   $scope.addresses = {};
 
   $scope.newAddress = {};
@@ -317,6 +318,8 @@ angular.module('dronePass.homePortal', [])
     });
   };
 
+/**************** Other Address Restrictions ***************/
+
   $scope.getRegisteredAddresses = function () {
     PropertyInfo.getRegisteredAddresses().then(function(userAddresses) {
       if (userAddresses) {
@@ -330,7 +333,6 @@ angular.module('dronePass.homePortal', [])
   $scope.getRegisteredAddresses();
 
   // deletes selectedAddress
-
   $scope.removeAddress = function (address) {
     var gid = address.properties.gid;
     PropertyInfo.removeAddress(gid)
