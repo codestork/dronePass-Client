@@ -1,6 +1,5 @@
 var bcrypt = require('bcrypt');
 var db = require('../config.js');
-var Q = require('q');
 var saltWorkFactor = 10;
 
 
