@@ -176,12 +176,13 @@ angular.module('dronePass.homePortal', [])
     var deltaX = ( nextPt[0] - prevPt[0] ) / intervals;
     var deltaY = ( nextPt[1] - prevPt[1] ) / intervals;
     return [ deltaX, deltaY ];
-  }
-  var setTimeoutDroneRender = function(renderObj, timeTillRender){
+  };
+
+  var setTimeoutDroneRender = function(droneToRender, timeTillRendering){
     setTimeout(function(){
-      $scope.getDroneCoordinates(renderObj);
-    }, timeTillRender);
-  }
+      $scope.getDroneCoordinates(droneToRender);
+    }, timeTillRendering);
+  };
 
   DroneSimulator.on('TC_update', function (droneData) {
     for(var key in droneData){
