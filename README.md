@@ -8,6 +8,8 @@ The [Planner](https://github.com/codestork/dronePass-Planner), [Tower](https://g
 
 As of right now, only parcels in Alameda county can be registered as homes due to the inconsistent availability of open source land parcel data. Addresses outside of Alameda county can be searched, but will not be registered within our registry database.
 
+## Relation to DronePass System Architecture
+![Alt text](/../screenshots/screenshots/landowner.png?raw=true "Location in System Architecture")
 
 ## Table of Contents
 
