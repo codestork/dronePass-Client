@@ -78,12 +78,15 @@ nav.navbar.navbar-default.main {
 nav.navbar.main a {
   font-size: 1.1em;
   padding-right: 1em;
+  color: white;
 }
 
 nav .navbar-collapse a:active, nav .navbar-collapse a:hover, nav .navbar-collapse a:focus {
   text-shadow: .03em .03em .03em rgba(50, 50, 50, 0.5);
   -webkit-border-radius: .1em;
   -moz-border-radius: .1em;
+  color: rgb(200, 200, 200);
+  text-shadow: -.03em -.03em .03em rgba(, 50, 50, 0.5);
   border-radius: .1em;
   background: rgb(95, 0, 0);
   background: -moz-linear-gradient(90deg, rgb(60, 0, 0) 10%, rgb(120, 0, 0) 90%);
@@ -119,7 +122,8 @@ div.menu.row {
 
 .banner-text h3{
   margin-top: 1em;
-  font-weight: lighter;
+  font-weight: 100;
+  line-height: 1.1em;
 }
 
 .carousel-inner {
@@ -186,7 +190,7 @@ div.menu.row {
   left:0;
   width:100%;
   text-align:center;
-  text-shadow: .05em .05em .05em rgba(50, 50, 50, 0.5);
+  text-shadow: .1em .1em .1em rgba(50, 50, 50, 0.8);
 }
 
 h1.title, a.landingPage{
@@ -285,6 +289,8 @@ ul.transparent > li > a{
 ul.transparent > li > a:hover {
   border-right: .2em solid white;
   background-color: rgba(0, 0, 0, 0);
+  -webkit-transition-duration: .5s;
+  transition-duration: .5s;
   -webkit-transform: translate(1em, 0);
   transform: translate(1em, 0);
   text-decoration: none;
@@ -301,8 +307,8 @@ ul.transparent > li > a:hover {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  filter: grayscale(100%);
-  -webkit-filter: grayscale(80%);
+  filter: grayscale(75%);
+  -webkit-filter: grayscale(75%);
 }
 
 #signin h1.title , #signup h1.title {
@@ -429,7 +435,7 @@ form[name="signinForm"], form[name="signupForm"] {
 
 .leaflet-control-container {
   position: absolute;
-  margin-top: 4.5em;
+  margin-top: 5em;
 }
 
 
@@ -548,10 +554,15 @@ container#mapContainer .errorMessage {
 
 #ownerDashboard label{
   color: white;
-  text-indent: .9em;
+  text-indent: 1.5em;
   font-weight: normal;
   width: 30%;
+  font-size: 1em;
   display: inline-block;
+}
+
+#ownerDashboard .radio label {
+  text-indent: 0;
 }
 
 #ownerDashboard div.time label {
@@ -625,6 +636,9 @@ div.togglebutton, #ownerDashboard div.togglebutton label {
   font-size: .9em;
 }
 
+select.register, select.register:focus {
+  background: white;
+}
 
 #ownerDashboard .group > select {
   margin-top: .6em;
