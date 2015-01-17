@@ -357,8 +357,8 @@ angular.module('dronePass.homePortal', [])
   }
 
   $scope.times = {
-    restriction_start_time: null,
-    restriction_end_time: null
+    restriction_start_time: new Date( Date.UTC(2014,12,31) ), // picked arbitrary date to have it display at hour
+    restriction_end_time: new Date( Date.UTC(2014,12,31) )
   }
 
   $scope.updatePermission = function (address) {

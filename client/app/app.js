@@ -62,7 +62,11 @@ var dronePass = angular.module('dronePass', [
     .state('about', {
       templateUrl: 'app/about/about.html',
       url: '/about',
-      authenticate: false
+      authenticate: false,
+      resolve: {auth: function ($rootScope) {
+        $rootScope.landing = true;
+      }
+    }
     })
 
 

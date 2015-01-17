@@ -388,55 +388,40 @@ form[name="signinForm"], form[name="signupForm"] {
 /********************* About Page  ********************/
 
 .about {
-  background: #680000;
-  color: white;
+  background: white;
+  color: #680000;
   height: 100%;
   width: 100%;
 }
 
+.description {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
 .about h1 {
-  padding: 1em;
-  font-weight: 100;
+  text-align: left;
+  font-weight: bold;
+  font-size: 3em;
+  margin-top: 1.5em;
+  font-family: 'Julius Sans One', sans-serif;
 }
-
 .about img {
-  height: 11em;
-  width: 11em;
-  display: inline-block;
+  height: 9em;
+  width: 9em;
 }
 
-div.member {
-  display: inline-block;
-  margin-left: 3em;
-  margin-right: 3em;
+.about h3 {
+  display: block;
 }
 
-div.hover {
+.about small {
+  display: block;
+}
+
+footer {
   position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
   bottom: 0;
-  display: none;
-  text-align: center;
-  color: #494d55;
-  background-color: rgba(255,255,255,0.8);
-}
-
-div.hover:hover {
-  display: normal;a
-  z-index: 5;
-  background: white;
-  opacity: .5;
-}
-
-div.description {
-  margin-left: 5em;
-  margin-right: 5em;
-}
-
-div.description.p {
-  text-decoration: italic;
 }
 
 /********************* Leaflet Overrides  ********************/
@@ -537,10 +522,6 @@ input:focus{
   display: block;
   padding: .3em;
   font-size: 1em;
-}
-
-#ownerDashboard .btn.btn-default.btn-raised.white:hover {
-
 }
 
 #ownerDashboard span.glyphicon {
@@ -650,13 +631,14 @@ table.clock{
   color: white;
   white-space: no-wrap;
   table-layout: fixed;
-  display: inline-block;
-  margin: 0;
-  width: 95%;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  width: 80%;
   font-size: 1em;
-  -webkit-border-radius: .8em;
-  -moz-border-radius: .8em;
-  border-radius: .2em;
+  -webkit-border-radius: 1.2em;
+  -moz-border-radius: 1.2em;
+  border-radius: 1.2em;
   background: rgb(95, 0, 0);
   background: -moz-linear-gradient(90deg, rgb(95, 0, 0) 25%, rgb(140, 0, 0) 75%);
   background: -webkit-linear-gradient(90deg, rgb(95, 0, 0) 25%, rgb(140, 0, 0) 75%);
@@ -668,22 +650,39 @@ table.clock{
   box-shadow:         .2em .2em .2em rgba(20, 20, 20, .5);
 }
 
+table.clock span.glyphicon-chevron-up:hover {
+  -webkit-transition-duration: .25s;
+  transition-duration: .25s;
+  -webkit-transform: translate(0, -.3em);
+  transform: translate(0, -.3em);
+  color: rgba(230, 230, 230, .8);
+}
+
+table.clock span.glyphicon-chevron-down:hover {
+  -webkit-transition-duration: .25s;
+  transition-duration: .25s;
+  -webkit-transform: translate(0, .3em);
+  transform: translate(0, .3em);
+  color: rgba(230, 230, 230, .8);
+}
+
 .clock td:nth-child(1),
 .clock td:nth-child(3),
 .clock td:nth-child(4) {
-  width: 30%
+  width: 30% !important;
   color: white;
   padding-right: .5em;
   padding-left: .5em;
 }
 .clock td:nth-child(2) {
-  width: 10%;
+  width: 10% !important;
   color: white;
   padding: .5em;
 }
 
+
 .clock tr {
-  height: 3em;
+  height: 1.5em;
   padding: 0;
   margin: 0;
 }
@@ -707,47 +706,9 @@ tbody tr.text-center td a{
   color: white;
 }
 
-/*tbody td {
-  overflow: hidden;
-  width: 3em !important;
-  height: 1em;
-}
-
-tbody tr td td {
-  overflow: hidden;
-  width: 0 !important;
-}
-
-
-
-tbody td > a {
-  color: white;
-  margin: 0;
-  border: 0;
-  padding: 0;
-}
-
-tbody tr td a.btn.btn-link {
-  color: white;
-}
-
-tbody tr td.form-group {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-
-tbody tr td button {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}*/
-
 #ownerDashboard div.radio > label {
   width: 80%;
 }
-
 
 #ownerDashboard li.mainItem {
   cursor: pointer;
