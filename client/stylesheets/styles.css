@@ -321,7 +321,7 @@ ul.transparent > li > a:hover {
   text-shadow: .1em .1em .1em rgba(50, 50, 50, 0.8);
 }
 
-#signup p, #singin a, #signup a, a.link{
+#signup p, #singin a, #signup a, a.link {
   text-shadow: .1em .1em .1em rgba(50, 50, 50, 0.8);
   text-align: left;
   display: block;
@@ -394,6 +394,15 @@ form[name="signinForm"], form[name="signupForm"] {
   width: 100%;
 }
 
+.about a {
+  color: #680000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.about a:active, .about a:hover, .about a:focus {
+  text-decoration: underline;
+}
 .description {
   width: 95%;
   margin-left: auto;
@@ -404,6 +413,14 @@ form[name="signinForm"], form[name="signupForm"] {
   font-weight: bold;
   font-size: 3em;
   margin-top: 1.5em;
+  margin-left: 1em;
+  font-family: 'Julius Sans One', sans-serif;
+}
+.about h2{
+  text-align: left;
+  font-weight: bold;
+  margin-top: 1em;
+  font-weight: 2.5em;
   font-family: 'Julius Sans One', sans-serif;
 }
 .about img {
