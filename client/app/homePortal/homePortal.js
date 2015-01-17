@@ -2,11 +2,11 @@ angular.module('dronePass.homePortal', [])
 
 .controller('HomePortalController', function ($scope, $rootScope, $http, $timeout, leafletData, PropertyInfo, DroneSimulator, $q) { 
   
-  $rootScope.landing = true; // so as not to display correct Nav bar
-  //extends $scope with leaflet properties and map tiles necessary to interact with it
-  
-  /************** Leaflet Map Property Definition **************/
+  // so as not to display correct Nav bar
+  $rootScope.landing = true; 
 
+  /************** Leaflet Map Property Definition **************/
+  //extends $scope with leaflet properties and map tiles necessary to interact with it
   angular.extend($scope, {
     center: {
         lat:  37.65,
@@ -33,7 +33,7 @@ angular.module('dronePass.homePortal', [])
         "type": "FeatureCollection",
         "features": [] // all geoJSON polygons and drone markers go here when registered
       },
-      style: function (feature) {return {};}, // allows for custom styling
+      style: function (feature) {return {};}, // allows for custom styling of features
       pointToLayer: function(feature, latlng) { // sets spinning for drone
         var drone = new L.marker(latlng, {icon: L.icon(droneIcon)});
         var currRotation = $scope.droneAnimation.currentRotation;
@@ -42,22 +42,23 @@ angular.module('dronePass.homePortal', [])
 
         drone.setIconAngle(currRotation);
 
-        // ROTATE THE DRONE
+        // Rotates the drone in time with distance updates
         if ($scope.droneAnimation.currentRotation < 360){
           $scope.droneAnimation.currentRotation += rotationRate;
         } else {
           $scope.droneAnimation.currentRotation = 0;
         }
         return drone;
-      } 
-    },
-    events: {
-       map: {
-          enable: ['zoomstart', 'drag', 'mousemove'],
-          logic: 'emit'
       }
+  },
+  events: {
+     map: {
+        enable: ['zoomstart', 'drag', 'mousemove'],
+        logic: 'emit'
     }
-  });
+  }
+
+});
 
   /***************** Utilities ***********************/
 
@@ -79,18 +80,20 @@ angular.module('dronePass.homePortal', [])
     featureCollection.push(newFeature);
   };
 
+  // adds land parcel polygons to map
   var renderPolygons = function (userAddresses) {
     for (var i = 0; i < userAddresses.length; i++) {
       var newAddressPolygon = createPolygonForAddress(userAddresses[i]);
       $scope.addFeatureToMap(newAddressPolygon, 'polygon');
       $scope.addresses[userAddresses[i].gid] = newAddressPolygon;
+      // zooms to first registered address by default
       if(i === 0) {
-        // zooms to first registered address by default
         $scope.zoomToAddress(newAddressPolygon);
       }
     }
   }
 
+  // formats address for Leaflet geocoding
   var formatAddress = function (addressObj) {
     var addressString= "";
     for (var addressLine in addressObj) {
@@ -130,7 +133,7 @@ angular.module('dronePass.homePortal', [])
                      restriction_start_time: registeredAddress.restriction_start_time,
                      restriction_end_time: registeredAddress.restriction_end_time,
                      fillColor: '#CC66FF',
-                     weight: 3,
+                     weight: 1,
                      opacity: .8,
                      color: '#AB8ACC',
                      dashArray: '1',
@@ -141,7 +144,7 @@ angular.module('dronePass.homePortal', [])
     return newAddressPolygon;
   }
 
-  // displays an error message upon receiving a 404 that dims
+  // displays an error message upon receiving a 404 that dims out after 2.5 seconds
   $scope.displayErrorMessage = function (errorMessage) {
     $scope.newError = true;
     $scope.errorMessage = errorMessage;
@@ -151,7 +154,7 @@ angular.module('dronePass.homePortal', [])
       }, 2500)
     }
   }
-  /***************** Drone Simulator ***********************/
+  /***************** Drone Simulator Communications ***********************/
 
   $scope.drones = {}  
   // socketIO communications, emitting presence and getting drone Coordinates from tower
@@ -187,23 +190,27 @@ angular.module('dronePass.homePortal', [])
   DroneSimulator.on('TC_update', function (droneData) {
     for(var key in droneData){
       var currentDrone = droneData[key];
-      if (currentDrone && $scope.drones[currentDrone.callSign]) {
-        // If there is a new coordinate set received from the Drone Tower, updaate the position
+      var droneLng = currentDrone.locationWGS84[0]
+      var droneLat = currentDrone.locationWGS84[1]
+      
+      if (currentDrone && $scope.drones[currentDrone.callSign] && droneLat && droneLng) {
         var previousCoordinates = previousDrone[currentDrone.callSign].locationWGS84;
-        if (previousCoordinates[0] !== currentDrone.locationWGS84[0] || previousCoordinates[1] !== currentDrone.locationWGS84[1]){
+        // If there is a new coordinate set received from the Drone Tower, update the position
+        if (previousCoordinates[0] !== droneLng || previousCoordinates[1] !== droneLat){
           currentTime = new Date;
           timeDelta = currentTime - previousTime;
           previousTime = currentTime;
           var nFrames = timeDelta / STEP_TIME;
-          var stepDist = intervalDeltas(previousCoordinates, currentDrone.locationWGS84, nFrames);
+          var stepDistance = intervalDeltas(previousCoordinates, currentDrone.locationWGS84, nFrames);
           for( var i=0; i<nFrames; i++ ){
             var dronesToRender = {};
-            var newLocation = [ previousCoordinates[0] + (i+1)*stepDist[0], previousCoordinates[1] + (i+1)*stepDist[1]];
+            var newLocation = [ previousCoordinates[0] + (i+1)*stepDistance[0], previousCoordinates[1] + (i+1)*stepDistance[1]];
+            // renders new drone position as a part of the existing feature collection
             droneToRender = {callSign: previousDrone[currentDrone.callSign].callSign, locationWGS84: newLocation};
             setTimeoutDroneRender(droneToRender, i*STEP_TIME);
           }
         } 
-      // If it is a new drone, render it
+      // If it is a new drone, render it as a part of the feature collection
       } else if (currentDrone) {
         previousTime = new Date;
         $scope.getDroneCoordinates(currentDrone);
@@ -350,12 +357,12 @@ angular.module('dronePass.homePortal', [])
   }
 
   $scope.times = {
-    restriction_start_time: null,
-    restriction_end_time: null
+    restriction_start_time: new Date( Date.UTC(2014,12,31) ), // picked arbitrary date to have it display at hour
+    restriction_end_time: new Date( Date.UTC(2014,12,31) )
   }
 
   $scope.updatePermission = function (address) {
-    
+    // if the user has entered restrictions, format. Else set restriction times to null.
     if ($scope.times.restriction_end_time && $scope.times.restriction_start_time) {
       restriction_start_time= moment($scope.times.restriction_start_time).format('HH:mm:ss')
       restriction_end_time= moment($scope.times.restriction_end_time).format('HH:mm:ss')

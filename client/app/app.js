@@ -10,7 +10,8 @@ var dronePass = angular.module('dronePass', [
   'ngFx',
   'ui.router',
   'leaflet-directive',
-  'btford.socket-io'
+  'btford.socket-io',
+  'ui.bootstrap'
 ])
 
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
@@ -48,7 +49,7 @@ var dronePass = angular.module('dronePass', [
           return authDefer.promise;
         }]
       },
-     views: {
+      views: {
          '': {
            templateUrl: 'app/homePortal/homePortal.html',
            controller: 'HomePortalController'
@@ -56,8 +57,18 @@ var dronePass = angular.module('dronePass', [
          'states@HomePortal': {
            templateUrl: 'app/homePortal/states.html'
          }
+      }
+    })
+    .state('about', {
+      templateUrl: 'app/about/about.html',
+      url: '/about',
+      authenticate: false,
+      resolve: {auth: function ($rootScope) {
+        $rootScope.landing = true;
+      }
     }
-  });
+    })
+
 
     $httpProvider.interceptors.push('AttachTokens');
 })

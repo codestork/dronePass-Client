@@ -78,12 +78,15 @@ nav.navbar.navbar-default.main {
 nav.navbar.main a {
   font-size: 1.1em;
   padding-right: 1em;
+  color: white;
 }
 
 nav .navbar-collapse a:active, nav .navbar-collapse a:hover, nav .navbar-collapse a:focus {
   text-shadow: .03em .03em .03em rgba(50, 50, 50, 0.5);
   -webkit-border-radius: .1em;
   -moz-border-radius: .1em;
+  color: rgb(200, 200, 200);
+  text-shadow: -.03em -.03em .03em rgba(, 50, 50, 0.5);
   border-radius: .1em;
   background: rgb(95, 0, 0);
   background: -moz-linear-gradient(90deg, rgb(60, 0, 0) 10%, rgb(120, 0, 0) 90%);
@@ -119,7 +122,8 @@ div.menu.row {
 
 .banner-text h3{
   margin-top: 1em;
-  font-weight: lighter;
+  font-weight: 100;
+  line-height: 1.1em;
 }
 
 .carousel-inner {
@@ -186,7 +190,7 @@ div.menu.row {
   left:0;
   width:100%;
   text-align:center;
-  text-shadow: .05em .05em .05em rgba(50, 50, 50, 0.5);
+  text-shadow: .1em .1em .1em rgba(50, 50, 50, 0.8);
 }
 
 h1.title, a.landingPage{
@@ -285,6 +289,8 @@ ul.transparent > li > a{
 ul.transparent > li > a:hover {
   border-right: .2em solid white;
   background-color: rgba(0, 0, 0, 0);
+  -webkit-transition-duration: .5s;
+  transition-duration: .5s;
   -webkit-transform: translate(1em, 0);
   transform: translate(1em, 0);
   text-decoration: none;
@@ -301,8 +307,8 @@ ul.transparent > li > a:hover {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  filter: grayscale(100%);
-  -webkit-filter: grayscale(80%);
+  filter: grayscale(75%);
+  -webkit-filter: grayscale(75%);
 }
 
 #signin h1.title , #signup h1.title {
@@ -315,7 +321,7 @@ ul.transparent > li > a:hover {
   text-shadow: .1em .1em .1em rgba(50, 50, 50, 0.8);
 }
 
-#signup p, #singin a, #signup a, a.link{
+#signup p, #singin a, #signup a, a.link {
   text-shadow: .1em .1em .1em rgba(50, 50, 50, 0.8);
   text-align: left;
   display: block;
@@ -378,6 +384,63 @@ form[name="signinForm"], form[name="signupForm"] {
   z-index: 0;
   height: 100%;
 }
+
+/********************* About Page  ********************/
+
+.about {
+  background: white;
+  color: #680000;
+  height: 100%;
+  width: 100%;
+}
+
+.about a {
+  color: #680000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.about a:active, .about a:hover, .about a:focus {
+  text-decoration: underline;
+}
+.description {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.about h1 {
+  text-align: left;
+  font-weight: bold;
+  font-size: 3em;
+  margin-top: 1.5em;
+  margin-left: 1em;
+  font-family: 'Julius Sans One', sans-serif;
+}
+.about h2{
+  text-align: left;
+  font-weight: bold;
+  margin-top: 1em;
+  font-weight: 2.5em;
+  font-family: 'Julius Sans One', sans-serif;
+}
+.about img {
+  height: 9em;
+  width: 9em;
+}
+
+.about h3 {
+  display: block;
+}
+
+.about small {
+  display: block;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+}
+
 /********************* Leaflet Overrides  ********************/
 .angular-leaflet-map {
   position: relative;
@@ -429,7 +492,7 @@ form[name="signinForm"], form[name="signupForm"] {
 
 .leaflet-control-container {
   position: absolute;
-  margin-top: 4.5em;
+  margin-top: 5em;
 }
 
 
@@ -548,38 +611,120 @@ container#mapContainer .errorMessage {
 
 #ownerDashboard label{
   color: white;
-  text-indent: .9em;
+  text-indent: 1.5em;
   font-weight: normal;
   width: 30%;
+  font-size: 1em;
   display: inline-block;
 }
 
+#ownerDashboard .radio label {
+  text-indent: 0;
+}
+
+#ownerDashboard div.time {
+  display: inline-block;
+  margin-bottom: 1em;
+  width: 45%;
+  margin-right: .2em;
+  margin-left: .8em;
+  text-align:left;
+}
+
 #ownerDashboard div.time label {
-  width: 50%;
-  margin-top: auto;
-  margin-bottom: auto;
+  width: 95%%;
+  display: block
+  margin-right: auto;
+  margin-left: auto;
+  position: relative;
+  font-weight: 100;
+  font-size: 1.2em;
+  text-indent: 0;
+  text-decoration: underline;
+  text-align: center;
+}
+
+table.clock{
+  color: white;
+  white-space: no-wrap;
+  table-layout: fixed;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  width: 80%;
+  font-size: 1em;
+  -webkit-border-radius: 1.2em;
+  -moz-border-radius: 1.2em;
+  border-radius: 1.2em;
+  background: rgb(95, 0, 0);
+  background: -moz-linear-gradient(90deg, rgb(95, 0, 0) 25%, rgb(140, 0, 0) 75%);
+  background: -webkit-linear-gradient(90deg, rgb(95, 0, 0) 25%, rgb(140, 0, 0) 75%);
+  background: -o-linear-gradient(90deg, rgb(95, 0, 0) 25%, rgb(140, 0, 0) 75%);
+  background: -ms-linear-gradient(90deg, rgb(95, 0, 0) 25%, rgb(140, 0, 0) 75%);
+  background: linear-gradient(0deg, rgb(95, 0, 0) 25%, rgb(140, 0, 0) 75%);
+  -webkit-box-shadow: .2em .2em .2em rgba(20, 20, 20, .5);
+  -moz-box-shadow:    .2em .2em .2em rgba(20, 20, 20, .5);
+  box-shadow:         .2em .2em .2em rgba(20, 20, 20, .5);
+}
+
+table.clock span.glyphicon-chevron-up:hover {
+  -webkit-transition-duration: .25s;
+  transition-duration: .25s;
+  -webkit-transform: translate(0, -.3em);
+  transform: translate(0, -.3em);
+  color: rgba(230, 230, 230, .8);
+}
+
+table.clock span.glyphicon-chevron-down:hover {
+  -webkit-transition-duration: .25s;
+  transition-duration: .25s;
+  -webkit-transform: translate(0, .3em);
+  transform: translate(0, .3em);
+  color: rgba(230, 230, 230, .8);
+}
+
+.clock td:nth-child(1),
+.clock td:nth-child(3),
+.clock td:nth-child(4) {
+  width: 30% !important;
+  color: white;
+  padding-right: .5em;
+  padding-left: .5em;
+}
+.clock td:nth-child(2) {
+  width: 10% !important;
+  color: white;
+  padding: .5em;
+}
+
+
+.clock tr {
+  height: 1.5em;
+  padding: 0;
+  margin: 0;
+}
+
+
+tbody td.form-group input  {
+  color: white;
+  border-bottom: 1px solid white;
+  font-weight: normal;
+}
+
+tbody tr.text-center td a{
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+.btn.btn-default.text-center {
+  padding: 0;
+  margin: 0 .5em 0 0;
+  color: white;
 }
 
 #ownerDashboard div.radio > label {
   width: 80%;
-}
-
-#ownerDashboard div.time {
-  display: block;
-  margin-bottom: 1em;
-  width: 95%;
-  text-align:left;
-}
-
-#ownerDashboard .group > input[type="time"]{
-  width: 40%;
-  display: inline-block;
-  float: right;
-  margin-right: 1em;
-  font-size: .9em;
-  text-indent: .5em;
-  margin-top: auto;
-  margin-bottom: auto;
 }
 
 #ownerDashboard li.mainItem {
@@ -625,6 +770,9 @@ div.togglebutton, #ownerDashboard div.togglebutton label {
   font-size: .9em;
 }
 
+select.register, select.register:focus {
+  background: white;
+}
 
 #ownerDashboard .group > select {
   margin-top: .6em;
