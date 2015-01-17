@@ -64,6 +64,7 @@ nav .container {
 nav.navbar.navbar-default.main {
   margin-bottom: 0;
   background-color: #680000;
+  box-shadow: inset 0 0 .3em .15em  #490000;
   position: absolute;
   z-index: 100;
   width: 100%;
@@ -566,6 +567,7 @@ input[type="submit"].time {
   z-index: 20;
   font-size: .8em;
   padding: 0;
+  box-shadow: inset 0 0 .3em .15em  #490000;
   text-shadow: .03em .03em .03em rgba(50, 50, 50, 0.5);
   -webkit-border-radius: .1em;
   -moz-border-radius: .1em;
