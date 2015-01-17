@@ -389,10 +389,13 @@ form[name="signinForm"], form[name="signupForm"] {
 /********************* About Page  ********************/
 
 .about {
-  background: white;
+  background: #F8F8F8;
+  box-shadow: inset .1em 2em 2em .2em rgb(193, 183, 183);
   color: #680000;
   height: 100%;
   width: 100%;
+  position: relative;
+  overflow: auto;
 }
 
 .about a {
@@ -401,45 +404,75 @@ form[name="signinForm"], form[name="signupForm"] {
   cursor: pointer;
 }
 
-.about a:active, .about a:hover, .about a:focus {
-  text-decoration: underline;
+.modal-dialog {
+  width: 70%;
+  margin-top: 4em;
 }
-.description {
-  width: 95%;
+
+.modal-body img {
+  width: 90%;
+  height: 90%;
+  display: block;
   margin-left: auto;
   margin-right: auto;
 }
-.about h1, .about h2 {
-  text-align: left;
-  font-weight: bold;
-  margin-top: 1em;
-  margin-left: 1em;
-  font-family: 'Julius Sans One', sans-serif;
+.about a:active, .about a:hover, .about a:focus {
+  text-decoration: underline;
 }
 
 .about h1 {
-  font-size: 3em;
-}
-.about h2{
+  text-align: left;
+  font-weight: bold;
+  text-indent: 1em;
   font-size: 2.5em;
+  margin-left: .2em;
+  margin-right: .2em;
+  margin-top: .8em;
+  border-bottom-color: #680000;
+  font-family: 'Julius Sans One', sans-serif;
 }
 
-.about img {
+.about .row {
+  position: relative;
+  display: block;
+  top: 2em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about img.member {
   height: 9em;
   width: 9em;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .about h3 {
   display: block;
+  margin-top: .3em;
 }
+
+.about p.description {
+  line-height: 1.3em;
+  font-size: 1.1em;
+  width: 90%;
+  text-align: left;
+  margin-left: 2em
+}
+
 
 .about small {
   display: block;
+  font-size: .7em;
+  font-weight: lighter;
+  line-height: 1.2em;
 }
 
 footer {
-  position: absolute;
-  bottom: 0;
+  position: fixed;
+  bottom: 1.5em;
+  font-size: .8em;
+  color: gray;
 }
 
 /********************* Leaflet Overrides  ********************/
@@ -793,6 +826,9 @@ select.register, select.register:focus {
   display: inline-block;
 }
 
+.btn.btn-default.text-center {
+  font-size: .9em;
+}
 .radio input[type=radio] {
   display: inline-block;
 }

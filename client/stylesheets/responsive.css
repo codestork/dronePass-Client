@@ -1,10 +1,46 @@
-/* Large desktops and laptops */
-@media (min-width: 1200px) {
+/* Slideshow */
+@media (min-width: 1700px) {
   body {
     font-size: 18px;
   }
   #signin .group > input, #signup .group > input {
-    width: 45%;
+    width: 40%;
+  }
+  .about p.description {
+    font-size: 1.2em;
+    line-height: 1.4em;
+  }
+  .about .col-lg-2.col-sm-3.text-center{
+    margin-right: 3.5em;
+    margin-left: 3.5em;
+    margin-top:1em;
+  }
+  .about img.member {
+    height: 13em;
+    width: 13em;
+  }
+}
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) and (max-width: 1699px){
+  body {
+    font-size: 18px;
+  }
+  #signin .group > input, #signup .group > input {
+    width: 40%;
+  }
+  .about p.description {
+    font-size: 1.2em;
+    line-height: 1.4em;
+  }
+  .about .col-lg-2.col-sm-3.text-center{
+    margin-right: 3em;
+    margin-left: 3em;
+    margin-top:1em;
+  }
+  .about img.member {
+    height: 10em;
+    width: 10em;
   }
 }
 
@@ -27,12 +63,14 @@
   #signin .group > input, #signup .group > input{
     width: 50%;
   }
-
+  .about p.description {
+    font-size: 1.1em;
+  }
   #ownerDashboard {
     width: 40%;
   }
   #leaflet-control-geosearch-qry {
-    width: 30%;
+    width: 45%;
   }
 
 }
@@ -41,26 +79,6 @@
 @media (max-width: 767px) {
   body {
     font-size: 12px;
-  }
-  #signin .group > input, #signup .group > input{
-    width: 50%;
-  }
-  #ownerDashboard {
-    width: 40%;
-    margin-top: 7em;
-  }
-  #leaflet-control-geosearch-qry {
-    width: 25%;
-  }
-  .errorMessage {
-   width: 70%;
-  }
-}
-
-/* Landscape phones and smaller */
-@media (max-width: 480px) {
-  body {
-    font-size: 10.5px;
   }
   #signin .group > input, #signup .group > input{
     width: 75%;
@@ -75,5 +93,54 @@
   .errorMessage {
    width: 70%;
   }
+  .about img.member {
+    height: 8em;
+    width: 8em;
+  }
+  .about h1 {
+    margin-top: 1.5em;
+    font-size: 2em;
+  }
+  .about .col-lg-2.col-sm-3.text-center{
+    display: inline-block;
+  }
+  .about p.description {
+    font-size: .8em;
+  }
+  table.clock {
+    width: 90%;
+  }
+}
 
+/* Landscape phones and smaller */
+@media (max-width: 480px) {
+  body {
+    font-size: 10.5px;
+  }
+  #signin .group > input, #signup .group > input{
+    width: 100%;
+  }
+  #ownerDashboard {
+    width: 40%;
+    margin-top: 7em;
+  }
+  #leaflet-control-geosearch-qry {
+    width: 30%;
+    font-size: .8em;
+  }
+  .errorMessage {
+   width: 70%;
+  }
+  .about .col-lg-2.col-sm-3.text-center{
+    display: inline-block;
+  }
+  .about p.description {
+    font-size: .8em;
+  }
+  table.clock {
+    width: 120%;
+  }
+  #ownerDashboard label.zip {
+    text-indent: 1em;
+  }
 }
