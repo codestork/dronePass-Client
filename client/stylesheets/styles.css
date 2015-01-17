@@ -416,13 +416,14 @@ form[name="signinForm"], form[name="signupForm"] {
   margin-left: 1em;
   font-family: 'Julius Sans One', sans-serif;
 }
-.about h2{
-  text-align: left;
-  font-weight: bold;
-  margin-top: 1em;
-  font-weight: 2.5em;
 
+.about h1 {
+  font-size: 3em;
 }
+.about h2{
+  font-size: 2.5em;
+}
+
 .about img {
   height: 9em;
   width: 9em;
