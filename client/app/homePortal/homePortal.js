@@ -80,18 +80,20 @@ angular.module('dronePass.homePortal', [])
     featureCollection.push(newFeature);
   };
 
+  // adds land parcel polygons to map
   var renderPolygons = function (userAddresses) {
     for (var i = 0; i < userAddresses.length; i++) {
       var newAddressPolygon = createPolygonForAddress(userAddresses[i]);
       $scope.addFeatureToMap(newAddressPolygon, 'polygon');
       $scope.addresses[userAddresses[i].gid] = newAddressPolygon;
+      // zooms to first registered address by default
       if(i === 0) {
-        // zooms to first registered address by default
         $scope.zoomToAddress(newAddressPolygon);
       }
     }
   }
 
+  // formats address for Leaflet geocoding
   var formatAddress = function (addressObj) {
     var addressString= "";
     for (var addressLine in addressObj) {

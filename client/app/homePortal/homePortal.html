@@ -37,7 +37,7 @@
               <input type="submit" value="Register Address" class="btn btn-default btn-raised white register">
             </form>
 
-          <li class="list-group-item mainItem" ng-click="listPermissions=!listPermissions; showAddressForm=false; listAddresses=false;";> Set Restriction Times <span class="glyphicon glyphicon-chevron-down"></span></li>
+          <li class="list-group-item mainItem" ng-click="listPermissions=!listPermissions; showAddressForm=false; listAddresses=false;"> Set Restriction Times <span class="glyphicon glyphicon-chevron-down"></span></li>
           <ol class="list group" ng-show="listPermissions" ng-repeat="address in addresses">
             <li class="list-group-item addressSelect" ng-click="ShowTimes=!ShowTimes; zoomToAddress(address)"> {{address.properties.address}} <i class="mdi-image-timelapse"></i>
             </li>
@@ -56,14 +56,14 @@
               </label>
             </div>
               <div class="group time clearfix" ng-if="checked" >
-                <label>Restriction start time</label>
-                <input type="time" ng-model='times.restriction_start_time' required>
+                <label>Start time</label>
+                <timepicker class="clock" ng-model="times.restriction_start_time" minute-step="30" meridians="['AM','PM']" mousewheel="true" ></timepicker>
                 <span class="highlight"></span> 
                 <span class="bar"></span>
               </div>
               <div class="group time clearfix" ng-if="checked" >
-                <label>Restriction end time</label>
-                <input type="time" ng-model='times.restriction_end_time' required>
+                <label>End time</label>
+                <timepicker class="clock" ng-model="times.restriction_end_time" minute-step="30" meridians="['AM','PM']" mousewheel="true" ></timepicker>
                 <span class="highlight"></span>
                 <span class="bar"></span>
               </div>
@@ -80,4 +80,5 @@
       <div class="errorMessage fx-fade-normal fx-speed-2000" ng-if="newError"> <i class="mdi-alert-warning"></i>{{errorMessage}}</div>
   </container>
   </div>
+
 

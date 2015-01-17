@@ -16,21 +16,25 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.3.8",
-    "bootstrap": "~3.3.1",
-    "jquery": "~2.1.3",
-    "angular-ui-router": "~0.2.13",
-    "ngFx": "~1.0.5",
-    "leaflet": "~0.7.3",
-    "bootstrap-material-design": "~0.2.1",
-    "angular-leaflet-directive": "~0.7.10",
-    "font-awesome": "~4.2.0",
-    "normalize.css": "~3.0.2",
-    "L.GeoSearch": "*",
-    "angular-socket-io": "~0.7.0",
-    "moment": "~2.8.4",
-    "socket.io-client": "~1.2.1",
-    "angular-bootstrap": "~0.12.0",
-    "leaflet-plugins": "~1.2.1"
+    "angular": "latest",
+    "bootstrap": "latest",
+    "jquery": "latest",
+    "angular-ui-router": "latest",
+    "ngFx": "latest",
+    "leaflet": "latest",
+    "bootstrap-material-design": "latest",
+    "angular-leaflet-directive": "latest",
+    "font-awesome": "latest",
+    "normalize.css": "latest",
+    "L.GeoSearch": "latest",
+    "angular-socket-io": "latest",
+    "moment": "latest",
+    "socket.io-client": "latest",
+    "angular-bootstrap": "latest",
+    "angular-ui-bootstrap": "latest",
+    "leaflet-plugins": "latest"
+  },
+  "resolutions": {
+    "angular": "1.3.9"
   }
 }

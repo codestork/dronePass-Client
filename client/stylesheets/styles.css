@@ -384,6 +384,61 @@ form[name="signinForm"], form[name="signupForm"] {
   z-index: 0;
   height: 100%;
 }
+
+/********************* About Page  ********************/
+
+.about {
+  background: #680000;
+  color: white;
+  height: 100%;
+  width: 100%;
+}
+
+.about h1 {
+  padding: 1em;
+  font-weight: 100;
+}
+
+.about img {
+  height: 11em;
+  width: 11em;
+  display: inline-block;
+}
+
+div.member {
+  display: inline-block;
+  margin-left: 3em;
+  margin-right: 3em;
+}
+
+div.hover {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: none;
+  text-align: center;
+  color: #494d55;
+  background-color: rgba(255,255,255,0.8);
+}
+
+div.hover:hover {
+  display: normal;a
+  z-index: 5;
+  background: white;
+  opacity: .5;
+}
+
+div.description {
+  margin-left: 5em;
+  margin-right: 5em;
+}
+
+div.description.p {
+  text-decoration: italic;
+}
+
 /********************* Leaflet Overrides  ********************/
 .angular-leaflet-map {
   position: relative;
@@ -484,6 +539,10 @@ input:focus{
   font-size: 1em;
 }
 
+#ownerDashboard .btn.btn-default.btn-raised.white:hover {
+
+}
+
 #ownerDashboard span.glyphicon {
   float: right;
 }
@@ -565,33 +624,130 @@ container#mapContainer .errorMessage {
   text-indent: 0;
 }
 
-#ownerDashboard div.time label {
-  width: 50%;
-  margin-top: auto;
-  margin-bottom: auto;
+#ownerDashboard div.time {
+  display: inline-block;
+  margin-bottom: 1em;
+  width: 45%;
+  margin-right: .2em;
+  margin-left: .8em;
+  text-align:left;
 }
+
+#ownerDashboard div.time label {
+  width: 95%%;
+  display: block
+  margin-right: auto;
+  margin-left: auto;
+  position: relative;
+  font-weight: 100;
+  font-size: 1.2em;
+  text-indent: 0;
+  text-decoration: underline;
+  text-align: center;
+}
+
+table.clock{
+  color: white;
+  white-space: no-wrap;
+  table-layout: fixed;
+  display: inline-block;
+  margin: 0;
+  width: 95%;
+  font-size: 1em;
+  -webkit-border-radius: .8em;
+  -moz-border-radius: .8em;
+  border-radius: .2em;
+  background: rgb(95, 0, 0);
+  background: -moz-linear-gradient(90deg, rgb(95, 0, 0) 25%, rgb(140, 0, 0) 75%);
+  background: -webkit-linear-gradient(90deg, rgb(95, 0, 0) 25%, rgb(140, 0, 0) 75%);
+  background: -o-linear-gradient(90deg, rgb(95, 0, 0) 25%, rgb(140, 0, 0) 75%);
+  background: -ms-linear-gradient(90deg, rgb(95, 0, 0) 25%, rgb(140, 0, 0) 75%);
+  background: linear-gradient(0deg, rgb(95, 0, 0) 25%, rgb(140, 0, 0) 75%);
+  -webkit-box-shadow: .2em .2em .2em rgba(20, 20, 20, .5);
+  -moz-box-shadow:    .2em .2em .2em rgba(20, 20, 20, .5);
+  box-shadow:         .2em .2em .2em rgba(20, 20, 20, .5);
+}
+
+.clock td:nth-child(1),
+.clock td:nth-child(3),
+.clock td:nth-child(4) {
+  width: 30%
+  color: white;
+  padding-right: .5em;
+  padding-left: .5em;
+}
+.clock td:nth-child(2) {
+  width: 10%;
+  color: white;
+  padding: .5em;
+}
+
+.clock tr {
+  height: 3em;
+  padding: 0;
+  margin: 0;
+}
+
+
+tbody td.form-group input  {
+  color: white;
+  border-bottom: 1px solid white;
+  font-weight: normal;
+}
+
+tbody tr.text-center td a{
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+.btn.btn-default.text-center {
+  padding: 0;
+  margin: 0 .5em 0 0;
+  color: white;
+}
+
+/*tbody td {
+  overflow: hidden;
+  width: 3em !important;
+  height: 1em;
+}
+
+tbody tr td td {
+  overflow: hidden;
+  width: 0 !important;
+}
+
+
+
+tbody td > a {
+  color: white;
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+tbody tr td a.btn.btn-link {
+  color: white;
+}
+
+tbody tr td.form-group {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+
+tbody tr td button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}*/
 
 #ownerDashboard div.radio > label {
   width: 80%;
 }
 
-#ownerDashboard div.time {
-  display: block;
-  margin-bottom: 1em;
-  width: 95%;
-  text-align:left;
-}
-
-#ownerDashboard .group > input[type="time"]{
-  width: 40%;
-  display: inline-block;
-  float: right;
-  margin-right: 1em;
-  font-size: .9em;
-  text-indent: .5em;
-  margin-top: auto;
-  margin-bottom: auto;
-}
 
 #ownerDashboard li.mainItem {
   cursor: pointer;
