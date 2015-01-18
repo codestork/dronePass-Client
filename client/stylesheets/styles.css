@@ -64,6 +64,7 @@ nav .container {
 nav.navbar.navbar-default.main {
   margin-bottom: 0;
   background-color: #680000;
+  box-shadow: inset 0 0 .3em .15em  #490000;
   position: absolute;
   z-index: 100;
   width: 100%;
@@ -388,10 +389,13 @@ form[name="signinForm"], form[name="signupForm"] {
 /********************* About Page  ********************/
 
 .about {
-  background: white;
+  background: #F8F8F8;
+  box-shadow: inset .1em 2em 2em .2em rgb(193, 183, 183);
   color: #680000;
   height: 100%;
   width: 100%;
+  position: relative;
+  overflow: auto;
 }
 
 .about a {
@@ -400,45 +404,75 @@ form[name="signinForm"], form[name="signupForm"] {
   cursor: pointer;
 }
 
-.about a:active, .about a:hover, .about a:focus {
-  text-decoration: underline;
+.modal-dialog {
+  width: 70%;
+  margin-top: 4em;
 }
-.description {
-  width: 95%;
+
+.modal-body img {
+  width: 90%;
+  height: 90%;
+  display: block;
   margin-left: auto;
   margin-right: auto;
 }
+.about a:active, .about a:hover, .about a:focus {
+  text-decoration: underline;
+}
+
 .about h1 {
   text-align: left;
   font-weight: bold;
-  font-size: 3em;
-  margin-top: 1.5em;
-  margin-left: 1em;
+  text-indent: 1em;
+  font-size: 2.5em;
+  margin-left: .2em;
+  margin-right: .2em;
+  margin-top: .8em;
+  border-bottom-color: #680000;
   font-family: 'Julius Sans One', sans-serif;
 }
-.about h2{
-  text-align: left;
-  font-weight: bold;
-  margin-top: 1em;
-  font-weight: 2.5em;
-  font-family: 'Julius Sans One', sans-serif;
+
+.about .row {
+  position: relative;
+  display: block;
+  top: 2em;
+  margin-left: auto;
+  margin-right: auto;
 }
-.about img {
+
+.about img.member {
   height: 9em;
   width: 9em;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .about h3 {
   display: block;
+  margin-top: .3em;
 }
+
+.about p.description {
+  line-height: 1.3em;
+  font-size: 1.1em;
+  width: 90%;
+  text-align: left;
+  margin-left: 2em
+}
+
 
 .about small {
   display: block;
+  font-size: .7em;
+  font-weight: lighter;
+  line-height: 1.2em;
 }
 
 footer {
-  position: absolute;
-  bottom: 0;
+  position: relative
+  bottom: 1.5em;
+  font-size: .8em;
+  color: gray;
 }
 
 /********************* Leaflet Overrides  ********************/
@@ -567,6 +601,7 @@ input[type="submit"].time {
   z-index: 20;
   font-size: .8em;
   padding: 0;
+  box-shadow: inset 0 0 .3em .15em  #490000;
   text-shadow: .03em .03em .03em rgba(50, 50, 50, 0.5);
   -webkit-border-radius: .1em;
   -moz-border-radius: .1em;
@@ -709,6 +744,7 @@ tbody td.form-group input  {
   color: white;
   border-bottom: 1px solid white;
   font-weight: normal;
+  font-size: .9em;
 }
 
 tbody tr.text-center td a{
@@ -790,6 +826,9 @@ select.register, select.register:focus {
   display: inline-block;
 }
 
+.btn.btn-default.text-center {
+  font-size: .9em;
+}
 .radio input[type=radio] {
   display: inline-block;
 }
