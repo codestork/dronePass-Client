@@ -105,7 +105,7 @@
     display: inline-block;
   }
   .about p.description {
-    font-size: .8em;
+    font-size: 1.1em;
   }
   table.clock {
     width: 90%;
@@ -135,12 +135,12 @@
     display: inline-block;
   }
   .about p.description {
-    font-size: .8em;
+    font-size: .9em;
   }
   table.clock {
     width: 120%;
   }
+
   #ownerDashboard label.zip {
     text-indent: 1em;
   }
-}

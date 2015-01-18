@@ -103,13 +103,10 @@ var dronePass = angular.module('dronePass', [
   };
 })
 .run(function ($rootScope, $state, Auth) {
-  // here inside the run phase of angular, our services and controllers
-  // have just been registered and our app is ready
-  // however, we want to make sure the user is authorized
-  // we listen for when angular is trying to change routes
-  // when it does change routes, we then look for the token in localstorage
-  // and send that token to the server to see if it is a real user or hasn't expired
-  // if it's not valid, we then redirect back to signin/signup
+  // here is where we look for state changes.
+  //If a user tries to enter the Home Portal without being signed in, they will be
+  // redirected to the sign in page
+  // Log in / Log out buttons are likewise displayed based on authentication status
 
   $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
     $rootScope.redirectedFromHomePortal = true;
@@ -121,5 +118,4 @@ var dronePass = angular.module('dronePass', [
   })
   
 });
-
 

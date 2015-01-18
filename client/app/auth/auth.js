@@ -1,6 +1,6 @@
 angular.module('dronePass.auth', [])
 
-.controller('AuthController', function ($scope, $rootScope, $window, $state, $timeout, PropertyInfo, Auth) {
+.controller('AuthController', function ($scope, $rootScope, $window, $state, $timeout, Auth) {
   $scope.user = {};
   $rootScope.landing = true;
 
@@ -18,7 +18,6 @@ angular.module('dronePass.auth', [])
   }
 
   $scope.signin = function () {
-    // sign in function
     $scope.newError = false;
     Auth.signin($scope.user)
       .then(function (token) {
@@ -31,7 +30,6 @@ angular.module('dronePass.auth', [])
   };
 
   $scope.signup = function () {
-    // sign up function
     $scope.newError = false;
     Auth.signup($scope.user).then(function (token) {
         $window.localStorage.setItem('com.dronePass', token);
@@ -48,8 +46,5 @@ angular.module('dronePass.auth', [])
     $scope.clearFieldsOnError($scope.redirectMessage);
     $rootScope.redirectedFromHomePortal = false;
   };
-
-
-
 
 });
