@@ -37,7 +37,7 @@ angular.module('dronePass.authServices', [])
           authDefer.resolve();
         })
         .error( function (data, status, headers, config) {
-          authDefer.reject()
+          authDefer.reject();
         });
     } else {
       authDefer.reject();
@@ -68,4 +68,4 @@ angular.module('dronePass.authServices', [])
       isAuth: isAuth,
       isLoggedIn: isLoggedIn
    };
-})
+});

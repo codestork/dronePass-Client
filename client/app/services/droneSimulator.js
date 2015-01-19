@@ -5,5 +5,4 @@ angular.module('dronePass.droneSimulator', [])
       ioSocket: io.connect('http://tower.dronepass.org:8080')
     });
 
-})
-
+});

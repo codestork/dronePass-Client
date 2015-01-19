@@ -6,16 +6,16 @@ angular.module('dronePass.auth', [])
 
   $scope.clearFieldsOnError = function (errorMessage) {
     $scope.newError = true;
-    $scope.errorMessage = errorMessage
-    $scope.user.username = "";
-    $scope.user.password = "";
-    $scope.user.name = "";
-    if ($scope.newError = true) {
+    $scope.errorMessage = errorMessage;
+    $scope.user.username = '';
+    $scope.user.password = '';
+    $scope.user.name = '';
+    if ($scope.newError === true) {
       $timeout(function () {
         $scope.newError = false;  
-      }, 2500)
+      }, 2500);
     }
-  }
+  };
 
   $scope.signin = function () {
     $scope.newError = false;
@@ -40,11 +40,11 @@ angular.module('dronePass.auth', [])
       });
   };
 
-  $scope.redirectMessage = 'You must be logged in to visit the Homeowner Portal'
+  $scope.redirectMessage = 'You must be logged in to visit the Homeowner Portal';
 
   if ($rootScope.redirectedFromHomePortal) {
     $scope.clearFieldsOnError($scope.redirectMessage);
     $rootScope.redirectedFromHomePortal = false;
-  };
+  }
 
 });

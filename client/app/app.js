@@ -24,7 +24,7 @@ var dronePass = angular.module('dronePass', [
       authenticate: false,
       resolve: { 
         navbar: ['$rootScope', function ($rootScope) {
-          return $rootScope.landing = false;
+          $rootScope.landing = false;
         }]
       }
     })
@@ -45,7 +45,7 @@ var dronePass = angular.module('dronePass', [
       resolve: { 
         auth: ['Auth', '$q', function (Auth, $q) {
           var authDefer = $q.defer();
-          Auth.isAuth(authDefer)
+          Auth.isAuth(authDefer);
           return authDefer.promise;
         }]
       },
@@ -67,8 +67,7 @@ var dronePass = angular.module('dronePass', [
         $rootScope.landing = true;
       }
     }
-    })
-
+    });
 
     $httpProvider.interceptors.push('AttachTokens');
 })
@@ -114,8 +113,8 @@ var dronePass = angular.module('dronePass', [
   });
 
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-    $rootScope.isLoggedIn = Auth.isLoggedIn()
-  })
+    $rootScope.isLoggedIn = Auth.isLoggedIn();
+  });
   
 });
 

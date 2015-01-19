@@ -5,7 +5,7 @@ var path = require('path');
 var util = require('./lib/utility');
 var authHandler = require('./lib/auth-request-handler');
 var parcelHandler = require('./lib/parcel-request-handler');
-var db = require('./db/config.js')
+var db = require('./db/config.js');
 
 
 var app = express();
