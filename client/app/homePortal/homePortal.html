@@ -1,10 +1,13 @@
 <div id="homePortal">
   <container id="mapContainer">
+
     <leaflet id="map"center="center" controls="controls" overlays="overlays" geojson="geojson" paths="paths" layers="layers" markers="markers" event-broadcast="events">
     </leaflet>
+
     <div id="ownerDashboard">
-        <ol class="list group">
+        <ol class="list group main">
           <li class="list-group-item mainItem" ng-click="showAddressForm=!showAddressForm; listAddresses=false; listPermissions=false"> Register Address <span class="glyphicon glyphicon-chevron-down"></span></li>
+
             <form ng-submit="registerAddress();showAddressForm=!showAddressForm" name="addressRegistry" ng-show="showAddressForm">
               <div class="group">
                 <input class="register"type='text' placeholder="Address Line 1" ng-model='newAddress.line1' required>
@@ -29,16 +32,17 @@
                 <span class="bar"></span>
               </div>
               <div class="group">
-                <label name="zip">Zip Code</label>
+                <label name="zip" class="zip">Zip Code</label>
                 <input class="register zip" type="number" ng-model='newAddress.zip' ng-minlength='5' ng-maxlength='5' required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
               </div>
               <input type="submit" value="Register Address" class="btn btn-default btn-raised white register">
-            </form>
+            </form> <!-- Address Form -->
 
           <li class="list-group-item mainItem" ng-click="listPermissions=!listPermissions; showAddressForm=false; listAddresses=false;"> Set Restriction Times <span class="glyphicon glyphicon-chevron-down"></span></li>
-          <ol class="list group" ng-show="listPermissions" ng-repeat="address in addresses">
+
+          <ol class="list group permissions" ng-show="listPermissions" ng-repeat="address in addresses">
             <li class="list-group-item addressSelect" ng-click="ShowTimes=!ShowTimes; zoomToAddress(address)"> {{address.properties.address}} <i class="mdi-image-timelapse"></i>
             </li>
 
@@ -68,17 +72,20 @@
                 <span class="bar"></span>
               </div>
               <input type="submit" value="Set Restrictions" class="btn btn-default btn-raised white time" ng-click="updatePermission(address)">
-            </form>
-          </ol>
+            </form> <!-- Set permission form -->
+          </ol> <!-- list-group Permissions -->
+
           <li class="list-group-item mainItem" ng-click="listAddresses=!listAddresses; showAddressForm=false; listPermissions=false;"> Remove Address<span class="glyphicon glyphicon-chevron-down"></span></li>
+
             <ol  class="list group" ng-show="listAddresses" ng-repeat="address in addresses">
               <li class="list-group-item addressSelect" ng-click="ShowTimes=!ShowTimes; zoomToAddress(address); removeAddress(address)"> {{address.properties.address}} <i class="mdi-navigation-cancel"></i>
               </li>
             </ol>
-        </ol>
-      </div>
+
+        </ol> <!--list group main -->
+      </div> <!-- ownerDashboard -->
+
       <div class="errorMessage fx-fade-normal fx-speed-2000" ng-if="newError"> <i class="mdi-alert-warning"></i>{{errorMessage}}</div>
-  </container>
-  </div>
 
-
+  </container> <!-- mapContainer -->
+</div>

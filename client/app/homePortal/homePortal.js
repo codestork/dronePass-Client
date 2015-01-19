@@ -30,8 +30,8 @@ angular.module('dronePass.homePortal', [])
     },
     geojson : { 
       data: {
-        "type": "FeatureCollection",
-        "features": [] // all geoJSON polygons and drone markers go here when registered
+        'type': 'FeatureCollection',
+        'features': [] // all geoJSON polygons and drone markers go here when registered
       },
       style: function (feature) {return {};}, // allows for custom styling of features
       pointToLayer: function(feature, latlng) { // sets spinning for drone
@@ -67,9 +67,9 @@ angular.module('dronePass.homePortal', [])
   $scope.addFeatureToMap = function (newFeature, type) {
     var id;
     if (type === 'drone') {
-      id = 'droneID'
+      id = 'droneID';
     } else if (type === 'polygon') {
-      id = 'gid'
+      id = 'gid';
     }
     for (var i = 0; i < featureCollection.length; i++) {
       if (featureCollection[i].properties[id] === newFeature.properties[id]) {
@@ -91,42 +91,42 @@ angular.module('dronePass.homePortal', [])
         $scope.zoomToAddress(newAddressPolygon);
       }
     }
-  }
+  };
 
   // formats address for Leaflet geocoding
   var formatAddress = function (addressObj) {
-    var addressString= "";
+    var addressString= '';
     for (var addressLine in addressObj) {
-      addressString = addressString + addressObj[addressLine] + ", ";
+      addressString = addressString + addressObj[addressLine] + ', ';
     }
-    return addressString.substring(0, addressString.length -2)
-  }
+    return addressString.substring(0, addressString.length -2);
+  };
 
   var createDroneMarker = function (droneData) {
     var newDrone = {
-      "type": "Feature",
-      "properties": {"droneID": droneData.callSign,
-                      "figure": "drone",
+      'type': 'Feature',
+      'properties': {'droneID': droneData.callSign,
+                      'figure': 'drone',
                     },
-      "geometry": {
-        "type": "Point",
-        "coordinates": droneData.locationWGS84
+      'geometry': {
+        'type': 'Point',
+        'coordinates': droneData.locationWGS84
       }
-    }
+    };
     return newDrone;
-  }
+  };
 
   var droneIcon = {
-    "iconUrl": "../../assets/drone-icon.png",
-    "iconSize": [25, 25], // size of the icon
-    "iconAnchor": [12.5, 12.5], // point of the icon which will correspond to marker's location
-  }
+    'iconUrl': '../../assets/drone-icon.png',
+    'iconSize': [25, 25], // size of the icon
+    'iconAnchor': [12.5, 12.5], // point of the icon which will correspond to marker's location
+  };
 
 
   var createPolygonForAddress = function (registeredAddress) {
     var newAddressPolygon = {
-      "type": "Feature",
-      "properties": {gid: registeredAddress.gid,
+      'type': 'Feature',
+      'properties': {gid: registeredAddress.gid,
                      parcel_gid: registeredAddress.parcel_gid,
                      figure: 'address',
                      address: registeredAddress.address,
@@ -139,24 +139,24 @@ angular.module('dronePass.homePortal', [])
                      dashArray: '1',
                      fillOpacity: 0.7
                    },
-      "geometry": JSON.parse(registeredAddress.lot_geom)
-    }
+      'geometry': JSON.parse(registeredAddress.lot_geom)
+    };
     return newAddressPolygon;
-  }
+  };
 
   // displays an error message upon receiving a 404 that dims out after 2.5 seconds
   $scope.displayErrorMessage = function (errorMessage) {
     $scope.newError = true;
     $scope.errorMessage = errorMessage;
-    if ($scope.newError = true) {
+    if ($scope.newError === true) {
       $timeout(function () {
         $scope.newError = false;  
-      }, 2500)
+      }, 2500);
     }
-  }
+  };
   /***************** Drone Simulator Communications ***********************/
 
-  $scope.drones = {}  
+  $scope.drones = {};  
   // socketIO communications, emitting presence and getting drone Coordinates from tower
   // Global Variables to help with drone animation
   var STEP_TIME = 100;
@@ -171,7 +171,7 @@ angular.module('dronePass.homePortal', [])
   var currentTime, timeDelta, previousTime;
 
   setInterval(function () {
-    DroneSimulator.emit('CT_allDronesStates', {})
+    DroneSimulator.emit('CT_allDronesStates', {});
   }, 1000);
 
   // Gives a change in long and lat needed for each drone tween
@@ -190,14 +190,14 @@ angular.module('dronePass.homePortal', [])
   DroneSimulator.on('TC_update', function (droneData) {
     for(var key in droneData){
       var currentDrone = droneData[key];
-      var droneLng = currentDrone.locationWGS84[0]
-      var droneLat = currentDrone.locationWGS84[1]
+      var droneLng = currentDrone.locationWGS84[0];
+      var droneLat = currentDrone.locationWGS84[1];
       
       if (currentDrone && $scope.drones[currentDrone.callSign] && droneLat && droneLng) {
         var previousCoordinates = previousDrone[currentDrone.callSign].locationWGS84;
         // If there is a new coordinate set received from the Drone Tower, update the position
         if (previousCoordinates[0] !== droneLng || previousCoordinates[1] !== droneLat){
-          currentTime = new Date;
+          currentTime = new Date();
           timeDelta = currentTime - previousTime;
           previousTime = currentTime;
           var nFrames = timeDelta / STEP_TIME;
@@ -212,7 +212,7 @@ angular.module('dronePass.homePortal', [])
         } 
       // If it is a new drone, render it as a part of the feature collection
       } else if (currentDrone) {
-        previousTime = new Date;
+        previousTime = new Date();
         $scope.getDroneCoordinates(currentDrone);
       }
       previousDrone[currentDrone.callSign] = currentDrone;
@@ -222,7 +222,7 @@ angular.module('dronePass.homePortal', [])
 
   // adds Drone to map as new feature
   $scope.beginDroneFlight = function (droneData) {
-    var newDrone = createDroneMarker(droneData)
+    var newDrone = createDroneMarker(droneData);
     $scope.addFeatureToMap(newDrone, 'drone');
     $scope.drones[droneData.callSign] = newDrone;
   }
@@ -234,7 +234,7 @@ angular.module('dronePass.homePortal', [])
         featureCollection.splice(i, 1);
       }
     }
-  }
+  };
 
   // updates drone positions based on coordinates
   $scope.renderDronePositions = function () {
@@ -247,17 +247,17 @@ angular.module('dronePass.homePortal', [])
   };
 
   $scope.getDroneCoordinates = function (droneData) {
-    var deferred = $q.defer()
+    var deferred = $q.defer();
     deferred.promise.then(function(){
       if ($scope.drones[droneData.callSign]) {
-        $scope.drones[droneData.callSign] = createDroneMarker(droneData)
+        $scope.drones[droneData.callSign] = createDroneMarker(droneData);
       } else {
-        $scope.beginDroneFlight(droneData)
+        $scope.beginDroneFlight(droneData);
       }
       // ToDo: Add event listener for end of drone Flight
     }).then(function(){
-      $scope.renderDronePositions()
-    })
+      $scope.renderDronePositions();
+    });
 
     deferred.resolve();
   };
@@ -276,12 +276,12 @@ angular.module('dronePass.homePortal', [])
 
   // centers map on coordinates of given address
   $scope.zoomToAddress = function (address) {
-    var coordinates = address.geometry.coordinates[0][0][0]
+    var coordinates = address.geometry.coordinates[0][0][0];
     $scope.center = {
         lat: coordinates[1],
         lng: coordinates[0],
         zoom: 15
-    }
+    };
   };
 
   /***************** Address Registry ***********************/
@@ -313,7 +313,7 @@ angular.module('dronePass.homePortal', [])
     });
     // clears form
     for (var addressLine in $scope.newAddress) {
-      $scope.newAddress[addressLine] = "";
+      $scope.newAddress[addressLine] = '';
     }
   };
   
@@ -336,7 +336,7 @@ angular.module('dronePass.homePortal', [])
     }).catch(function (error) {
         $scope.displayErrorMessage(error.data);
       });
-  }
+  };
 
   $scope.getRegisteredAddresses();
 
@@ -354,18 +354,18 @@ angular.module('dronePass.homePortal', [])
       }).catch(function (error) {
         $scope.displayErrorMessage(error.data);
       });
-  }
+  };
 
   $scope.times = {
     restriction_start_time: new Date( Date.UTC(2014,12,31) ), // picked arbitrary date to have it display at hour
     restriction_end_time: new Date( Date.UTC(2014,12,31) )
-  }
+  };
 
   $scope.updatePermission = function (address) {
     // if the user has entered restrictions, format. Else set restriction times to null.
     if ($scope.times.restriction_end_time && $scope.times.restriction_start_time) {
-      restriction_start_time= moment($scope.times.restriction_start_time).format('HH:mm:ss')
-      restriction_end_time= moment($scope.times.restriction_end_time).format('HH:mm:ss')
+      restriction_start_time= moment($scope.times.restriction_start_time).format('HH:mm:ss');
+      restriction_end_time= moment($scope.times.restriction_end_time).format('HH:mm:ss');
     } else {
       restriction_start_time= null;
       restriction_end_time= null;
@@ -379,6 +379,6 @@ angular.module('dronePass.homePortal', [])
       }).catch(function (error) {
         $scope.displayErrorMessage(error.data);
       });
-  }
+  };
 
 });

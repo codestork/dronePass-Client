@@ -1,10 +1,46 @@
-/* Large desktops and laptops */
-@media (min-width: 1200px) {
+/* Slideshow */
+@media (min-width: 1700px) {
   body {
     font-size: 18px;
   }
   #signin .group > input, #signup .group > input {
-    width: 45%;
+    width: 40%;
+  }
+  .about p.description {
+    font-size: 1.2em;
+    line-height: 1.4em;
+  }
+  .about .col-lg-2.col-sm-3.text-center{
+    margin-right: 3.5em;
+    margin-left: 3.5em;
+    margin-top:1em;
+  }
+  .about img.member {
+    height: 13em;
+    width: 13em;
+  }
+}
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) and (max-width: 1699px){
+  body {
+    font-size: 18px;
+  }
+  #signin .group > input, #signup .group > input {
+    width: 40%;
+  }
+  .about p.description {
+    font-size: 1.2em;
+    line-height: 1.4em;
+  }
+  .about .col-lg-2.col-sm-3.text-center{
+    margin-right: 3em;
+    margin-left: 3em;
+    margin-top:1em;
+  }
+  .about img.member {
+    height: 10em;
+    width: 10em;
   }
 }
 
@@ -69,7 +105,7 @@
     display: inline-block;
   }
   .about p.description {
-    font-size: .8em;
+    font-size: 1.1em;
   }
   table.clock {
     width: 90%;
@@ -99,9 +135,12 @@
     display: inline-block;
   }
   .about p.description {
-    font-size: .8em;
+    font-size: .9em;
   }
   table.clock {
     width: 120%;
   }
-}
+
+  #ownerDashboard label.zip {
+    text-indent: 1em;
+  }

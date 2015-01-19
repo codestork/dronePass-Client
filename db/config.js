@@ -30,12 +30,12 @@ knex.schema.hasTable('users').then(function(exists) {
       user.string('name',100);
       user.integer('owner_authority'); // [ToDo: add administrative levels]
     }).then(function(table) {
-        console.log(table)
+        console.log(table);
         knex.schema.hasTable('parcelData').then(function(exists) {
           if (!exists) {
             knex.schema.createTable('parcelData', function (parcel) {
               parcel.increments('id').unique().primary();
-              parcel.integer('gid').unique()
+              parcel.integer('gid').unique();
               parcel.integer('user_id').unsigned().references('users.id');
               parcel.string('address').unique();
               parcel.json('lot_geom'); // geojson properties for a given parcel id
@@ -44,17 +44,17 @@ knex.schema.hasTable('users').then(function(exists) {
               parcel.time('restriction_start_time');
               parcel.time('restriction_end_time');
             }).then(function(table) {
-                console.log(table)
+                console.log(table);
                 knex.schema.hasTable('restrictionExemptions').then(function(exists) {
                   if (!exists) {
                     knex.schema.createTable('restrictionExemptions', function (exemption) {
                       exemption.integer('exemption_id').primary(); // exememptions are granted on a drone-by-drone basis
-                      exemption.integer('drone_id').unique()
+                      exemption.integer('drone_id').unique();
                       exemption.integer('parcel_gid').unique().references('parcelData.parcel_gid');
                       exemption.time('exemption_start_time');
                       exemption.time('exemption_end_time');
                     }).then(function(table) {
-                        console.log(table)
+                        console.log(table);
                       });
                   }
                 });
@@ -66,9 +66,6 @@ knex.schema.hasTable('users').then(function(exists) {
 });
 
 
-
-
-
 /****** For Quick drop of all tables, uncomment this section **********/
 
 // knex.schema.dropTable('restrictionExemptions').then(function(){
@@ -77,4 +74,3 @@ knex.schema.hasTable('users').then(function(exists) {
 //       console.log('dropped parcelData')}) 
 //     knex.schema.dropTable('users').then(function(){console.log('dropped Users')})   
 // })
-

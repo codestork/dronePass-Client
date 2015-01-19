@@ -1,13 +1,8 @@
 angular.module('dronePass.authServices', [])
 
 .factory('Auth', function ($http, $location, $window) {
-  // Don't touch this Auth service!!!
-  // it is responsible for authenticating our user
-  // by exchanging the user's username and password
-  // for a JWT from the server
+  // Service authenticates user by exchanginf email and password for a JSON webtoken from server
   // that JWT is then stored in localStorage as 'com.dronePass'
-  // after you signin/signup open devtools, click resources,
-  // then localStorage and you'll see your token from the server
   var signin = function (user) {
     return $http({
       method: 'POST',
@@ -42,7 +37,7 @@ angular.module('dronePass.authServices', [])
           authDefer.resolve();
         })
         .error( function (data, status, headers, config) {
-          authDefer.reject()
+          authDefer.reject();
         });
     } else {
       authDefer.reject();
@@ -73,4 +68,4 @@ angular.module('dronePass.authServices', [])
       isAuth: isAuth,
       isLoggedIn: isLoggedIn
    };
-})
+});

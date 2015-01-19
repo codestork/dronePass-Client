@@ -8,17 +8,6 @@ html, body {
   height: 100%;
 }
 
-
-.container-fluid.main{
-  padding: 0;
-  position: relative;
-  z-index: 0;
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  background-color: transparent;
-}
-
 body {
   opacity: 1;
   webkit-transition: opacity .2s linear;
@@ -31,7 +20,20 @@ body {
   background-color: #fdfdfe;
 }
 
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+.container-fluid.main{
+  padding: 0;
+  position: relative;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background-color: transparent;
+}
+
+
+.nav, .pagination, .carousel, .panel-title a {
+ cursor: pointer;
+}
 
 /**** Bootstrap Overides ******/
 h2, .h2 {
@@ -80,6 +82,10 @@ nav.navbar.main a {
   font-size: 1.1em;
   padding-right: 1em;
   color: white;
+}
+
+i.mdi-action-home {
+  display: inline-block
 }
 
 nav .navbar-collapse a:active, nav .navbar-collapse a:hover, nav .navbar-collapse a:focus {
@@ -339,7 +345,6 @@ form[name="signinForm"], form[name="signupForm"] {
 }
 
 #signin .group > input, #signup .group > input{
-  display: block;
   text-indent: .3em;
   width: 30%;
   margin-top: .5em;
@@ -469,8 +474,8 @@ form[name="signinForm"], form[name="signupForm"] {
 }
 
 footer {
-  position: relative
-  bottom: 1.5em;
+  position: absolute;
+  bottom: 0;
   font-size: .8em;
   color: gray;
 }
